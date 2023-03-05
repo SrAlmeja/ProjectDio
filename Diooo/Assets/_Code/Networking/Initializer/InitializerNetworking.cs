@@ -1,6 +1,5 @@
+//Dino 04/03/22 This will be the initializer if we need to put events or methods before other scripts but i don't know ehy it is not working
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace com.LazyGames.Dio

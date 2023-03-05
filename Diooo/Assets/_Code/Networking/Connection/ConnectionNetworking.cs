@@ -1,10 +1,7 @@
 //Dino 03/03/23 Creation of the script
 //This script is used to check if th player has internet connection
 
-using System.Net.Mime;
-using System.Net.NetworkInformation;
 using UnityEngine;
-
 namespace com.LazyGames.Dio
 {
     public class ConnectionNetworking : MonoBehaviour
@@ -17,8 +14,7 @@ namespace com.LazyGames.Dio
         
         [SerializeField] private GameObject internetConnectionPanel;
         #endregion
-
-
+        
         #region private variables
         private bool _hasInternet;
         private string _rechabilityTxt;
@@ -26,7 +22,6 @@ namespace com.LazyGames.Dio
         
         #endregion
 
-        
         #region Unity Methods
 
         void Start()
