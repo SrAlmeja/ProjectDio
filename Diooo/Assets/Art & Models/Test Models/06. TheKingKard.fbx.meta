@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: 70ce75b4084252c4680be7cf2af580d9
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      74: 3524221229891925258
+    second: GoKart.005|GoKartAction
+  - first:
+      74: 8354303908072606184
+    second: GoKart.005|GoKartAction.001
+  - first:
+      74: 6591509315132228101
+    second: GoKart.005|GoKartAction.002
+  - first:
+      74: -765886830765562887
+    second: GoKart.005|GoKartAction.003
+  - first:
+      74: -7197373265764890451
+    second: GoKart.005|GoKartAction.004
+  - first:
+      74: 6735649019918726434
+    second: GoKart.005|GoKartAction.005
+  - first:
+      74: -896892186159617683
+    second: GoKart.005|GoKartAction.006
+  - first:
+      74: 5964591438064351794
+    second: GoKart.005|MangoAction
+  - first:
+      74: 7413068192051285482
+    second: Armature.005|Armature.005Action
+  - first:
+      74: -8369055542723339240
+    second: Armature.005|Armature.006Action
+  - first:
+      74: 905999490388829896
+    second: Armature.005|GoKartAction
+  - first:
+      74: 1274226452045864870
+    second: Armature.005|GoKartAction.001
+  - first:
+      74: 6165247828202289665
+    second: Armature.005|GoKartAction.002
+  - first:
+      74: 6231995060999737552
+    second: Armature.005|GoKartAction.003
+  - first:
+      74: 4406860356779703075
+    second: Armature.005|GoKartAction.004
+  - first:
+      74: 4638699322657518577
+    second: Armature.005|GoKartAction.005
+  - first:
+      74: -3711117638200969183
+    second: Armature.005|GoKartAction.006
+  - first:
+      74: -3626690946245557418
+    second: Armature.005|MangoAction
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
