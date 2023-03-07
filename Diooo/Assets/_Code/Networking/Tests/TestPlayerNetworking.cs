@@ -61,35 +61,35 @@ public class TestPlayerNetworking : NetworkBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
 
-            #region Spawned Object Network
-            
-            spawnedTransform = Instantiate(objectPrefab);
-            spawnedTransform.GetComponent<NetworkObject>().Spawn(true);
-            
-            #endregion
-
-            #region Despawning Networked Object
-            
-            // Despawnea el objeto en la red pero no destruye el objeto
-            spawnedTransform.GetComponent<NetworkObject>().Despawn(true);
-            Destroy(spawnedTransform.gameObject);
-
-
-            #endregion
-            
-            
-            #region Servers RPC TEST
-
-            TestServerRpc("Hello server");
-            ParamsServerRpc(new ServerRpcParams());
-
-            TestClientRpc(new ClientRpcParams(
-                // {
-                //     Send = new ClientRpcSendParams {TargetClientIds = new List<ulong>{1}}
-                // }
-            ));
-
-            #endregion
+            // #region Spawned Object Network
+            //
+            // spawnedTransform = Instantiate(objectPrefab);
+            // spawnedTransform.GetComponent<NetworkObject>().Spawn(true);
+            //
+            // #endregion
+            //
+            // #region Despawning Networked Object
+            //
+            // // Despawnea el objeto en la red pero no destruye el objeto
+            // spawnedTransform.GetComponent<NetworkObject>().Despawn(true);
+            // Destroy(spawnedTransform.gameObject);
+            //
+            //
+            // #endregion
+            //
+            //
+            // #region Servers RPC TEST
+            //
+            // TestServerRpc("Hello server");
+            // ParamsServerRpc(new ServerRpcParams());
+            //
+            // TestClientRpc(new ClientRpcParams(
+            //     // {
+            //     //     Send = new ClientRpcSendParams {TargetClientIds = new List<ulong>{1}}
+            //     // }
+            // ));
+            //
+            // #endregion
             
             #region Values Test
             _randomNumber.Value = Random.Range(1, 10);
