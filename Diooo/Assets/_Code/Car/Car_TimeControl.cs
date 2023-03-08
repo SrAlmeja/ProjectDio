@@ -4,12 +4,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class Car_TimeControl : MonoBehaviour
 {
     [Header("TimeControl")] 
     [SerializeField] private bool doSlow;
-    [SerializeField] private float timeScale;
+    [FormerlySerializedAs("timeScale")] [SerializeField] private float mytimeScale;
 
     private float savedMagnitude;
     private Rigidbody _rb;
@@ -21,14 +22,16 @@ public class Car_TimeControl : MonoBehaviour
 
     private void Update()
     {
+        Time.timeScale = mytimeScale;
+        if (Input.GetKeyDown(KeyCode.K))
+            mytimeScale = Mathf.Epsilon> Mathf.Abs(mytimeScale-.1f) ? 1 : .1f;
         Slow();
-        _rb.velocity = _rb.velocity * timeScale;
+        // _rb.velocity = _rb.velocity * mytimeScale;
     }
 
     void Slow()
     {
         if (!doSlow) return;
-        _rb.velocity = _rb.velocity * timeScale; 
     }
 
     public void DebuggingInput(InputAction.CallbackContext context)
@@ -49,6 +52,8 @@ public class Car_TimeControl : MonoBehaviour
                     break;
             }
         }
+        
+        // Time.timeScale
     }
 
     private void SaveVelocity()
@@ -58,7 +63,7 @@ public class Car_TimeControl : MonoBehaviour
 
     private void ChangeTimeScale(float value)
     {
-        timeScale = value;
+        mytimeScale = value;
     }
 
     void Prepare()
