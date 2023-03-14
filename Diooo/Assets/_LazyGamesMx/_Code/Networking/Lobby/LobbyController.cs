@@ -67,7 +67,7 @@ namespace com.LazyGames.Dio
 
         #region Lobby
 
-        [Command("Lobby")]
+        [Command()]
         private async void CreateLobby()
         {
             try
