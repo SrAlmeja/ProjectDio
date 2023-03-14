@@ -10,10 +10,13 @@ public class Car_TimeControl : MonoBehaviour
 {
     [Header("TimeControl")] 
     [SerializeField] private bool doSlow;
-    [FormerlySerializedAs("timeScale")] [SerializeField] private float mytimeScale;
-
+    [SerializeField] private float targetTimeScale;
+    
+    
+    private float customTimeScale;
     private float savedMagnitude;
-    private Rigidbody _rb;
+    private Rigidbody rb;
+    private readonly float deltaTimeNormalizer = .02f;
 
     private void Start()
     {
@@ -22,28 +25,27 @@ public class Car_TimeControl : MonoBehaviour
 
     private void Update()
     {
-        Time.timeScale = mytimeScale;
-        if (Input.GetKeyDown(KeyCode.K))
-            mytimeScale = Mathf.Epsilon> Mathf.Abs(mytimeScale-.1f) ? 1 : .1f;
         Slow();
-        // _rb.velocity = _rb.velocity * mytimeScale;
     }
 
     void Slow()
     {
-        if (!doSlow) return;
+        // targetTimeScale = Mathf.Epsilon> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Time.timeScale = targetTimeScale;
+            Time.fixedDeltaTime = Time.timeScale * deltaTimeNormalizer;
+        }
     }
 
     public void DebuggingInput(InputAction.CallbackContext context)
     {
         if (context.started)
         {  
-            Debug.Log("q press");
             switch (doSlow)
             {
                 case false:
                     doSlow = true;
-                    SaveVelocity();
                     ChangeTimeScale(1f);
                     break;
                 case true:
@@ -52,23 +54,15 @@ public class Car_TimeControl : MonoBehaviour
                     break;
             }
         }
-        
-        // Time.timeScale
     }
-
-    private void SaveVelocity()
-    {
-        savedMagnitude = _rb.velocity.magnitude;
-    }
-
+    
     private void ChangeTimeScale(float value)
     {
-        mytimeScale = value;
+        targetTimeScale = value;
     }
 
     void Prepare()
     {
-        _rb = GetComponent<Rigidbody>();
-
+        rb = GetComponent<Rigidbody>();
     }
 }
