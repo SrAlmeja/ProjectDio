@@ -1,9 +1,11 @@
 //Dino 04/03/22  creaion of the class, here will control the matchmaking and user connection
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Services.Core;
-
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 
 
 namespace com.LazyGames.Dio
@@ -47,7 +49,14 @@ namespace com.LazyGames.Dio
         private async void Start()
         {
             await UnityServices.InitializeAsync();
-            
+
+            AuthenticationService.Instance.SignedIn += () =>
+            {
+                Debug.Log("Signed in" + AuthenticationService.Instance.PlayerId );
+            };
+
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
         }
 
         void Update()
@@ -55,6 +64,23 @@ namespace com.LazyGames.Dio
 
         }
         
+        #endregion
+
+
+        #region Lobby
+
+        private async void CreateLobby()
+        {
+            string lobbyName = "DinoLobby";
+            int maxPlayers = 4;
+
+           Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers);
+
+
+
+
+        }
+
         #endregion
 
     }
