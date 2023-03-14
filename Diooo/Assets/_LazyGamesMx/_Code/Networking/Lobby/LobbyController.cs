@@ -1,4 +1,6 @@
 //Dino 04/03/22  creaion of the class, here will control the matchmaking and user connection
+
+using QFSW.QC;
 using Unity.Netcode;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -58,25 +60,31 @@ namespace com.LazyGames.Dio
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
         }
-
-        void Update()
-        {
-
-        }
+        
         
         #endregion
 
 
         #region Lobby
 
+        [Command("Lobby")]
         private async void CreateLobby()
         {
-            string lobbyName = "DinoLobby";
-            int maxPlayers = 4;
+            try
+            {
+                string lobbyName = "DinoLobby";
+                int maxPlayers = 4;
 
-           Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers);
+                Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers);
+                Debug.Log("Created lobby with id: " + lobby.Name + " " + lobby.MaxPlayers);
 
-
+            }
+            catch (LobbyServiceException exception)
+            {
+                Debug.Log(exception);
+            }
+            
+           
 
 
         }
