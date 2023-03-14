@@ -82,7 +82,7 @@ Material:
     - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
-    - _CelShading: 0
+    - _CelShading: 253
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -108,7 +108,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _ToonFade: 0
+    - _ToonFade: 0.29
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
