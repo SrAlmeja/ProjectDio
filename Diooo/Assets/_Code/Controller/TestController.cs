@@ -1,3 +1,5 @@
+//Leinad 29/02/23
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,29 +8,29 @@ using UnityEngine.InputSystem;
 
 public class TestController : MonoBehaviour
 {
-    UnityEvent InputEvent;
-
-    [SerializeField] private float moveSpeed = 5f; // movement speed of the player
-    private Rigidbody rb; // rigidbody component of the player object
-    public InputAction movementInput; // vector for movement input
+    private PlayerInput _playerInputActions;
+    private InputAction _movement;
+    
+    private void Awake()
+    {
+        _playerInputActions = new PlayerInput();
+    }
 
     private void OnEnable()
     {
-        movementInput.Enable();
+        _movement = _playerInputActions.CarController.Move;
+        _movement.Enable();
     }
 
     private void OnDisable()
     {
-        movementInput.Disable();
+        _movement.Disable();
     }
 
-    private void Start()
+    public void Movement()
     {
-        rb = GetComponent<Rigidbody>(); // get the rigidbody component
+        Debug.Log("mocement values" + _movement.ReadValue<Vector2>());
     }
 
-    private void FixedUpdate()
-    {
-        rb.velocity = movementInput.ReadValue<Vector2>() * moveSpeed; // apply movement to the rigidbody
-    }
+
 }
