@@ -1,10 +1,19 @@
+<<<<<<< HEAD
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/.idea.Diooo.iml
+/modules.xml
+=======
 # Default ignored files
 /shelf/
 /workspace.xml
 # Rider ignored files
-/projectSettingsUpdater.xml
-/.idea.Diooo.iml
 /modules.xml
+/.idea.Diooo.iml
+>>>>>>> ContingencyCarBranch
+/projectSettingsUpdater.xml
 /contentModel.xml
 # Editor-based HTTP Client requests
 /httpRequests/
