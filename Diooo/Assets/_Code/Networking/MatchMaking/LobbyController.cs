@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Services.Core;
 
+
+
 namespace com.LazyGames.Dio
 {
     public class LobbyController : MonoBehaviour
@@ -22,39 +24,29 @@ namespace com.LazyGames.Dio
 
         #region unity methods
         
-        void Start()
+        // void Start()
+        // {
+        //     //Test the connection UI
+        //     serverButton.onClick.AddListener(() =>
+        //     {
+        //         NetworkManager.Singleton.StartServer();
+        //         Debug.Log("Server started");
+        //     });
+        //     clientButton.onClick.AddListener(() =>
+        //     {
+        //         NetworkManager.Singleton.StartClient();
+        //         Debug.Log("Client started");
+        //     });
+        //     hostButton.onClick.AddListener(() =>
+        //     {
+        //         NetworkManager.Singleton.StartHost();
+        //         Debug.Log("Host started");
+        //     });
+        // }
+
+        private async void Start()
         {
-           // await => ()
-           // {
-           //     UnityServices.InitializeAsync();
-           // }
-           //  
-            
-            
-            
-            
-            
-            
-            
-            //Test the connection UI
-            serverButton.onClick.AddListener(() =>
-            {
-                NetworkManager.Singleton.StartServer();
-                Debug.Log("Server started");
-            });
-            clientButton.onClick.AddListener(() =>
-            {
-                NetworkManager.Singleton.StartClient();
-                Debug.Log("Client started");
-            });
-            hostButton.onClick.AddListener(() =>
-            {
-                NetworkManager.Singleton.StartHost();
-                Debug.Log("Host started");
-            });
-            
-            
-            
+            await UnityServices.InitializeAsync();
             
         }
 
