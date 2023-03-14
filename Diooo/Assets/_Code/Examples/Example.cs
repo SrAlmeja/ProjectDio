@@ -56,7 +56,7 @@ namespace com.LazyGames.Dio
         public void Awake()
         {
             // Awake, Start, Update, FixedUpdate, LateUpdate and Prepare methods MUST come before any new method, in that specific order. 
-            //This exception is speciic to Unity.
+            //This exception is specific to Unity.
         }
 
         public void Start()
