@@ -82,7 +82,7 @@ Material:
     - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
-    - _CelShading: 251
+    - _CelShading: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -97,7 +97,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Otlider_Pixel: 0.1
-    - _OutlineFade: 0.37
+    - _OutlineFade: 0
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: -18
@@ -108,7 +108,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _ToonFade: 0.37
+    - _ToonFade: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
