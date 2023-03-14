@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace com.LazyGames.Dio
 {
-    public class MatchControllerNetworking : MonoBehaviour
+    public class LobbyController : MonoBehaviour
     {
 
         #region public variables
