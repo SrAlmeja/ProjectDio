@@ -2,6 +2,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Services.Core;
 
 namespace com.LazyGames.Dio
 {
@@ -23,6 +24,19 @@ namespace com.LazyGames.Dio
         
         void Start()
         {
+           // await => ()
+           // {
+           //     UnityServices.InitializeAsync();
+           // }
+           //  
+            
+            
+            
+            
+            
+            
+            
+            //Test the connection UI
             serverButton.onClick.AddListener(() =>
             {
                 NetworkManager.Singleton.StartServer();
@@ -38,6 +52,10 @@ namespace com.LazyGames.Dio
                 NetworkManager.Singleton.StartHost();
                 Debug.Log("Host started");
             });
+            
+            
+            
+            
         }
 
         void Update()
