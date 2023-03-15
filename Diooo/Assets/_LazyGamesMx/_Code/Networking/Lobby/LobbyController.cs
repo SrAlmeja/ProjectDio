@@ -1,7 +1,6 @@
-//Dino 04/03/22  creaion of the class, here will control the matchmaking and user connection
+//Dino 15/03/22  Lobby Connection
 
-using QFSW.QC;
-using Unity.Netcode;
+using System.Collections.Generic;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +23,10 @@ namespace com.LazyGames.Dio
         [SerializeField] private Button clientButton;
         [SerializeField] private Button hostButton;
 
+        
+        private Lobby _hostLobby;
+        private float _heartbeatTimer = 0.0f;
+        
         #endregion
 
         #region unity methods
@@ -61,13 +64,28 @@ namespace com.LazyGames.Dio
 
         }
         
-        
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                CreateLobby();
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                ListLobbies();
+            }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                JoinLobby();
+            }
+            
+            HandleLobbyHeartbeat();
+        }
         #endregion
 
 
         #region Lobby
 
-        [Command()]
         private async void CreateLobby()
         {
             try
@@ -76,6 +94,8 @@ namespace com.LazyGames.Dio
                 int maxPlayers = 4;
 
                 Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers);
+                _hostLobby = lobby;
+                
                 Debug.Log("Created lobby with id: " + lobby.Name + " " + lobby.MaxPlayers);
 
             }
@@ -83,13 +103,72 @@ namespace com.LazyGames.Dio
             {
                 Debug.Log(exception);
             }
-            
-           
-
-
         }
 
+        private async void ListLobbies()
+        {
+            try
+            {
+                QueryLobbiesOptions queryLobbiesOptions = new QueryLobbiesOptions
+                {
+                    Count = 25,
+                    Filters = new List<QueryFilter>
+                    {
+                        new QueryFilter(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT)
+                    },
+                    Order = new List<QueryOrder>
+                    {
+                        new QueryOrder(false, QueryOrder.FieldOptions.Created)
+                    }
+                };
+                
+                
+                QueryResponse queryResponse =  await Lobbies.Instance.QueryLobbiesAsync();
+                Debug.Log("Lobbies found: " + queryResponse.Results.Count);
+                foreach (Lobby lobby in queryResponse.Results)
+                {
+                    Debug.Log(lobby.Name + " " + lobby.MaxPlayers);
+                }
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+           
+        }
+
+        private async void HandleLobbyHeartbeat()
+        {
+            if(_hostLobby != null)
+                _heartbeatTimer -= Time.deltaTime;
+            if (_heartbeatTimer < 0f)
+            {
+                float heartbeatTimerMax = 15f;
+                _heartbeatTimer = heartbeatTimerMax;
+
+                await LobbyService.Instance.SendHeartbeatPingAsync(_hostLobby.Id);
+            }
+        }
+
+        private async void JoinLobby()
+        {
+            try
+            {
+                QueryResponse queryResponse =  await Lobbies.Instance.QueryLobbiesAsync();
+                await Lobbies.Instance.JoinLobbyByIdAsync(queryResponse.Results[0].Id);
+                
+                Debug.Log("Joined lobby with id: " + queryResponse.Results[0].Id);
+                
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+
+        }
+        
         #endregion
 
+       
     }
 }
