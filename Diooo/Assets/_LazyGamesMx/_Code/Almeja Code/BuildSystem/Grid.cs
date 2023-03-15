@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Grid
+public class Grid : MonoBehaviour
 {
     private int width, height;
     private float cellSize;
     private int[,] gridArray;
+    
 
+    private float sizeX, sizeY; 
 
-    public Grid(int _width, int _height, float _cellSize)
+    public Grid(int _width, int _height, float _cellSize, GameObject prefab)
     {
         this.width = _width;
         this.height = _height;
         this.cellSize = _cellSize;
 
+        
         gridArray = new int[_width, _height];
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
@@ -23,10 +26,15 @@ public class Grid
             {
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.cyan, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.cyan, 100f);
+                
+                GameObject cellBox = Instantiate(prefab);
+                cellBox.name = $"{x}-{y}";
+
+                cellBox(gridArray[x,y]);
             }
         }
-        Debug.DrawLine(GetWorldPosition(0, _height), GetWorldPosition(_width, _height + 1), Color.cyan, 100f);
-        Debug.DrawLine(GetWorldPosition(_width, 0), GetWorldPosition(_width, _height + 1), Color.cyan, 100f);
+        Debug.DrawLine(GetWorldPosition(0, _height), GetWorldPosition(_width, _height), Color.cyan, 100f);
+        Debug.DrawLine(GetWorldPosition(_width, 0), GetWorldPosition(_width, _height), Color.cyan, 100f);
     }
 
     private Vector3 GetWorldPosition(int x, int y)
