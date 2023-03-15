@@ -27,6 +27,8 @@ public class WheelDrive : MonoBehaviour
     InputAction steeringInputAction;
     InputAction accelerationInputAction;
 
+    public FloatVoidEvent hanbreak;
+
     void Awake()
     {
         gameplayActionMap = inputActions.FindActionMap("Gameplay");
@@ -45,10 +47,12 @@ public class WheelDrive : MonoBehaviour
         accelerationInputAction.canceled += GetTorqueInput;
         
     }
+    
     void GetHandBrakeInput(InputAction.CallbackContext context)
     {
-        handBrake = context.ReadValue<float>() * brakeTorque;
+        hanbreak.RaiseEvent(context.ReadValue<float>() * brakeTorque);
     }
+
     void GetAngleInput(InputAction.CallbackContext context)
     {
         angle = context.ReadValue<float>() * maxAngle;
