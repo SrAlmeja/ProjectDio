@@ -1,5 +1,6 @@
 //Dino 15/03/22  Lobby Connection
 
+using System;
 using System.Collections.Generic;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -15,6 +16,9 @@ namespace com.LazyGames.Dio
     {
 
         #region public variables
+
+        public string codeLobby;
+        public string playerName;
 
         #endregion
         
@@ -57,7 +61,7 @@ namespace com.LazyGames.Dio
 
             AuthenticationService.Instance.SignedIn += () =>
             {
-                Debug.Log("Signed in" + AuthenticationService.Instance.PlayerId );
+                Debug.Log("Signed in PLAYER ID = " + AuthenticationService.Instance.PlayerId );
             };
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -76,7 +80,8 @@ namespace com.LazyGames.Dio
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
-                JoinLobby();
+                // QuickJoinLobby();
+                JoinLobbyByCode(codeLobby);
             }
             
             HandleLobbyHeartbeat();
@@ -93,10 +98,18 @@ namespace com.LazyGames.Dio
                 string lobbyName = "DinoLobby";
                 int maxPlayers = 4;
 
-                Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers);
+                CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
+                {
+                    IsPrivate = false,
+                    Player = GetPlayer()
+                };
+                
+                Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, createLobbyOptions);
                 _hostLobby = lobby;
                 
-                Debug.Log("Created lobby with id: " + lobby.Name + " " + lobby.MaxPlayers);
+                Debug.Log("Created lobby with id: " + lobby.Name + " " + lobby.MaxPlayers + " LOBBY ID =  " + lobby.Id);
+                
+                PrintPlayers(_hostLobby);
 
             }
             catch (LobbyServiceException exception)
@@ -137,6 +150,65 @@ namespace com.LazyGames.Dio
            
         }
 
+        
+
+        private async void JoinLobbyByCode(string lobbyCode)
+        {
+            try
+            {
+                // QueryResponse queryResponse =  await Lobbies.Instance.QueryLobbiesAsync();
+                
+                JoinLobbyByCodeOptions joinLobbyByCodeOptions = new JoinLobbyByCodeOptions
+                {
+                    Player = GetPlayer()
+                };
+                
+               Lobby joinedLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
+                
+                Debug.Log("Joined lobby with code: " + lobbyCode);
+                
+                PrintPlayers(joinedLobby);
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+
+        }
+
+        private async void QuickJoinLobby()
+        {
+            try
+            { 
+                await LobbyService.Instance.QuickJoinLobbyAsync();
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+                throw;
+            }
+        }
+
+        private Player GetPlayer()
+        {
+            return new Player
+            {
+                // Id = AuthenticationService.Instance.PlayerId,
+                Data = new Dictionary<string, PlayerDataObject>
+                {
+                    {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName)}
+                }
+            };
+        }
+        private void PrintPlayers(Lobby lobby)
+        {
+            Debug.Log("Players in lobby: " + lobby.Players.Count); 
+            foreach (Player player in lobby.Players)
+            {
+                Debug.Log("MY PLAYER ID =" +player.Id + " MY PLAYER NAME " + player.Data["Player Name"].Value);  
+            }
+        }
+        
         private async void HandleLobbyHeartbeat()
         {
             if(_hostLobby != null)
@@ -149,24 +221,6 @@ namespace com.LazyGames.Dio
                 await LobbyService.Instance.SendHeartbeatPingAsync(_hostLobby.Id);
             }
         }
-
-        private async void JoinLobby()
-        {
-            try
-            {
-                QueryResponse queryResponse =  await Lobbies.Instance.QueryLobbiesAsync();
-                await Lobbies.Instance.JoinLobbyByIdAsync(queryResponse.Results[0].Id);
-                
-                Debug.Log("Joined lobby with id: " + queryResponse.Results[0].Id);
-                
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.Log(e);
-            }
-
-        }
-        
         #endregion
 
        
