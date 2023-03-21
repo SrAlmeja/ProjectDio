@@ -9,16 +9,13 @@ public class Grid : MonoBehaviour
     private float cellSize;
     private int[,] gridArray;
     
-
-    private float sizeX, sizeY; 
-
+    
     public Grid(int _width, int _height, float _cellSize, GameObject prefab)
     {
         this.width = _width;
         this.height = _height;
         this.cellSize = _cellSize;
 
-        
         gridArray = new int[_width, _height];
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
@@ -29,8 +26,9 @@ public class Grid : MonoBehaviour
                 
                 GameObject cellBox = Instantiate(prefab);
                 cellBox.name = $"{x}-{y}";
-
-                cellBox(gridArray[x,y]);
+                
+                prefab.transform.position = new Vector3(x + 0.5f, y + 0.5f, 0);
+                
             }
         }
         Debug.DrawLine(GetWorldPosition(0, _height), GetWorldPosition(_width, _height), Color.cyan, 100f);
