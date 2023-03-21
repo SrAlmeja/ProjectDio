@@ -11,9 +11,12 @@ namespace com.LazyGames.Dio
 {
     public class CarImpulse : MonoBehaviour
     {
-        private Rigidbody rb;
-        private float impulseAngle = 0f;
+        [SerializeField] private GameObject indicator;
         [SerializeField]private float impulseRadius = 4.5f;
+        [SerializeField]private float impulseStrength = 5f;
+        [SerializeField] private float impulseSens = .1f;
+        private Rigidbody rb;
+        private float impulseAngle;
         private Vector3 impulsePos;
         private Vector3 impulseDir;
 
@@ -26,7 +29,16 @@ namespace com.LazyGames.Dio
         // Update is called once per frame
         void Update()
         {
-            
+            GetDirection(); 
+            CheckInput();
+            Visualize();
+        }
+
+        private void Visualize()
+        {
+            indicator.transform.position = impulsePos;
+            indicator.transform.rotation = CryoMath.AimAtDirection(transform.position, impulsePos);
+
         }
 
         private void GetDirection()
@@ -39,28 +51,30 @@ namespace com.LazyGames.Dio
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(transform.position, impulseRadius);
             Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(impulsePos,.1f);
+            Gizmos.DrawSphere(impulsePos,.3f);
         }
 
         private void CheckInput()
         {
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.X))
             {
-                
+                impulseDir = impulsePos - transform.position;
+                rb.AddForce(impulseDir.normalized * impulseStrength);
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKey(KeyCode.Q))
             {
-                impulseAngle += -.1f;
+                impulseAngle += -impulseSens;
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKey(KeyCode.E))
             {
-                impulseAngle += .1f;
+                impulseAngle += impulseSens;
             }
         }
 
         private void Prepare()
         {
             rb = GetComponent<Rigidbody>();
+            impulseStrength = impulseStrength * rb.mass;
         }
     }
     

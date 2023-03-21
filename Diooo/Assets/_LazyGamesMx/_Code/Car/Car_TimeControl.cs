@@ -29,9 +29,21 @@ namespace com.LazyGames.Dio
         {
             if (Input.GetKeyDown(KeyCode.K))
             {
-                currentTimeScale = targetTimeScale;
-                currentTimeScale = Mathf.Epsilon> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
-                NormalizeDeltaTime(normalizeFactor);
+                switch (doSlow)
+                {
+                    case true:
+                        currentTimeScale = targetTimeScale;
+                        NormalizeDeltaTime(normalizeFactor);
+                        doSlow = false;
+                        break;
+                    case false:
+                        currentTimeScale = 1f;
+                        NormalizeDeltaTime(normalizeFactor);
+                        doSlow = true;
+                        break;
+                }
+                // currentTimeScale = targetTimeScale;
+                // currentTimeScale = .33f> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
             }
         }
 
@@ -57,11 +69,6 @@ namespace com.LazyGames.Dio
         //                 break;
         //         }
         //     }
-        }
-        
-        private void ChangeTimeScale(float value)
-        {
-            targetTimeScale = value;
         }
     }
     
