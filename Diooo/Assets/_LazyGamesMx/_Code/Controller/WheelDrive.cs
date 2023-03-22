@@ -1,3 +1,4 @@
+using com.LazyGames.Dio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +28,7 @@ public class WheelDrive : MonoBehaviour
     InputAction steeringInputAction;
     InputAction accelerationInputAction;
 
-    public FloatVoidEvent hanbreak;
+    public FloatEventChannelSO hanbreak;
 
     void Awake()
     {

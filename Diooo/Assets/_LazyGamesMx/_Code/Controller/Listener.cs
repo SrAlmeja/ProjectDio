@@ -1,19 +1,20 @@
+using com.LazyGames.Dio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Listener : MonoBehaviour
 {
-    public FloatVoidEvent HanbreakeEvent;
+    public FloatEventChannelSO HanbreakeEvent;
 
     private void OnEnable()
     {
-        HanbreakeEvent.OnEventRaised += HandBrake;
+        HanbreakeEvent.FloatEvent += HandBrake;
     }
 
     private void OnDisable()
     {
-        HanbreakeEvent.OnEventRaised -= HandBrake;
+        HanbreakeEvent.FloatEvent -= HandBrake;
     }
 
     void HandBrake(float f)
