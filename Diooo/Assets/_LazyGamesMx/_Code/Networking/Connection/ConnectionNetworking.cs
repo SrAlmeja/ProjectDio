@@ -24,7 +24,7 @@ namespace com.LazyGames.Dio
 
         #region Unity Methods
 
-        void Start()
+        void Awake()
         {
             Instance = this;
             DontDestroyOnLoad(this);
