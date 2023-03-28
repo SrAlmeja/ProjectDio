@@ -2,42 +2,50 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.EventSystems;
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
+public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     [SerializeField] private Canvas canvas;
-    
-    private RectTransform _rectTransform;
-    
-    private CanvasGroup canvasGroup;
 
-    private void Awake()
+    public static GameObject itemDragging;
+    
+    private Vector3 startPosition;
+    private Transform startParent;
+    private Transform dragParent;
+    
+
+    private void Start()
     {
-        _rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
+        dragParent = GameObject.FindGameObjectWithTag("DragParent").transform;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
-        canvasGroup.alpha = 0.6f;
-        canvasGroup.blocksRaycasts = false;
+        itemDragging = gameObject;
+        startParent = transform.parent;
+
+        startPosition = transform.position;
+        
+        transform.SetParent(dragParent);
     }
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("OnDrag");
-        _rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        transform.position = Input.mousePosition;
     }
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
-        canvasGroup.alpha = 1.0f;
-        canvasGroup.blocksRaycasts = true;
-    }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerDown");
+        itemDragging = null;
+        if (transform.parent == dragParent)
+        {
+            transform.position = startPosition;
+            transform.SetParent(startParent);
+            
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
