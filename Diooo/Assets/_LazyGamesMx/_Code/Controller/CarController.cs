@@ -1,6 +1,5 @@
-//Daniel Navarrete 28/03/2023  Controller by events
+//Daniel Navarrete 28/03/2023  Controller by events for the Car
 
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
