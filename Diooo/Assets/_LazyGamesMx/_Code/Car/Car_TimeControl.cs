@@ -9,15 +9,19 @@ namespace com.LazyGames.Dio
 {
     public class Car_TimeControl : MonoBehaviour
     {
-        [Header("TimeControl")] 
+        [Header("Time Control")] 
         [SerializeField] private bool doSlow;
         [SerializeField] private float targetTimeScale;
         
-        
+        private Listener _listener;
         private float currentTimeScale = 1;
         private float savedMagnitude;
         private readonly float normalizeFactor = .02f;
 
+        private void Start()
+        {
+            Prepare();
+        }
 
         private void Update()
         {
@@ -70,6 +74,10 @@ namespace com.LazyGames.Dio
         //         }
         //     }
         }
+        private void Prepare()
+        {
+            _listener = GetComponent<Listener>();
+
+        }
     }
-    
 }

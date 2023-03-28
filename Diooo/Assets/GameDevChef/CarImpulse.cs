@@ -1,6 +1,5 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
 //
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,12 +10,18 @@ namespace com.LazyGames.Dio
 {
     public class CarImpulse : MonoBehaviour
     {
+        [Header("Configurable Variables")]
         [SerializeField] private GameObject indicator;
         [SerializeField]private float impulseRadius = 4.5f;
         [SerializeField]private float impulseStrength = 5f;
         [SerializeField] private float impulseSens = .1f;
+        [Tooltip("vertical offset of the center of the sphere")]
+        [SerializeField] private float yOffset = .1f;
+
+        private Vector3 offsetVector;
         private Rigidbody rb;
         private float impulseAngle;
+        private Vector3 impulseCenter;
         private Vector3 impulsePos;
         private Vector3 impulseDir;
 
@@ -30,35 +35,35 @@ namespace com.LazyGames.Dio
         void Update()
         {
             GetDirection(); 
-            CheckInput();
+            DebugCheckInput();
             Visualize();
+            impulseCenter = transform.position + new Vector3(0, yOffset, 0);
         }
 
         private void Visualize()
         {
             indicator.transform.position = impulsePos;
-            indicator.transform.rotation = CryoMath.AimAtDirection(transform.position, impulsePos);
-
+            indicator.transform.rotation = CryoMath.AimAtDirection(impulseCenter, impulsePos);
         }
 
         private void GetDirection()
         {
-           impulsePos = CryoMath.PointOnRadius(transform.position, impulseRadius ,impulseAngle);
+           impulsePos = CryoMath.PointOnRadius(impulseCenter, impulseRadius ,impulseAngle);
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(transform.position, impulseRadius);
+            Gizmos.DrawWireSphere(impulseCenter, impulseRadius);
             Gizmos.color = Color.cyan;
             Gizmos.DrawSphere(impulsePos,.3f);
         }
 
-        private void CheckInput()
+        private void DebugCheckInput()
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
-                impulseDir = impulsePos - transform.position;
+                impulseDir = impulsePos - transform.position + offsetVector;
                 rb.AddForce(impulseDir.normalized * impulseStrength);
             }
             if (Input.GetKey(KeyCode.Q))
@@ -75,6 +80,7 @@ namespace com.LazyGames.Dio
         {
             rb = GetComponent<Rigidbody>();
             impulseStrength = impulseStrength * rb.mass;
+            
         }
     }
     

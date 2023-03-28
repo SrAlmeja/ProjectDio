@@ -1398,6 +1398,7 @@ GameObject:
   - component: {fileID: 7572106636249422763}
   - component: {fileID: 7572106636249422764}
   - component: {fileID: 7572106636249422765}
+  - component: {fileID: 7572106636249422766}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -1462,9 +1463,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 1569173392}
-  impulseRadius: 2.47
+  impulseRadius: 2.23
   impulseStrength: 300
   impulseSens: 0.01
+  yOffset: 0.48
 --- !u!114 &7572106636249422765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,6 +1479,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1bae207776cf14c8750761bad5977f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7572106636249422766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7572106636249422758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afca60d897ce8694483430c8d59427d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HanbreakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+  StopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+  AngleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+  TorqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
 --- !u!1 &7572319351952439158
 GameObject:
   m_ObjectHideFlags: 0
