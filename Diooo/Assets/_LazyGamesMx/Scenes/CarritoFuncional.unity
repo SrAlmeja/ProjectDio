@@ -152,7 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afca60d897ce8694483430c8d59427d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HanbreakeEvent: {fileID: 11400000, guid: 3337d7c9b0cd85b48b0f551bf25e7d3d, type: 2}
+  HanbreakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+  StopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+  AngleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+  TorqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
 --- !u!4 &381050151
 Transform:
   m_ObjectHideFlags: 0
@@ -392,6 +395,22 @@ PrefabInstance:
       propertyPath: hanbreak
       value: 
       objectReference: {fileID: 11400000, guid: 3337d7c9b0cd85b48b0f551bf25e7d3d, type: 2}
+    - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
+      propertyPath: AngleEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+    - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
+      propertyPath: TorqueEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+    - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
+      propertyPath: HanbreakEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+    - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
+      propertyPath: StopTimeEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
     - target: {fileID: 7613989157715927190, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -444,7 +463,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a059f9967f2e79e4d856228a2c1022a1, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7613989157715927275, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
 --- !u!1 &1948472607
 GameObject:
