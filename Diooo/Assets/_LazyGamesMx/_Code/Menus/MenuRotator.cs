@@ -1,3 +1,8 @@
+//Fernando Cossio 28/03/2023
+/// <summary>
+/// This script handles all movement requiered by the main menu. 
+/// </summary>
+
 using UnityEngine;
 
 namespace com.LazyGames.Dio
@@ -16,6 +21,7 @@ namespace com.LazyGames.Dio
         private void OnDisable()
         {
             RotationRequestChannel.GameObjectFloatEvent -= RotateMenu;
+            MoveRequestChannel.GameObjectFloatEvent -= MoveMenu;
         }
 
         private void RotateMenu(GameObject senderPivot, float position)
@@ -25,7 +31,7 @@ namespace com.LazyGames.Dio
 
         private void MoveMenu(GameObject mainPivot, float position)
         {
-            iTween.MoveTo(mainPivot, new Vector3(0f, 0f, 0f), 3f);
+            iTween.MoveAdd(mainPivot, new Vector3(0f, 5f*position, 0f), 3f);
         }
     }
 }
