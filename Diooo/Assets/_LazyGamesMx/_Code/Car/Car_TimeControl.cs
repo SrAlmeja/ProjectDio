@@ -1,68 +1,83 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
 //
-
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class Car_TimeControl : MonoBehaviour
+namespace com.LazyGames.Dio
 {
-    [Header("TimeControl")] 
-    [SerializeField] private bool doSlow;
-    [SerializeField] private float targetTimeScale;
-    
-    
-    private float customTimeScale;
-    private float savedMagnitude;
-    private Rigidbody rb;
-    private readonly float deltaTimeNormalizer = .02f;
-
-    private void Start()
+    public class Car_TimeControl : MonoBehaviour
     {
-        Prepare();
-    }
+        [Header("Time Control")] 
+        [SerializeField] private bool doSlow;
+        [SerializeField] private float targetTimeScale;
+        
+        private Listener _listener;
+        private float currentTimeScale = 1;
+        private float savedMagnitude;
+        private readonly float normalizeFactor = .02f;
 
-    private void Update()
-    {
-        Slow();
-    }
-
-    void Slow()
-    {
-        // targetTimeScale = Mathf.Epsilon> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
-        if (Input.GetKeyDown(KeyCode.K))
+        private void Start()
         {
-            Time.timeScale = targetTimeScale;
-            Time.fixedDeltaTime = Time.timeScale * deltaTimeNormalizer;
+            Prepare();
         }
-    }
 
-    public void DebuggingInput(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {  
-            switch (doSlow)
+        private void Update()
+        {
+            Slow();
+            Time.timeScale = currentTimeScale;
+        }
+
+        void Slow()
+        {
+            if (Input.GetKeyDown(KeyCode.K))
             {
-                case false:
-                    doSlow = true;
-                    ChangeTimeScale(1f);
-                    break;
-                case true:
-                    doSlow = false;
-                    ChangeTimeScale(0f);
-                    break;
+                switch (doSlow)
+                {
+                    case true:
+                        currentTimeScale = targetTimeScale;
+                        NormalizeDeltaTime(normalizeFactor);
+                        doSlow = false;
+                        break;
+                    case false:
+                        currentTimeScale = 1f;
+                        NormalizeDeltaTime(normalizeFactor);
+                        doSlow = true;
+                        break;
+                }
+                // currentTimeScale = targetTimeScale;
+                // currentTimeScale = .33f> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
             }
         }
-    }
-    
-    private void ChangeTimeScale(float value)
-    {
-        targetTimeScale = value;
-    }
 
-    void Prepare()
-    {
-        rb = GetComponent<Rigidbody>();
+        private void NormalizeDeltaTime(float factor)
+        {
+            Time.timeScale = currentTimeScale;
+            Time.fixedDeltaTime = Time.timeScale * factor;
+        }
+
+        public void DebuggingInput(InputAction.CallbackContext context)
+        {
+        //     if (context.started)
+        //     {  
+        //         switch (doSlow)
+        //         {
+        //             case false:
+        //                 doSlow = true;
+        //                 ChangeTimeScale(1f);
+        //                 break;
+        //             case true:
+        //                 doSlow = false;
+        //                 ChangeTimeScale(0f);
+        //                 break;
+        //         }
+        //     }
+        }
+        private void Prepare()
+        {
+            _listener = GetComponent<Listener>();
+
+        }
     }
 }
