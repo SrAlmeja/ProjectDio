@@ -1,8 +1,7 @@
 //Daniel Navarrete 28/03/2023  Controller by events for UI
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 namespace com.LazyGames.Dio
