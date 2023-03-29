@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SteeringEventsChannelSO : MonoBehaviour
+public class SteeringEventsListener : MonoBehaviour
 {
+    // [SerializeField] private ScriptableObject 
     // Start is called before the first frame update
     void Start()
     {
