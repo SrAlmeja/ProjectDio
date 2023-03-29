@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class GDC_CarController : MonoBehaviour
 {
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";
@@ -28,7 +25,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         GetInput();
         HandleMotor();
@@ -44,7 +41,7 @@ public class CarController : MonoBehaviour
         isBreaking = Input.GetKey(KeyCode.Space);
     }
 
-    private void HandleMotor()
+    protected void HandleMotor()
     {
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;

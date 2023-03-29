@@ -910,29 +910,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1703042565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7572106636249422758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2be873282bb7964bb2d7e3d27f83a4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motorForce: 2000
-  breakForce: 4000
-  maxSteerAngle: 35
-  frontLeftWheelCollider: {fileID: 6887594665628834853}
-  frontRightWheelCollider: {fileID: 6887594666294657140}
-  rearLeftWheelCollider: {fileID: 6887594666782765821}
-  rearRightWheelCollider: {fileID: 6887594666072487867}
-  frontLeftWheelTransform: {fileID: 7566886033423879296}
-  frontRightWheeTransform: {fileID: 7573946281043417590}
-  rearLeftWheelTransform: {fileID: 7573998046307931434}
-  rearRightWheelTransform: {fileID: 7574076744416982696}
 --- !u!1 &6887594664823679079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,7 +1371,7 @@ GameObject:
   - component: {fileID: 7566633999600052876}
   - component: {fileID: 7572106636249422760}
   - component: {fileID: 7572106636249422762}
-  - component: {fileID: 1703042565}
+  - component: {fileID: 7572106636249422767}
   - component: {fileID: 7572106636249422763}
   - component: {fileID: 7572106636249422764}
   - component: {fileID: 7572106636249422765}
@@ -1495,6 +1472,29 @@ MonoBehaviour:
   StopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
   AngleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
   TorqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+--- !u!114 &7572106636249422767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7572106636249422758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07652545a0495b347be7e34b4c97f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motorForce: 2000
+  breakForce: 4000
+  maxSteerAngle: 35
+  frontLeftWheelCollider: {fileID: 6887594665628834853}
+  frontRightWheelCollider: {fileID: 6887594666294657140}
+  rearLeftWheelCollider: {fileID: 6887594666782765821}
+  rearRightWheelCollider: {fileID: 6887594666072487867}
+  frontLeftWheelTransform: {fileID: 7566886033423879296}
+  frontRightWheeTransform: {fileID: 7573946281043417590}
+  rearLeftWheelTransform: {fileID: 7573998046307931434}
+  rearRightWheelTransform: {fileID: 7574076744416982696}
 --- !u!1 &7572319351952439158
 GameObject:
   m_ObjectHideFlags: 0
