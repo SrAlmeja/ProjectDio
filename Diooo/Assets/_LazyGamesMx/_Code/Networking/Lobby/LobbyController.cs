@@ -19,9 +19,6 @@ namespace com.LazyGames.Dio
 
         public static LobbyController Instance;
         
-        public string codeLobby;
-        public string playerName;
-        
        [SerializeField] string lobbyName = "DinoLobby";
        [SerializeField] int maxPlayers = 4;
 
@@ -30,11 +27,7 @@ namespace com.LazyGames.Dio
         #endregion
         
         #region private variables
-        // [SerializeField] private Button serverButton;
-        // [SerializeField] private Button clientButton;
-        // [SerializeField] private Button hostButton;
 
-        
         private Lobby _hostLobby;
         private Lobby _myJoinedLobby;
         private float _heartbeatTimer = 0.0f;
@@ -44,26 +37,6 @@ namespace com.LazyGames.Dio
 
         #region unity methods
         
-        // void Start()
-        // {
-        //     //Test the connection UI
-        //     serverButton.onClick.AddListener(() =>
-        //     {
-        //         NetworkManager.Singleton.StartServer();
-        //         Debug.Log("Server started");
-        //     });
-        //     clientButton.onClick.AddListener(() =>
-        //     {
-        //         NetworkManager.Singleton.StartClient();
-        //         Debug.Log("Client started");
-        //     });
-        //     hostButton.onClick.AddListener(() =>
-        //     {
-        //         NetworkManager.Singleton.StartHost();
-        //         Debug.Log("Host started");
-        //     });
-        // }
-
         private void Awake()
         {
             Instance = this;
@@ -76,7 +49,9 @@ namespace com.LazyGames.Dio
                 return;
 
             InitializeUnityAuthentication();
-            CreateLobby();    
+            CreateLobby();
+            ListLobbies();
+
         }
         
         private void Update()
@@ -111,6 +86,7 @@ namespace com.LazyGames.Dio
                 await UnityServices.InitializeAsync();
                 InitializationOptions initializationOptions = new InitializationOptions();
                 initializationOptions.SetProfile(UnityEngine.Random.Range(0, 1000).ToString());
+                await UnityServices.InitializeAsync(initializationOptions);
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
             }
