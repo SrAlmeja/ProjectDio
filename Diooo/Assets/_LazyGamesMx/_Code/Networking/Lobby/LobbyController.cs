@@ -9,22 +9,25 @@ using UnityEngine.UI;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Relay.Models;
 
 
 namespace com.LazyGames.Dio
 {
     public class LobbyController : MonoBehaviour
     {
-
+        
         #region public variables
 
-        public static LobbyController Instance;
-        
-       [SerializeField] string lobbyName = "DinoLobby";
-       [SerializeField] int maxPlayers = 4;
+        public static LobbyController Instance; 
+        [SerializeField] string defaultPlayerName = "Player";
+        [SerializeField] string lobbyName = "DinoLobby";
+        [SerializeField] int maxPlayers = 4;
 
-       public Action OnPlayerEnterRoom;
-       public Action OnCreatedLobbyStarted;
+        public Action<string> OnPlayerEnterRoom;
+        public Action<string> OnFinishedCreateLobby;
+        public Action OnFinishedAuthenticating;
+        public Action OnFinishedCheckedLobbies;
 
         #endregion
         
@@ -32,9 +35,12 @@ namespace com.LazyGames.Dio
 
         // private Lobby _hostLobby;
         private Lobby _myJoinedLobby;
+        private int _listLobbyCount = 0;
         private float _heartbeatTimer = 0.0f;
         private float _lobbyUpdateTimer = 0.0f;
         
+        
+        private const string KEY_RELAY_JOIN_CODE = "RelayJoinCode";
         #endregion
 
         #region unity methods
@@ -51,16 +57,27 @@ namespace com.LazyGames.Dio
                 return;
 
             InitializeUnityAuthentication();
-            CreateLobby();
-            // ListLobbies();
-
+            
+            OnFinishedAuthenticating += ListLobbies;
+            OnFinishedCheckedLobbies += CheckedLobbyExists;
+            
         }
         
         private void Update()
         {
+            // if(Input.GetKeyDown(KeyCode.Space))
+            //     CreateLobby();
+            
             HandleLobbyHeartbeat();
             HandleLobbyPollUpdate();
         }
+
+        private void OnDestroy()
+        {
+            OnFinishedAuthenticating -= ListLobbies;
+            OnFinishedCheckedLobbies -= CheckedLobbyExists;
+        }
+
         #endregion
 
 
@@ -76,6 +93,9 @@ namespace com.LazyGames.Dio
                 
                 await UnityServices.InitializeAsync(initializationOptions);
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                
+                Debug.Log("<color=#C4FF92>Signed in PLAYER ID = </color>" + AuthenticationService.Instance.PlayerId);
+                OnFinishedAuthenticating?.Invoke();
 
             }
             
@@ -96,18 +116,16 @@ namespace com.LazyGames.Dio
         {
             try
             {
-                CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
-                {
-                    IsPrivate = false,
-                };
+                _myJoinedLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, new CreateLobbyOptions
+               {
+                   IsPrivate = false,
+               });
                 
-                Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, createLobbyOptions);
-                _myJoinedLobby = lobby;
-                
-                Debug.Log("Created lobby with id: " + lobby.Name + " " + lobby.MaxPlayers + " LOBBY ID =  " + lobby.Id);
-                
-                DioGameMultiplayer.Instance.StartHost();
-                OnCreatedLobbyStarted?.Invoke();
+                Debug.Log("Created lobby with id: " + _myJoinedLobby.Name + " " + _myJoinedLobby.MaxPlayers + " LOBBY ID =  " + _myJoinedLobby.Id);
+               
+                RelayController.Instance.CreateRelayServer(_myJoinedLobby.Id, KEY_RELAY_JOIN_CODE);
+
+                OnFinishedCreateLobby?.Invoke(GetPlayer().Data["Player Name"].Value);
 
             }
             catch (LobbyServiceException exception)
@@ -122,17 +140,33 @@ namespace com.LazyGames.Dio
             {
                 QueryResponse queryResponse =  await Lobbies.Instance.QueryLobbiesAsync();
                 Debug.Log("Lobbies found: " + queryResponse.Results.Count);
+                _listLobbyCount = queryResponse.Results.Count;
                 foreach (Lobby lobby in queryResponse.Results)
                 {
                     Debug.Log(lobby.Name + " " + lobby.MaxPlayers);
                 }
+
+                OnFinishedCheckedLobbies?.Invoke();
             }
             catch (LobbyServiceException e)
             {
                 Debug.Log(e);
             }
         }
-        
+
+        private void CheckedLobbyExists()
+        {
+            if (_listLobbyCount != 0)
+            {
+                Debug.Log("<color=#92FFF0>EXISTE UN LOBBY Y SE PUEDE UNIR </color>");
+                QuickJoinLobby();
+            }else
+            {
+                Debug.Log("<color=#92FFF0>NO EXISTE UN LOBBY Y SE PUEDE CREAR</color>");
+                CreateLobby();
+            }
+           
+        }
 
         // private async void JoinLobbyByCode(string lobbyCode)
         // {
@@ -162,9 +196,11 @@ namespace com.LazyGames.Dio
         {
             try
             { 
-                await LobbyService.Instance.QuickJoinLobbyAsync();
-                DioGameMultiplayer.Instance.StartClient();
-                OnPlayerEnterRoom?.Invoke();
+                _myJoinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
+                string relayJoinCode = _myJoinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
+                RelayController.Instance.JoinRelayServer(relayJoinCode);
+                
+                OnPlayerEnterRoom?.Invoke(GetPlayer().Data["Player Name"].Value);
             }
             catch (LobbyServiceException e)
             {
@@ -188,17 +224,17 @@ namespace com.LazyGames.Dio
         // }
         //
         //Mostrar info del player en el lobby
-        // private Player GetPlayer()
-        // {
-        //     return new Player
-        //     {
-        //         // Id = AuthenticationService.Instance.PlayerId,
-        //         Data = new Dictionary<string, PlayerDataObject>
-        //         {
-        //             {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName)}
-        //         }
-        //     };
-        // }
+        private Player GetPlayer()
+        {
+            return new Player
+            {
+                // Id = AuthenticationService.Instance.PlayerId,
+                Data = new Dictionary<string, PlayerDataObject>
+                {
+                    {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, defaultPlayerName)}
+                }
+            };
+        }
         // private void PrintPlayers(Lobby lobby)
         // {
         //     Debug.Log("Players in lobby: " + lobby.Players.Count); 
@@ -208,29 +244,29 @@ namespace com.LazyGames.Dio
         //     }
         // }
 
-        //Upadate player Data
-        // private async void UpdatePlayerName(string newPLayerName)
-        // {
-        //     try
-        //     {
-        //         playerName = newPLayerName;
-        //         await LobbyService.Instance.UpdatePlayerAsync(_myJoinedLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions
-        //         {
-        //             Data = new Dictionary<string, PlayerDataObject>
-        //             {
-        //                 {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, newPLayerName)}
-        //             }
-        //         });
-        //
-        //     }
-        //     catch (LobbyServiceException e)
-        //     {
-        //         Debug.Log(e);
-        //         throw;
-        //     }
-        //     
-        // }
-        //
+        // Upadate player Data
+         private async void UpdatePlayerName(string newPLayerName)
+         {
+             try
+             {
+                 defaultPlayerName = newPLayerName;
+                 await LobbyService.Instance.UpdatePlayerAsync(_myJoinedLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions
+                 {
+                     Data = new Dictionary<string, PlayerDataObject>
+                     {
+                         {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, newPLayerName)}
+                     }
+                 });
+        
+             }
+             catch (LobbyServiceException e)
+             {
+                 Debug.Log(e);
+                 throw;
+             }
+             
+         }
+        
         private bool IsLobbyHost()
         {
             return _myJoinedLobby != null && _myJoinedLobby.HostId == AuthenticationService.Instance.PlayerId;
