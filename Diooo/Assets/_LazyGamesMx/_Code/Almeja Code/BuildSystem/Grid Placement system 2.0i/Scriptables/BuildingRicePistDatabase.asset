@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BuildingRicePistDatabase
   m_EditorClassIdentifier: 
   objectData:
-  - <Name>k__BackingField: DefaultPlane
+  - <Name>k__BackingField: Pista 1
     <ID>k__BackingField: 0
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 0}
-  - <Name>k__BackingField: 
-    <ID>k__BackingField: 0
-    <Size>k__BackingField: {x: 0, y: 0}
-    <Prefab>k__BackingField: {fileID: 0}
+    <Prefab>k__BackingField: {fileID: 3016145799669324458, guid: 17294bf155b840246a309ba41577233f, type: 3}
+  - <Name>k__BackingField: Pista 2
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 6792792211511400677, guid: fa140b2f04e08ba48b31862c4c2eb597, type: 3}
