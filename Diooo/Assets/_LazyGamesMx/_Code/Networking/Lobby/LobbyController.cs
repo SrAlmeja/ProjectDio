@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 
 
@@ -112,6 +113,10 @@ namespace com.LazyGames.Dio
         
         #region Lobby
 
+        public Lobby GetLobby()
+        {
+            return _myJoinedLobby;
+        }
         private async void CreateLobby()
         {
             try
