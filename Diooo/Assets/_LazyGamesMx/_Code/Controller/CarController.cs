@@ -7,7 +7,7 @@ namespace com.LazyGames.Dio
 {
     public class CarController : MonoBehaviour
     {
-        public InputActionAsset inputActions;
+        [SerializeField] private InputActionAsset inputActions;
         InputActionMap gameplayActionMap;
 
         InputAction handBrakeInputAction;
@@ -15,10 +15,25 @@ namespace com.LazyGames.Dio
         InputAction accelerationInputAction;
         InputAction TimeStopInputAction;
 
-        public BoolEventChannelSO HanbreakEvent;
-        public BoolEventChannelSO StopTimeEvent;
-        public FloatEventChannelSO AngleEvent;
-        public FloatEventChannelSO TorqueEvent;
+        [SerializeField] private BoolEventChannelSO HanbreakEvent;
+        [SerializeField] private BoolEventChannelSO StopTimeEvent;
+        [SerializeField] private FloatEventChannelSO AngleEvent;
+        [SerializeField] private FloatEventChannelSO TorqueEvent;
+
+        private void OnEnable()
+        {
+            handBrakeInputAction.Enable();
+            steeringInputAction.Enable();
+            accelerationInputAction.Enable();
+            TimeStopInputAction.Enable();
+        }
+        private void OnDisable()
+        {
+            handBrakeInputAction.Disable();
+            steeringInputAction.Disable();
+            accelerationInputAction.Disable();
+            TimeStopInputAction.Disable();
+        }
 
         void Awake()
         {
@@ -73,21 +88,6 @@ namespace com.LazyGames.Dio
             {
                 StopTimeEvent.RaiseEvent(true);
             }
-        }
-
-        private void OnEnable()
-        {
-            handBrakeInputAction.Enable();
-            steeringInputAction.Enable();
-            accelerationInputAction.Enable();
-            TimeStopInputAction.Enable();
-        }
-        private void OnDisable()
-        {
-            handBrakeInputAction.Disable();
-            steeringInputAction.Disable();
-            accelerationInputAction.Disable();
-            TimeStopInputAction.Disable();
         }
     }
 }
