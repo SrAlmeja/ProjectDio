@@ -100,10 +100,6 @@ namespace com.LazyGames.Dio
 
             }
             
-            // AuthenticationService.Instance.SignedIn += () =>
-            // {
-            //     Debug.Log("Signed in PLAYER ID = " + AuthenticationService.Instance.PlayerId );
-            // };
         }
         
 
@@ -125,9 +121,7 @@ namespace com.LazyGames.Dio
                {
                    IsPrivate = false,
                });
-                
                 Debug.Log("Created lobby with id: " + _myJoinedLobby.Name + " " + _myJoinedLobby.MaxPlayers + " LOBBY ID =  " + _myJoinedLobby.Id);
-               
                 RelayController.Instance.CreateRelayServer(_myJoinedLobby.Id, KEY_RELAY_JOIN_CODE);
 
                 OnFinishedCreateLobby?.Invoke(GetPlayer().Data["Player Name"].Value);
