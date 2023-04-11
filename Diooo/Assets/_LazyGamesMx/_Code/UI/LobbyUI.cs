@@ -34,6 +34,14 @@ public class LobbyUI : MonoBehaviour
     }
     #endregion
 
+    #region public methods
+    public void GoToMatch()
+    {
+        SceneController.Instance.LoadScene(SceneKeys.GAME_SCENE);
+    }
+    
+
+    #endregion
 
 
     #region private methods
