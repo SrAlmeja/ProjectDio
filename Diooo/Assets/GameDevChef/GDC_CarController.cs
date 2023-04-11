@@ -7,23 +7,23 @@ public class GDC_CarController : MonoBehaviour
 
     private float horizontalInput;
     private float verticalInput;
-    private float currentSteerAngle;
+    protected float currentSteerAngle;
     private float currentbreakForce;
-    private bool isBreaking;
+    protected bool isBreaking;
 
-    [SerializeField] private float motorForce;
-    [SerializeField] private float breakForce;
-    [SerializeField] private float maxSteerAngle;
+    [SerializeField] protected float motorForce;
+    [SerializeField] protected float breakForce;
+    [SerializeField] protected float maxSteerAngle;
 
-    [SerializeField] private WheelCollider frontLeftWheelCollider;
-    [SerializeField] private WheelCollider frontRightWheelCollider;
-    [SerializeField] private WheelCollider rearLeftWheelCollider;
-    [SerializeField] private WheelCollider rearRightWheelCollider;
+    [SerializeField] protected WheelCollider frontLeftWheelCollider;
+    [SerializeField] protected WheelCollider frontRightWheelCollider;
+    [SerializeField] protected WheelCollider rearLeftWheelCollider;
+    [SerializeField] protected WheelCollider rearRightWheelCollider;
 
-    [SerializeField] private Transform frontLeftWheelTransform;
-    [SerializeField] private Transform frontRightWheeTransform;
-    [SerializeField] private Transform rearLeftWheelTransform;
-    [SerializeField] private Transform rearRightWheelTransform;
+    [SerializeField] protected Transform frontLeftWheelTransform;
+    [SerializeField] protected Transform frontRightWheeTransform;
+    [SerializeField] protected Transform rearLeftWheelTransform;
+    [SerializeField] protected Transform rearRightWheelTransform;
 
     protected virtual void FixedUpdate()
     {
@@ -41,7 +41,7 @@ public class GDC_CarController : MonoBehaviour
         isBreaking = Input.GetKey(KeyCode.Space);
     }
 
-    protected void HandleMotor()
+    protected virtual void HandleMotor()
     {
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
@@ -49,7 +49,7 @@ public class GDC_CarController : MonoBehaviour
         ApplyBreaking();       
     }
 
-    private void ApplyBreaking()
+    protected virtual void ApplyBreaking()
     {
         frontRightWheelCollider.brakeTorque = currentbreakForce;
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
@@ -57,14 +57,14 @@ public class GDC_CarController : MonoBehaviour
         rearRightWheelCollider.brakeTorque = currentbreakForce;
     }
 
-    private void HandleSteering()
+    protected virtual void HandleSteering()
     {
         currentSteerAngle = maxSteerAngle * horizontalInput;
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
 
-    private void UpdateWheels()
+    protected virtual void UpdateWheels()
     {
         UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
         UpdateSingleWheel(frontRightWheelCollider, frontRightWheeTransform);
