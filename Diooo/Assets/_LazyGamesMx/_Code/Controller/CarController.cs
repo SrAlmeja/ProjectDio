@@ -14,11 +14,13 @@ namespace com.LazyGames.Dio
         InputAction steeringInputAction;
         InputAction accelerationInputAction;
         InputAction TimeStopInputAction;
+        InputAction RotateInputAction;
 
         [SerializeField] private BoolEventChannelSO HanbreakEvent;
         [SerializeField] private BoolEventChannelSO StopTimeEvent;
         [SerializeField] private FloatEventChannelSO AngleEvent;
         [SerializeField] private FloatEventChannelSO TorqueEvent;
+        [SerializeField] private FloatEventChannelSO RotateEvent;
 
         private void OnEnable()
         {
@@ -26,6 +28,7 @@ namespace com.LazyGames.Dio
             steeringInputAction.Enable();
             accelerationInputAction.Enable();
             TimeStopInputAction.Enable();
+            RotateInputAction.Enable();
         }
         private void OnDisable()
         {
@@ -33,6 +36,7 @@ namespace com.LazyGames.Dio
             steeringInputAction.Disable();
             accelerationInputAction.Disable();
             TimeStopInputAction.Disable();
+            RotateInputAction.Disable();
         }
 
         void Awake()
@@ -43,6 +47,7 @@ namespace com.LazyGames.Dio
             steeringInputAction = gameplayActionMap.FindAction("SteeringAngle");
             accelerationInputAction = gameplayActionMap.FindAction("Acceleration");
             TimeStopInputAction = gameplayActionMap.FindAction("TimeStop");
+            RotateInputAction = gameplayActionMap.FindAction("Rotate");
 
             handBrakeInputAction.performed += GetHandBrakeInput;
             handBrakeInputAction.canceled += GetHandBrakeInput;
@@ -55,6 +60,9 @@ namespace com.LazyGames.Dio
 
             TimeStopInputAction.performed += StopTimeInput;
             TimeStopInputAction.canceled += StopTimeInput;
+
+            RotateInputAction.performed += RotateInput;
+            RotateInputAction.canceled += RotateInput;
         }
 
         void GetHandBrakeInput(InputAction.CallbackContext context)
@@ -88,6 +96,28 @@ namespace com.LazyGames.Dio
             {
                 StopTimeEvent.RaiseEvent(true);
             }
+        }
+
+        void RotateInput(InputAction.CallbackContext context)
+        {
+            Vector2 VectorInput = context.ReadValue<Vector2>();
+            float angle = Mathf.Atan2(VectorInput.y, VectorInput.x) * Mathf.Rad2Deg;
+
+            if (angle < 0)
+            {
+                angle += 360f;
+            }
+            else if (angle > 360f)
+            {
+                angle -= 360f;
+            }
+
+            if (angle > 180f)
+            {
+                angle = 360f - angle;
+            }
+
+            RotateEvent.RaiseEvent(angle);
         }
     }
 }

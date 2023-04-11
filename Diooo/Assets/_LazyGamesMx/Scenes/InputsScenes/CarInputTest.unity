@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &381050150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
   StopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
   AngleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
   TorqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+  RotateEvent: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
 --- !u!4 &381050151
 Transform:
   m_ObjectHideFlags: 0
@@ -400,6 +401,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
     - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
+      propertyPath: RotateEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
+    - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
       propertyPath: TorqueEvent
       value: 
       objectReference: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
@@ -488,7 +493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1948472608
 AudioListener:
   m_ObjectHideFlags: 0
