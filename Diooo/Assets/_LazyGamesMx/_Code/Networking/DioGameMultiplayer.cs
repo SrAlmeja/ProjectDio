@@ -10,10 +10,23 @@ namespace com.LazyGames.Dio
     {
         public static DioGameMultiplayer Instance;
 
-        private void Start()
+        public event Action OnFinishLoading;
+        private bool _isInitialized;
+
+        private void Awake()
         {
             Instance = this;
+            _isInitialized = true;
+            if (_isInitialized)
+            {
+                OnFinishLoading?.Invoke();
+            }
             DontDestroyOnLoad(gameObject);
+
+        }
+
+        private void Start()
+        {
         }
 
         public void StartHost()

@@ -28,7 +28,6 @@ namespace com.LazyGames.Dio
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            // InitializerNetworking.Instance.OnFinishLoading += Initialize;
             Initialize();
         }
 
