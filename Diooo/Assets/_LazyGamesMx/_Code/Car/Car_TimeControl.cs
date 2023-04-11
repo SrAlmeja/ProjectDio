@@ -13,7 +13,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private bool doSlow;
         [SerializeField] private float targetTimeScale;
         
-        private Listener _listener;
+        private SteeringEventsListener _listener;
         private float currentTimeScale = 1;
         private float savedMagnitude;
         private readonly float normalizeFactor = .02f;
@@ -31,52 +31,34 @@ namespace com.LazyGames.Dio
 
         void Slow()
         {
-            if (Input.GetKeyDown(KeyCode.K))
+            doSlow = _listener.stopTime;
+            switch (doSlow)
             {
-                switch (doSlow)
-                {
-                    case true:
-                        currentTimeScale = targetTimeScale;
-                        NormalizeDeltaTime(normalizeFactor);
-                        doSlow = false;
-                        break;
-                    case false:
-                        currentTimeScale = 1f;
-                        NormalizeDeltaTime(normalizeFactor);
-                        doSlow = true;
-                        break;
-                }
-                // currentTimeScale = targetTimeScale;
-                // currentTimeScale = .33f> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
+                case true:
+                    currentTimeScale = targetTimeScale;
+                    NormalizeDeltaTime(normalizeFactor);
+                    doSlow = false;
+                    break;
+                case false:
+                    currentTimeScale = 1f;
+                    NormalizeDeltaTime(normalizeFactor);
+                    doSlow = true;
+                    break;
             }
+            // currentTimeScale = targetTimeScale;
+            // currentTimeScale = .33f> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
+            
         }
 
         private void NormalizeDeltaTime(float factor)
         {
             Time.timeScale = currentTimeScale;
             Time.fixedDeltaTime = Time.timeScale * factor;
-        }
-
-        public void DebuggingInput(InputAction.CallbackContext context)
-        {
-        //     if (context.started)
-        //     {  
-        //         switch (doSlow)
-        //         {
-        //             case false:
-        //                 doSlow = true;
-        //                 ChangeTimeScale(1f);
-        //                 break;
-        //             case true:
-        //                 doSlow = false;
-        //                 ChangeTimeScale(0f);
-        //                 break;
-        //         }
-        //     }
+        
         }
         private void Prepare()
         {
-            _listener = GetComponent<Listener>();
+            _listener = GetComponent<SteeringEventsListener>();
 
         }
     }
