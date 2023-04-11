@@ -6,10 +6,10 @@ namespace com.LazyGames.Dio
 {
     public class Listener : MonoBehaviour
     {
-        public BoolEventChannelSO HanbreakeEvent;
-        public BoolEventChannelSO StopTimeEvent;
-        public FloatEventChannelSO AngleEvent;
-        public FloatEventChannelSO TorqueEvent;
+        [SerializeField] private BoolEventChannelSO HanbreakeEvent;
+        [SerializeField] private BoolEventChannelSO StopTimeEvent;
+        [SerializeField] private FloatEventChannelSO AngleEvent;
+        [SerializeField] private FloatEventChannelSO TorqueEvent;
 
         private void OnEnable()
         {
