@@ -16,6 +16,11 @@ public class BuildInputManager : MonoBehaviour
 
     public event Action Onclicked, OnExit;
 
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))

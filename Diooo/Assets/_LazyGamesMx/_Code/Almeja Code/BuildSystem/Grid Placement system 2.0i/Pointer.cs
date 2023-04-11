@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
+    private void Start()
+    {
+    }
+
     private void Update()
     {
         Move();

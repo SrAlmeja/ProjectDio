@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6291040045081913952}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2613800980567668893}
+        m_TargetAssemblyTypeName: RotateMyItem, Assembly-CSharp
+        m_MethodName: LeftRotation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2501659749722906133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +262,7 @@ GameObject:
   - component: {fileID: 1531095944360939445}
   - component: {fileID: 3664660091270609791}
   - component: {fileID: 7678105154656130970}
+  - component: {fileID: 2613800980567668893}
   m_Layer: 0
   m_Name: Build System Part 1
   m_TagString: Untagged
@@ -337,6 +350,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8556715644757612135, guid: 702509076dbdc4e4a97aaef7718d2032, type: 3}
+--- !u!114 &2613800980567668893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016145799669324458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27667f669216bff4ba01abd1e5b41581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5128387658974474855
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +483,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8889230577545193250}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2613800980567668893}
+        m_TargetAssemblyTypeName: RotateMyItem, Assembly-CSharp
+        m_MethodName: rightRotation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5380849580684772975
 MonoBehaviour:
   m_ObjectHideFlags: 0
