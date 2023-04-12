@@ -10,28 +10,55 @@ namespace com.LazyGames.Dio
     public class MenuRotator : MonoBehaviour
     {
         [Header("Channel SO Dependencies")]
-        [SerializeField] private GameObjectFloatChannelSO RotationRequestChannel;
-        [SerializeField] private GameObjectFloatChannelSO MoveRequestChannel;
+        [SerializeField] private GameObjectFloatChannelSO _rotationRequestChannel;
+        [SerializeField] private GameObjectFloatChannelSO _moveRequestChannel;
+        [SerializeField] private VoidEventChannelSO _finishedAnimatingChannel;
+
+        private int _currentAnimations = 0;
 
         private void OnEnable()
         {
-            RotationRequestChannel.GameObjectFloatEvent += RotateMenu;
-            MoveRequestChannel.GameObjectFloatEvent += MoveMenu;
+            _rotationRequestChannel.GameObjectFloatEvent += RotateMenu;
+            _moveRequestChannel.GameObjectFloatEvent += MoveMenu;
         }
         private void OnDisable()
         {
-            RotationRequestChannel.GameObjectFloatEvent -= RotateMenu;
-            MoveRequestChannel.GameObjectFloatEvent -= MoveMenu;
+            _rotationRequestChannel.GameObjectFloatEvent -= RotateMenu;
+            _moveRequestChannel.GameObjectFloatEvent -= MoveMenu;
         }
 
         private void RotateMenu(GameObject senderPivot, float position)
         {
-            iTween.RotateTo(senderPivot, new Vector3(0f,45f*position,0f), 3f);
+            _currentAnimations++;
+            iTween.RotateTo(senderPivot, iTween.Hash(
+                "rotation", new Vector3(0f, 45f * position, 0f),
+                "time", 1f, 
+                "easetype", iTween.EaseType.easeInOutSine,
+                "looptype", iTween.LoopType.none, 
+                "oncomplete","Finished",
+                "oncompletetarget", this.gameObject));
         }
 
         private void MoveMenu(GameObject mainPivot, float position)
         {
-            iTween.MoveAdd(mainPivot, new Vector3(0f, 5f*position, 0f), 3f);
+            _currentAnimations++;
+            iTween.MoveTo(mainPivot, iTween.Hash(
+               "position", new Vector3(0f, 5f * position, 0f),
+               "time", 1f,
+               "easetype", iTween.EaseType.easeInOutSine,
+               "looptype", iTween.LoopType.none,
+               "oncomplete","Finished",
+               "oncompletetarget", this.gameObject)); 
+        }
+
+        private void Finished()
+        {
+            _currentAnimations--;
+
+            if(_currentAnimations == 0)
+            {
+                _finishedAnimatingChannel.VoidEvent();
+            }
         }
     }
 }

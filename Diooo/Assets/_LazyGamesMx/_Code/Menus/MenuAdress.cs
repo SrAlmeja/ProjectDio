@@ -11,10 +11,14 @@ namespace com.LazyGames.Dio
     public class MenuAdress : MonoBehaviour
     {
         [Header("Adress")]
-        [SerializeField] private int _pivot;
         [SerializeField] private int _number;
         [SerializeField] private MenuAdress _forwardTo;
         [SerializeField] private MenuAdress _backTo;
+
+        private int _pivot;
+
+        private MenuAdress _leftAdress;
+        private MenuAdress _rightAdress;
 
         public UnityEvent ForwardAction;
         public UnityEvent BackAction;
@@ -23,6 +27,17 @@ namespace com.LazyGames.Dio
         public int Number { get { return _number;} }
         public MenuAdress ForwardTo { get {  return _forwardTo; }}
         public MenuAdress BackTo { get { return _backTo; }}
+
+        public MenuAdress LeftAdress { get { return _leftAdress; } }
+        public MenuAdress RightAdress { get { return _rightAdress; }}
+
+        private void Start()
+        {
+            MenuPivot myParentPivot = GetComponentInParent<MenuPivot>();
+            _pivot = myParentPivot.PivotNumber;
+            _leftAdress = myParentPivot.NeighborAdress(this, -1);
+            _rightAdress = myParentPivot.NeighborAdress(this, 1);
+        }
 
         public void DoForwardAction()
         {
