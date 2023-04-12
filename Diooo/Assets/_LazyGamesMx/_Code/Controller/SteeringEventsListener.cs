@@ -1,8 +1,5 @@
 // Creado Raymundo "CryoStorage" Mosqueda 07/04/2023
 //
-using System.Collections;
-using System.Collections.Generic;
-using com.LazyGames.Dio;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
@@ -11,8 +8,10 @@ namespace com.LazyGames.Dio
     {
         [SerializeField]private BoolEventChannelSO handbrakeEvent;
         [SerializeField]private BoolEventChannelSO stopTimeEvent;
+        // [SerializeField]private BoolEventChannelSO punchEvent;
         [SerializeField]private FloatEventChannelSO angleEvent;
         [SerializeField]private FloatEventChannelSO torqueEvent;
+        // [SerializeField]private FloatEventChannelSO rotateEvent;
 
         [HideInInspector]public bool handBrake;
         [HideInInspector]public bool stopTime;
