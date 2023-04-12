@@ -13,30 +13,34 @@ namespace com.LazyGames.Dio
         InputAction handBrakeInputAction;
         InputAction steeringInputAction;
         InputAction accelerationInputAction;
-        InputAction TimeStopInputAction;
-        InputAction RotateInputAction;
+        InputAction timeStopInputAction;
+        InputAction rotateInputAction;
+        InputAction impulseInputAction;
 
-        [SerializeField] private BoolEventChannelSO HanbreakEvent;
-        [SerializeField] private BoolEventChannelSO StopTimeEvent;
-        [SerializeField] private FloatEventChannelSO AngleEvent;
-        [SerializeField] private FloatEventChannelSO TorqueEvent;
-        [SerializeField] private FloatEventChannelSO RotateEvent;
+        [SerializeField] private BoolEventChannelSO _hanbreakEvent;
+        [SerializeField] private BoolEventChannelSO _stopTimeEvent;
+        [SerializeField] private FloatEventChannelSO _angleEvent;
+        [SerializeField] private FloatEventChannelSO _torqueEvent;
+        [SerializeField] private FloatEventChannelSO _rotateEvent;
+        [SerializeField] private BoolEventChannelSO _impulseEvent;
 
         private void OnEnable()
         {
             handBrakeInputAction.Enable();
             steeringInputAction.Enable();
             accelerationInputAction.Enable();
-            TimeStopInputAction.Enable();
-            RotateInputAction.Enable();
+            timeStopInputAction.Enable();
+            rotateInputAction.Enable();
+            impulseInputAction.Enable();
         }
         private void OnDisable()
         {
             handBrakeInputAction.Disable();
             steeringInputAction.Disable();
             accelerationInputAction.Disable();
-            TimeStopInputAction.Disable();
-            RotateInputAction.Disable();
+            timeStopInputAction.Disable();
+            rotateInputAction.Disable();
+            impulseInputAction.Disable();
         }
 
         void Awake()
@@ -46,8 +50,9 @@ namespace com.LazyGames.Dio
             handBrakeInputAction = gameplayActionMap.FindAction("HandBrake");
             steeringInputAction = gameplayActionMap.FindAction("SteeringAngle");
             accelerationInputAction = gameplayActionMap.FindAction("Acceleration");
-            TimeStopInputAction = gameplayActionMap.FindAction("TimeStop");
-            RotateInputAction = gameplayActionMap.FindAction("Rotate");
+            timeStopInputAction = gameplayActionMap.FindAction("TimeStop");
+            rotateInputAction = gameplayActionMap.FindAction("Rotate");
+            impulseInputAction = gameplayActionMap.FindAction("Impulse");
 
             handBrakeInputAction.performed += GetHandBrakeInput;
             handBrakeInputAction.canceled += GetHandBrakeInput;
@@ -58,66 +63,79 @@ namespace com.LazyGames.Dio
             accelerationInputAction.performed += GetTorqueInput;
             accelerationInputAction.canceled += GetTorqueInput;
 
-            TimeStopInputAction.performed += StopTimeInput;
-            TimeStopInputAction.canceled += StopTimeInput;
+            timeStopInputAction.performed += StopTimeInput;
+            timeStopInputAction.canceled += StopTimeInput;
 
-            RotateInputAction.performed += RotateInput;
-            RotateInputAction.canceled += RotateInput;
+            rotateInputAction.performed += RotateInput;
+            rotateInputAction.canceled += RotateInput;
+
+            impulseInputAction.performed += GetImpulseInput;
+            impulseInputAction.canceled += GetImpulseInput;
         }
 
         void GetHandBrakeInput(InputAction.CallbackContext context)
         {
             if(context.ReadValue<float>() == 0)
             {
-                HanbreakEvent.RaiseEvent(false);
+                _hanbreakEvent.RaiseEvent(false);
             }
             else
             {
-                HanbreakEvent.RaiseEvent(true);
+                _hanbreakEvent.RaiseEvent(true);
             }  
         }
 
         void GetAngleInput(InputAction.CallbackContext context)
         {
-            AngleEvent.RaiseEvent(context.ReadValue<float>());
+            _angleEvent.RaiseEvent(context.ReadValue<float>());
         }
         void GetTorqueInput(InputAction.CallbackContext context)
         {
-            TorqueEvent.RaiseEvent(context.ReadValue<float>());
+            _torqueEvent.RaiseEvent(context.ReadValue<float>());
         }
 
         void StopTimeInput(InputAction.CallbackContext context) 
         {
             if (context.ReadValue<float>() == 0)
             {
-                StopTimeEvent.RaiseEvent(false);
+                _stopTimeEvent.RaiseEvent(false);
             }
             else
             {
-                StopTimeEvent.RaiseEvent(true);
+                _stopTimeEvent.RaiseEvent(true);
             }
         }
 
         void RotateInput(InputAction.CallbackContext context)
         {
             Vector2 VectorInput = context.ReadValue<Vector2>();
-            float angle = Mathf.Atan2(VectorInput.y, VectorInput.x) * Mathf.Rad2Deg;
+            float angle = Vector2.Angle(Vector2.right, VectorInput); // obtiene el ángulo en un rango de 0 a 180 grados
 
-            if (angle < 0)
+            if (VectorInput.y < 0) // ajusta el ángulo si está en el segundo o tercer cuadrante
             {
-                angle += 360f;
-            }
-            else if (angle > 360f)
-            {
-                angle -= 360f;
+                angle = 360 - angle;
             }
 
-            if (angle > 180f)
+            float finalAngle = Mathf.Atan2(VectorInput.y, VectorInput.x) * Mathf.Rad2Deg; // convierte el ángulo a grados
+
+            if (finalAngle < 0) // ajusta el ángulo si es negativo
             {
-                angle = 360f - angle;
+                finalAngle += 360;
             }
 
-            RotateEvent.RaiseEvent(angle);
+            _rotateEvent.RaiseEvent(finalAngle);
+        }
+
+        void GetImpulseInput(InputAction.CallbackContext context)
+        {
+            if (context.ReadValue<float>() == 0)
+            {
+                _impulseEvent.RaiseEvent(false);
+            }
+            else
+            {
+                _impulseEvent.RaiseEvent(true);
+            }
         }
     }
 }

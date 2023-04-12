@@ -6,28 +6,31 @@ namespace com.LazyGames.Dio
 {
     public class Listener : MonoBehaviour
     {
-        [SerializeField] private BoolEventChannelSO HanbreakeEvent;
-        [SerializeField] private BoolEventChannelSO StopTimeEvent;
-        [SerializeField] private FloatEventChannelSO AngleEvent;
-        [SerializeField] private FloatEventChannelSO TorqueEvent;
-        [SerializeField] private FloatEventChannelSO RotateEvent;
+        [SerializeField] private BoolEventChannelSO _hanbreakeEvent;
+        [SerializeField] private BoolEventChannelSO _stopTimeEvent;
+        [SerializeField] private FloatEventChannelSO _angleEvent;
+        [SerializeField] private FloatEventChannelSO _torqueEvent;
+        [SerializeField] private FloatEventChannelSO _rotateEvent;
+        [SerializeField] private BoolEventChannelSO _impulseEvent;
 
         private void OnEnable()
         {
-            HanbreakeEvent.BoolEvent += HandBrake;
-            StopTimeEvent.BoolEvent += StopTime;
-            AngleEvent.FloatEvent += Angle;
-            TorqueEvent.FloatEvent += Torque;
-            RotateEvent.FloatEvent += Rotate;
+            _hanbreakeEvent.BoolEvent += HandBrake;
+            _stopTimeEvent.BoolEvent += StopTime;
+            _angleEvent.FloatEvent += Angle;
+            _torqueEvent.FloatEvent += Torque;
+            _rotateEvent.FloatEvent += Rotate;
+            _impulseEvent.BoolEvent += Impulse;
         }
 
         private void OnDisable()
         {
-            HanbreakeEvent.BoolEvent -= HandBrake;
-            StopTimeEvent.BoolEvent -= StopTime;
-            AngleEvent.FloatEvent -= Angle;
-            TorqueEvent.FloatEvent -= Torque;
-            RotateEvent.FloatEvent -= Rotate;
+            _hanbreakeEvent.BoolEvent -= HandBrake;
+            _stopTimeEvent.BoolEvent -= StopTime;
+            _angleEvent.FloatEvent -= Angle;
+            _torqueEvent.FloatEvent -= Torque;
+            _rotateEvent.FloatEvent -= Rotate;
+            _impulseEvent.BoolEvent -= Impulse;
         }
 
         void HandBrake(bool b)
@@ -53,6 +56,11 @@ namespace com.LazyGames.Dio
         void Rotate(float f)
         {
             Debug.Log("Angulo: " + f);
+        }
+
+        void Impulse(bool b)
+        {
+            Debug.Log("Valor booleano: " + b);
         }
     }
 }
