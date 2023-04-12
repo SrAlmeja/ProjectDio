@@ -1,8 +1,5 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
 //
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CryoStorage;
 
@@ -24,6 +21,7 @@ namespace com.LazyGames.Dio
         private Vector3 impulseCenter;
         private Vector3 impulsePos;
         private Vector3 impulseDir;
+        private SteeringEventsListener _listener;
 
         // Start is called before the first frame update
         void Start()
@@ -42,13 +40,17 @@ namespace com.LazyGames.Dio
 
         private void Visualize()
         {
+            indicator.SetActive(_listener.stopTime);
+            if(!_listener.stopTime)return;
             indicator.transform.position = impulsePos;
             indicator.transform.rotation = CryoMath.AimAtDirection(impulseCenter, impulsePos);
         }
 
         private void GetDirection()
         {
-           impulsePos = CryoMath.PointOnRadius(impulseCenter, impulseRadius ,impulseAngle);
+            // Vector2 vel = new Vector2(rb.velocity.x, rb.velocity.z);
+            // var angle = CryoMath.AngleFromOffset(vel);
+           impulsePos = CryoMath.PointOnRadius(impulseCenter, impulseRadius , impulseAngle);
         }
 
         private void OnDrawGizmos()
@@ -63,6 +65,7 @@ namespace com.LazyGames.Dio
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
+                if(! _listener.stopTime)return;
                 impulseDir = impulsePos - transform.position + offsetVector;
                 rb.AddForce(impulseDir.normalized * impulseStrength);
             }
@@ -80,8 +83,8 @@ namespace com.LazyGames.Dio
         {
             rb = GetComponent<Rigidbody>();
             impulseStrength = impulseStrength * rb.mass;
+            _listener = GetComponent<SteeringEventsListener>();
             
         }
     }
-    
 }
