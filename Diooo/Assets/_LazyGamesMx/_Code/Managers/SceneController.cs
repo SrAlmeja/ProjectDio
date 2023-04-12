@@ -1,25 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
+// Dino 11/04/2023 Creation of the script
+//Control the scenes and the network scenes
+
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour
+namespace com.LazyGames.Dio
 {
-    public static SceneController Instance;
-    
-    void Start()
+    public class SceneController : MonoBehaviour
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        
-    }
+        #region public variables
 
-    void Update()
-    {
-        
-    }
-    
-    public void LoadScene(string sceneKey)
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneKey);
+        public static SceneController Instance;
+
+
+
+        #endregion
+
+        #region private variables
+
+        private static string _targetScene;
+
+        #endregion
+
+
+        #region unity methods
+
+        void Start()
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+        }
+
+        void Update()
+        {
+
+        }
+
+        #endregion
+
+        #region public methods
+
+
+
+        public void LoadScene(string sceneKey)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneKey);
+        }
+
+        public void LoadSceneNetwork(string sceneKey)
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene(sceneKey, LoadSceneMode.Single);
+        }
+
+        #endregion
+
     }
 }
