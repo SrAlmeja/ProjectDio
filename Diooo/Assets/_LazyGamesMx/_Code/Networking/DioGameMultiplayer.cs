@@ -1,3 +1,5 @@
+//Dino this script manage the multiplayer of the game
+//Decides who is the host and who is the client
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +10,16 @@ namespace com.LazyGames.Dio
 {
     public class DioGameMultiplayer : MonoBehaviour
     {
+        #region public variables
         public static DioGameMultiplayer Instance;
-
         public event Action OnFinishLoading;
+        #endregion
+        
+        #region private variables
         private bool _isInitialized;
-
+        #endregion
+        
+        #region Unity Methods
         private void Awake()
         {
             Instance = this;
@@ -29,6 +36,10 @@ namespace com.LazyGames.Dio
         {
         }
 
+        #endregion
+
+        #region public methods
+
         public void StartHost()
         {
             NetworkManager.Singleton.StartHost();
@@ -39,5 +50,7 @@ namespace com.LazyGames.Dio
             NetworkManager.Singleton.StartClient();
             Debug.Log("Start Client");
         }
+        #endregion
+
     }
 }

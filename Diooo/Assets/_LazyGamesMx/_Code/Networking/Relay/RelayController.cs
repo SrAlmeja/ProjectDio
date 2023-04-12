@@ -1,4 +1,5 @@
 //Dino/05/04/2023 Creation of the class this class will manage the connection between players in different computers
+// this script is the connection to the relay server
 
 using System;
 using System.Collections;
