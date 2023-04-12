@@ -722,11 +722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a331d5ec608e215478cce742390df216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lobbyCodeText: {fileID: 848110421}
-  _lobbyLayoutParent: {fileID: 1856517759}
-  _playerUIPrefab: {fileID: 7832981114796464020, guid: f159ee7a4b8ea0d478925d2d1c2a726a, type: 3}
-  _playerLobbyUIs: []
-  _playerImages:
+  lobbyCodeText: {fileID: 848110421}
+  lobbyLayoutParent: {fileID: 1856517759}
+  playerUIPrefab: {fileID: 7832981114796464020, guid: f159ee7a4b8ea0d478925d2d1c2a726a, type: 3}
+  playerLobbyUIs: []
+  playerImages:
   - {fileID: 1610803836, guid: c1490922456004040975c9fab2d7deab, type: 3}
   - {fileID: -1585233204, guid: c1490922456004040975c9fab2d7deab, type: 3}
   - {fileID: 1197231696, guid: c1490922456004040975c9fab2d7deab, type: 3}
@@ -1355,7 +1355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1700,50 +1700,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7479861613282605700, guid: 098218aa30b813348aaeca09c7d6ba06, type: 3}
   m_PrefabInstance: {fileID: 7479861612271869498}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2122952469
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2122952470}
-  - component: {fileID: 2122952471}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2122952470
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122952469}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2122952471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122952469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de28bb3a50a278742b198195b75edc4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2146499515
 GameObject:
   m_ObjectHideFlags: 0

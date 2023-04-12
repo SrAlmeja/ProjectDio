@@ -13,11 +13,11 @@ namespace com.LazyGames.Dio
     {
         #region private Variables
 
-        [SerializeField] private Text _lobbyCodeText;
-        [SerializeField] private GameObject _lobbyLayoutParent;
-        [SerializeField] private GameObject _playerUIPrefab;
-        [SerializeField] private List<PlayerLobbyUI> _playerLobbyUIs = new List<PlayerLobbyUI>();
-        [SerializeField] private List<Sprite> _playerImages;
+        [SerializeField] private Text lobbyCodeText;
+        [SerializeField] private GameObject lobbyLayoutParent;
+        [SerializeField] private GameObject playerUIPrefab;
+        [SerializeField] private List<PlayerLobbyUI> playerLobbyUIs = new List<PlayerLobbyUI>();
+        [SerializeField] private List<Sprite> playerImages;
 
         #endregion
 
@@ -55,21 +55,21 @@ namespace com.LazyGames.Dio
         {
             string lobbyCode = LobbyController.Instance.GetLobby().LobbyCode;
             string lobbyName = LobbyController.Instance.GetLobby().Name;
-            _lobbyCodeText.text = lobbyName + " CODE =  " + lobbyCode;
+            lobbyCodeText.text = lobbyName + " CODE =  " + lobbyCode;
         }
 
         void JoinPlayerUI(string playerName)
         {
-            GameObject playerLobby = Instantiate(_playerUIPrefab, _lobbyLayoutParent.transform);
+            GameObject playerLobby = Instantiate(playerUIPrefab, lobbyLayoutParent.transform);
             playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerInfo(playerName, SelectRandomImagePlayer());
-            _playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
+            playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
             UploadLobbyCode();
         }
 
         Sprite SelectRandomImagePlayer()
         {
-            int randomIndex = Random.Range(0, _playerImages.Count);
-            Sprite randomImage = _playerImages[randomIndex];
+            int randomIndex = Random.Range(0, playerImages.Count);
+            Sprite randomImage = playerImages[randomIndex];
             return randomImage;
         }
 

@@ -22,15 +22,15 @@ namespace com.LazyGames.Dio
 
         public static RelayController Instance;
 
-        public string RelayJoinCode => relayJoinCode;
+        public string RelayJoinCode => _relayJoinCode;
 
         #endregion
         
         #region private variables
         //Do not include the host in the max connections
-        [SerializeField] int maxConnections = 3;
+        [SerializeField] private int maxConnections = 3;
         
-        string relayJoinCode = "";
+        string _relayJoinCode = "";
         #endregion
 
 
@@ -61,12 +61,12 @@ namespace com.LazyGames.Dio
             try
             {
                 Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
-                 relayJoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-                Debug.Log("<color=#EE92FF>Join RELAY code: </color>" + relayJoinCode);
+                 _relayJoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+                Debug.Log("<color=#EE92FF>Join RELAY code: </color>" + _relayJoinCode);
 
                 await LobbyService.Instance.UpdateLobbyAsync(joinedLobbyId, new UpdateLobbyOptions {
                     Data = new Dictionary<string, DataObject> {
-                        { KEY_RELAY_JOIN_CODE , new DataObject(DataObject.VisibilityOptions.Member, relayJoinCode) }
+                        { KEY_RELAY_JOIN_CODE , new DataObject(DataObject.VisibilityOptions.Member, _relayJoinCode) }
                     }
                 });
 
