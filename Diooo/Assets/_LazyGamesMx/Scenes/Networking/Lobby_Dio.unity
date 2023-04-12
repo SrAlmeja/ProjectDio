@@ -722,11 +722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a331d5ec608e215478cce742390df216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lobbyCodeText: {fileID: 848110421}
-  _lobbyLayoutParent: {fileID: 1856517759}
-  _playerUIPrefab: {fileID: 7832981114796464020, guid: f159ee7a4b8ea0d478925d2d1c2a726a, type: 3}
-  _playerLobbyUIs: []
-  _playerImages:
+  lobbyCodeText: {fileID: 848110421}
+  lobbyLayoutParent: {fileID: 1856517759}
+  playerUIPrefab: {fileID: 7832981114796464020, guid: f159ee7a4b8ea0d478925d2d1c2a726a, type: 3}
+  playerLobbyUIs: []
+  playerImages:
   - {fileID: 1610803836, guid: c1490922456004040975c9fab2d7deab, type: 3}
   - {fileID: -1585233204, guid: c1490922456004040975c9fab2d7deab, type: 3}
   - {fileID: 1197231696, guid: c1490922456004040975c9fab2d7deab, type: 3}
