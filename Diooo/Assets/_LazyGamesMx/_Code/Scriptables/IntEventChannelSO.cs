@@ -10,10 +10,16 @@ namespace com.LazyGames.Dio
     public class IntEventChannelSO : ScriptableObject
     {
         public UnityAction<int> IntEvent;
+        public UnityAction<int, int> DoubleIntEvent;
 
         public void RaiseEvent(int value)
         {
             IntEvent?.Invoke(value);
+        }
+
+        public void RaiseDoubleEvent(int valueOne, int valueTwo)
+        {
+            DoubleIntEvent?.Invoke(valueOne, valueTwo);
         }
     }
 }

@@ -643,7 +643,7 @@
                 {
                     "name": "",
                     "id": "a6462cc6-94bc-438b-97a7-c8958bf935c5",
-                    "path": "<Keyboard>/delete",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
