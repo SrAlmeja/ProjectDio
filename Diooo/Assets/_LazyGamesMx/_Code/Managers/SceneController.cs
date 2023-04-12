@@ -46,7 +46,7 @@ namespace com.LazyGames.Dio
 
         public void LoadScene(string sceneKey)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneKey);
+            SceneManager.LoadSceneAsync(sceneKey);
         }
 
         public void LoadSceneNetwork(string sceneKey)
