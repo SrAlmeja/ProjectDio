@@ -17,12 +17,12 @@ namespace com.LazyGames.Dio
         InputAction SelectUIInputAction;
         InputAction BackUIInputAction;
 
-        [SerializeField] private VoidEventChannelSO UpUIEvent;
-        [SerializeField] private VoidEventChannelSO DownUIEvent;
-        [SerializeField] private VoidEventChannelSO LeftUIEvent;
-        [SerializeField] private VoidEventChannelSO RightUIEvent;
-        [SerializeField] private VoidEventChannelSO SelectUIEvent;
-        [SerializeField] private VoidEventChannelSO BackUIEvent;
+        [SerializeField] private VoidEventChannelSO _upUIEvent;
+        [SerializeField] private VoidEventChannelSO _downUIEvent;
+        [SerializeField] private VoidEventChannelSO _leftUIEvent;
+        [SerializeField] private VoidEventChannelSO _rightUIEvent;
+        [SerializeField] private VoidEventChannelSO _selectUIEvent;
+        [SerializeField] private VoidEventChannelSO _backUIEvent;
 
         private void OnEnable()
         {
@@ -76,32 +76,32 @@ namespace com.LazyGames.Dio
 
         void GetUpUIInput(InputAction.CallbackContext context)
         {
-            UpUIEvent.RaiseEvent();
+            _upUIEvent.RaiseEvent();
         }
 
         void GetDownUIInput(InputAction.CallbackContext context)
         {
-            DownUIEvent.RaiseEvent();
+            _downUIEvent.RaiseEvent();
         }
 
         void GetLeftUIInput(InputAction.CallbackContext context)
         {
-            LeftUIEvent.RaiseEvent();
+            _leftUIEvent.RaiseEvent();
         }
 
         void GetRightUIInput(InputAction.CallbackContext context)
         {
-            RightUIEvent.RaiseEvent();
+            _rightUIEvent.RaiseEvent();
         }
 
         void GetSelectUIInput(InputAction.CallbackContext context)
         {
-            SelectUIEvent.RaiseEvent();
+            _selectUIEvent.RaiseEvent();
         }
 
         void GetBackUIInput(InputAction.CallbackContext context)
         {
-            BackUIEvent.RaiseEvent();
+            _backUIEvent.RaiseEvent();
         }
     }
 }

@@ -22,7 +22,10 @@ namespace com.LazyGames.Dio
         [SerializeField] private FloatEventChannelSO _angleEvent;
         [SerializeField] private FloatEventChannelSO _torqueEvent;
         [SerializeField] private FloatEventChannelSO _rotateEvent;
-        [SerializeField] private BoolEventChannelSO _impulseEvent;
+        [SerializeField] private VectorTwoEventChannelSO _vector2InputEvent;
+        [SerializeField] private VoidEventChannelSO _impulseEvent;
+
+        private float _tap = 0;
 
         private void OnEnable()
         {
@@ -96,13 +99,17 @@ namespace com.LazyGames.Dio
 
         void StopTimeInput(InputAction.CallbackContext context) 
         {
-            if (context.ReadValue<float>() == 0)
-            {
-                _stopTimeEvent.RaiseEvent(false);
-            }
-            else
+            if(_tap == 0)
             {
                 _stopTimeEvent.RaiseEvent(true);
+                _tap = 1;
+                return;
+            }
+            if(_tap == 1)
+            {
+                _stopTimeEvent.RaiseEvent(false);
+                _tap = 0;
+                return;
             }
         }
 
@@ -124,18 +131,12 @@ namespace com.LazyGames.Dio
             }
 
             _rotateEvent.RaiseEvent(finalAngle);
+            _vector2InputEvent.RaiseEvent(context.ReadValue<Vector2>());
         }
 
         void GetImpulseInput(InputAction.CallbackContext context)
         {
-            if (context.ReadValue<float>() == 0)
-            {
-                _impulseEvent.RaiseEvent(false);
-            }
-            else
-            {
-                _impulseEvent.RaiseEvent(true);
-            }
+            _impulseEvent.RaiseEvent();
         }
     }
 }

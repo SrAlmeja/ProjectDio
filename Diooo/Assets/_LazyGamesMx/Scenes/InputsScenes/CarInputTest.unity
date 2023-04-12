@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -157,6 +157,7 @@ MonoBehaviour:
   _angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
   _torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
   _rotateEvent: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
+  _vector2InputEvent: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
   _impulseEvent: {fileID: 11400000, guid: 35e7e3da2c95f02408d101c2bbd87652, type: 2}
 --- !u!4 &381050151
 Transform:
@@ -424,7 +425,7 @@ PrefabInstance:
     - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
       propertyPath: impulseEvent
       value: 
-      objectReference: {fileID: 11400000, guid: 35e7e3da2c95f02408d101c2bbd87652, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
       propertyPath: HanbreakEvent
       value: 
@@ -445,6 +446,10 @@ PrefabInstance:
       propertyPath: _stopTimeEvent
       value: 
       objectReference: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+    - target: {fileID: 7613989157715927188, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
+      propertyPath: _vector2InputEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
     - target: {fileID: 7613989157715927190, guid: 56154ad5f34f3d24bbde36bb2772c395, type: 3}
       propertyPath: m_RootOrder
       value: 3

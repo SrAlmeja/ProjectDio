@@ -11,7 +11,8 @@ namespace com.LazyGames.Dio
         [SerializeField] private FloatEventChannelSO _angleEvent;
         [SerializeField] private FloatEventChannelSO _torqueEvent;
         [SerializeField] private FloatEventChannelSO _rotateEvent;
-        [SerializeField] private BoolEventChannelSO _impulseEvent;
+        [SerializeField] private VectorTwoEventChannelSO _vector2InputEvent;
+        [SerializeField] private VoidEventChannelSO _impulseEvent;
 
         private void OnEnable()
         {
@@ -20,7 +21,8 @@ namespace com.LazyGames.Dio
             _angleEvent.FloatEvent += Angle;
             _torqueEvent.FloatEvent += Torque;
             _rotateEvent.FloatEvent += Rotate;
-            _impulseEvent.BoolEvent += Impulse;
+            _vector2InputEvent.Vector2Event += VecTwoInput;
+            _impulseEvent.VoidEvent += Impulse;
         }
 
         private void OnDisable()
@@ -30,37 +32,43 @@ namespace com.LazyGames.Dio
             _angleEvent.FloatEvent -= Angle;
             _torqueEvent.FloatEvent -= Torque;
             _rotateEvent.FloatEvent -= Rotate;
-            _impulseEvent.BoolEvent -= Impulse;
+            _vector2InputEvent.Vector2Event -= VecTwoInput;
+            _impulseEvent.VoidEvent -= Impulse;
         }
 
         void HandBrake(bool b)
         {
-            //Debug.Log("Valor booleano: " + b);
+            //Debug.Log("Booleano de freno: " + b);
         }
 
         void StopTime(bool b)
         {
-            //Debug.Log("Valor booleano: " + b);
+            //Debug.Log("Booleano de parar el tiempo: " + b);
         }
 
         void Angle(float f)
         {
-            //Debug.Log("Flotante Uno: " + f);
+            //Debug.Log("Flotante llantas: " + f);
         }
 
         void Torque(float f)
         {
-            //Debug.Log("Flotante Dos: " + f);
+            //Debug.Log("Flotante Aceleración: " + f);
         }
 
         void Rotate(float f)
         {
-            Debug.Log("Angulo: " + f);
+            //Debug.Log("Flotante angulo: " + f);
         }
 
-        void Impulse(bool b)
+        void VecTwoInput(Vector2 v2)
         {
-            Debug.Log("Valor booleano: " + b);
+            Debug.Log("vector2 value: " + v2);
+        }
+
+        void Impulse()
+        {
+            //Debug.Log("Se llama el evento");
         }
     }
 }

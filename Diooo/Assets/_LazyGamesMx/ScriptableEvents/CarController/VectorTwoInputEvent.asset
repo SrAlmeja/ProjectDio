@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bf9a473b8d0c24a9f6d757353658c4, type: 3}
-  m_Name: ImpulseEvent
+  m_Script: {fileID: 11500000, guid: bca733c44e9a92445948c4272efd13a1, type: 3}
+  m_Name: VectorTwoInputEvent
   m_EditorClassIdentifier: 
