@@ -12,6 +12,7 @@ namespace com.LazyGames.Dio
 
         public override void OnNetworkSpawn()
         {
+            if (!IsOwner) return;
             Prepare();
         }
 
@@ -20,6 +21,7 @@ namespace com.LazyGames.Dio
 
         private void Update()
         {
+            if (!IsOwner) return;
             HandleMotor();
             HandleSteering();
             
