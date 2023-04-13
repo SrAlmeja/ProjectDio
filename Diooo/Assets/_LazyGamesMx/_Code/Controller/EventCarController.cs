@@ -10,11 +10,11 @@ namespace com.LazyGames.Dio
         private float maxBreakForce;
         private SteeringEventsListener _listener;
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
             Prepare();
         }
-        
+
         protected override void FixedUpdate()
         { /* truncated from base class */ }
 
