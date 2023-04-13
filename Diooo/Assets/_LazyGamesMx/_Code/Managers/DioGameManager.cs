@@ -18,7 +18,7 @@ namespace com.LazyGames.Dio
 
         #region private variables
 
-        [SerializeField] private Transform _playerCarPrefab;
+        [SerializeField] private GameObject _playerCarPrefab;
 
 
         #endregion
@@ -59,7 +59,7 @@ namespace com.LazyGames.Dio
         {
             foreach (ulong clientID in NetworkManager.Singleton.ConnectedClientsIds)
             {
-                Transform playerTransform = Instantiate(_playerCarPrefab);
+                GameObject playerTransform = Instantiate(_playerCarPrefab);
                 playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientID, true);
                 Debug.Log("Spawned player for client: " + clientID);
             }

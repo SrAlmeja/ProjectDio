@@ -1,10 +1,12 @@
 // Creado Raymundo "CryoStorage" Mosqueda 07/04/2023
 //
+
+using Unity.Netcode;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
 {
-    public class SteeringEventsListener : MonoBehaviour
+    public class SteeringEventsListener : NetworkBehaviour
     {
         [SerializeField]private BoolEventChannelSO handbrakeEvent;
         [SerializeField]private BoolEventChannelSO stopTimeEvent;
@@ -17,8 +19,12 @@ namespace com.LazyGames.Dio
         [HideInInspector]public bool stopTime;
         [HideInInspector]public float angle;
         [HideInInspector]public float torque;
-        private void OnEnable()
+        public override void OnNetworkSpawn()
         {
+
+            if(!IsOwner) return;
+            Debug.Log($"<color=green>SteeringEventsLISTENER By{NetworkObject.OwnerClientId} </color>" );
+
             handbrakeEvent.BoolEvent += HandBrake;
             stopTimeEvent.BoolEvent += StopTime;
             angleEvent.FloatEvent += Angle;
@@ -27,6 +33,8 @@ namespace com.LazyGames.Dio
 
         private void OnDisable()
         {
+            if(!IsOwner) return;
+
             handbrakeEvent.BoolEvent -= HandBrake;
             stopTimeEvent.BoolEvent -= StopTime;
             angleEvent.FloatEvent -= Angle;

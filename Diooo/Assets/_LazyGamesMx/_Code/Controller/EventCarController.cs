@@ -2,6 +2,7 @@
 //
 
 using System;
+using UnityEngine;
 
 namespace com.LazyGames.Dio 
 {
@@ -13,6 +14,8 @@ namespace com.LazyGames.Dio
         public override void OnNetworkSpawn()
         {
             if (!IsOwner) return;
+            Debug.Log($"<color=green>event car Controller By{NetworkObject.OwnerClientId} IS LOCAL PLAYER = {IsLocalPlayer} </color>" );
+
             Prepare();
         }
 
