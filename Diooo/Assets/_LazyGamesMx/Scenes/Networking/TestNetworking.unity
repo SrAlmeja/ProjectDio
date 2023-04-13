@@ -756,7 +756,7 @@ Transform:
   m_GameObject: {fileID: 630388688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.6871686, y: 2.6871686, z: 2.6871686}
+  m_LocalScale: {x: 42.210274, y: 42.210274, z: 42.210274}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2003517001}
@@ -1452,7 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe506fea28041074cb86aeaee8dafb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCarPrefab: {fileID: 2808061188053500317, guid: ed2a740d498f60d4b918c41fdb270b32, type: 3}
+  _playerCarPrefab: {fileID: 754094263971536061, guid: 4461c741861fd8e4c93533c014343b05, type: 3}
 --- !u!114 &1990556992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,7 +1911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
