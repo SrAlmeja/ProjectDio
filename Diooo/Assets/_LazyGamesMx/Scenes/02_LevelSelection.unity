@@ -3057,12 +3057,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 195f0cbb6f06ff44bb3d19a9c25ed31f, type: 3}
-  UpUIEvent: {fileID: 11400000, guid: ec2487c838e69424ba62ec24b248f7d2, type: 2}
-  DownUIEvent: {fileID: 11400000, guid: c31702f728c804344b0eb7e4e64adb69, type: 2}
-  LeftUIEvent: {fileID: 11400000, guid: 69f10896a6bd6fe4bbc3e39a075803ed, type: 2}
-  RightUIEvent: {fileID: 11400000, guid: f716447b3201644489afd768816aae5f, type: 2}
-  SelectUIEvent: {fileID: 11400000, guid: 67a44b715c669ad4d80bde6fa2579cff, type: 2}
-  BackUIEvent: {fileID: 11400000, guid: e8f538208bd72874b8aaf2cd7f4b9d0b, type: 2}
+  _upUIEvent: {fileID: 11400000, guid: ec2487c838e69424ba62ec24b248f7d2, type: 2}
+  _downUIEvent: {fileID: 11400000, guid: c31702f728c804344b0eb7e4e64adb69, type: 2}
+  _leftUIEvent: {fileID: 11400000, guid: 69f10896a6bd6fe4bbc3e39a075803ed, type: 2}
+  _rightUIEvent: {fileID: 11400000, guid: f716447b3201644489afd768816aae5f, type: 2}
+  _selectUIEvent: {fileID: 11400000, guid: 67a44b715c669ad4d80bde6fa2579cff, type: 2}
+  _backUIEvent: {fileID: 11400000, guid: e8f538208bd72874b8aaf2cd7f4b9d0b, type: 2}
 --- !u!4 &1712410565
 Transform:
   m_ObjectHideFlags: 0

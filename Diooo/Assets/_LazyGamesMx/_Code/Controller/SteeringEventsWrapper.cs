@@ -1,11 +1,13 @@
 //creado Raymundo "CryoStorage" Mosqueda 07/04/2023
 //
+
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace com.LazyGames.Dio
 {
-    public class SteeringEventsWrapper : MonoBehaviour
+    public class SteeringEventsWrapper : NetworkBehaviour
     {
         [Header("Unity Input References")]
         public InputActionAsset inputActions;
@@ -16,31 +18,40 @@ namespace com.LazyGames.Dio
         [SerializeField]private FloatEventChannelSO angleEvent;
         [SerializeField]private FloatEventChannelSO torqueEvent;
 
-        private InputActionMap _gameplayActionMap;
+        [SerializeField]private InputActionMap _gameplayActionMap;
         private InputAction _handBrakeInputAction;
         private InputAction _steeringInputAction;
         private InputAction _accelerationInputAction;
         private InputAction _timeStopInputAction;
         
-        private void Awake()
+        public override void OnNetworkSpawn()
         {
+            if (!IsOwner) return;
+            Debug.Log($"<color=green>SteeringEventsWrapper By{NetworkObject.OwnerClientId} Is Local PLAYER = {IsLocalPlayer} </color>" );
+            
             Prepare();
+            EnableInputs();
         }
         
-        private void OnEnable()
+        private void EnableInputs()
         {
-            _handBrakeInputAction.Enable();
-            _steeringInputAction.Enable();
-            _accelerationInputAction.Enable();
-            _timeStopInputAction.Enable();
+        Debug.Log("<color=blue>SteeringEventsWrapper OnEnable INPUT ACTIONS</color>");
+        _handBrakeInputAction.Enable();
+        _steeringInputAction.Enable();
+        _accelerationInputAction.Enable();
+        _timeStopInputAction.Enable();
         }
-        private void OnDisable()
-        {
-            _handBrakeInputAction.Disable();
-            _steeringInputAction.Disable();
-            _accelerationInputAction.Disable();
-            _timeStopInputAction.Disable();
-        }
+        // private void OnDisable()
+        // {
+        //     if (!IsOwner)
+        //     {
+        //         return;
+        //     }
+        //     _handBrakeInputAction.Disable();
+        //     _steeringInputAction.Disable();
+        //     _accelerationInputAction.Disable();
+        //     _timeStopInputAction.Disable();
+        // }
         
         void GetHandBrakeInput(InputAction.CallbackContext context)
         {

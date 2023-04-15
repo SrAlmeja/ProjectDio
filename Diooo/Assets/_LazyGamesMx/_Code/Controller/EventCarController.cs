@@ -2,6 +2,7 @@
 //
 
 using System;
+using UnityEngine;
 
 namespace com.LazyGames.Dio 
 {
@@ -10,16 +11,20 @@ namespace com.LazyGames.Dio
         private float maxBreakForce;
         private SteeringEventsListener _listener;
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
+            if (!IsOwner) return;
+            Debug.Log($"<color=green>event car Controller By{NetworkObject.OwnerClientId} IS LOCAL PLAYER = {IsLocalPlayer} </color>" );
+
             Prepare();
         }
-        
+
         protected override void FixedUpdate()
         { /* truncated from base class */ }
 
         private void Update()
         {
+            if (!IsOwner) return;
             HandleMotor();
             HandleSteering();
             
