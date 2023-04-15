@@ -47,6 +47,7 @@ namespace com.LazyGames.Dio
             if (IsServer)
             {
                 // Debug.Log("Server is loading the scene");
+                Debug.Log("<color=#3B97FE>Number of players connected </color>" + NetworkManager.Singleton.ConnectedClientsIds.Count);
                 NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
             }
         }
@@ -59,28 +60,27 @@ namespace com.LazyGames.Dio
             UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted,
             List<ulong> clientsTimedOut)
         {
-            
-            Debug.Log("<color=#C9FE3B>Number of players connected </color>" + NetworkManager.Singleton.ConnectedClientsIds.Count);
-            
-            int spawnIndex = 0;
             foreach (var clientID in NetworkManager.Singleton.ConnectedClientsIds)
             {
-                spawnIndex++;
-                if (spawnIndex >= placesToSpawnCars.Count)
+                _spawnIndex++;
+                if (_spawnIndex >= placesToSpawnCars.Count)
                 {
                     Debug.Log("<color=#FE4A3B>Not enough spawn points</color>");
                     return;
                 }
                 
-                Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ spawnIndex);
+                Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
                 
                 Transform playerTransform = Instantiate(playerCarPrefab);
-                playerTransform.position = placesToSpawnCars[spawnIndex].position;
+                playerTransform.position = placesToSpawnCars[_spawnIndex].position;
                 NetworkObject networkObject = playerTransform.GetComponent<NetworkObject>();
                 networkObject.SpawnAsPlayerObject(clientID, true);
                 Debug.Log("<color=#7AEFFF>Spawned player for client: </color>" + clientID + gameObject.name); 
             }
         }
+
+        
+        int _spawnIndex = 0;
 
 
         #endregion
