@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace com.LazyGames.Dio
 {
-    public class DioGameMultiplayer : MonoBehaviour
+    public class DioGameMultiplayer : NetworkBehaviour
     {
         #region public variables
         public static DioGameMultiplayer Instance;
@@ -52,5 +52,9 @@ namespace com.LazyGames.Dio
         }
         #endregion
 
+        
+        // private 
+        
+        
     }
 }
