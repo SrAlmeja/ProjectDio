@@ -21,3 +21,7 @@ MonoBehaviour:
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 6792792211511400677, guid: fa140b2f04e08ba48b31862c4c2eb597, type: 3}
+  - <Name>k__BackingField: Pista 3
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 1141279174050126309, guid: c2e4f4575de3c9f459ae3a1c8f530dd4, type: 3}
