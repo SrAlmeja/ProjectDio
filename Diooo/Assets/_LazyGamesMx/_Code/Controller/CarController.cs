@@ -116,16 +116,16 @@ namespace com.LazyGames.Dio
         void RotateInput(InputAction.CallbackContext context)
         {
             Vector2 VectorInput = context.ReadValue<Vector2>();
-            float angle = Vector2.Angle(Vector2.right, VectorInput); // obtiene el ángulo en un rango de 0 a 180 grados
+            float angle = Vector2.Angle(Vector2.right, VectorInput); // obtiene el Ã¡ngulo en un rango de 0 a 180 grados
 
-            if (VectorInput.y < 0) // ajusta el ángulo si está en el segundo o tercer cuadrante
+            if (VectorInput.y < 0) // ajusta el Ã¡ngulo si estÃ¡ en el segundo o tercer cuadrante
             {
                 angle = 360 - angle;
             }
 
-            float finalAngle = Mathf.Atan2(VectorInput.y, VectorInput.x) * Mathf.Rad2Deg; // convierte el ángulo a grados
+            float finalAngle = Mathf.Atan2(VectorInput.y, VectorInput.x) * Mathf.Rad2Deg; // convierte el Ã¡ngulo a grados
 
-            if (finalAngle < 0) // ajusta el ángulo si es negativo
+            if (finalAngle < 0) // ajusta el Ã¡ngulo si es negativo
             {
                 finalAngle += 360;
             }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -703,6 +703,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugCar
       objectReference: {fileID: 0}
+    - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _angleEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+    - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _rotateEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
+    - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _torqueEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+    - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _impulseEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 35e7e3da2c95f02408d101c2bbd87652, type: 2}
+    - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _hanbreakEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+    - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _stopTimeEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+    - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _vector2InputEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
     - target: {fileID: 448018275281591430, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
       propertyPath: m_RootOrder
       value: 3

@@ -24,11 +24,12 @@ namespace com.LazyGames.Dio
         void Update()
         {
             StopTime();
+
         }
 
         private void StopTime()
         {
-            _rigidbody.velocity = _rigidbody.velocity * slowFactor;
+            _rigidbody.drag = _rigidbody.drag * slowFactor;
             _rigidbody.angularDrag = _rigidbody.angularDrag * slowFactor;
             Debug.Log($"StopTime: {_steeringEventsListener.stopTime}");
 
