@@ -19,7 +19,7 @@ namespace com.LazyGames.Dio
         {
             get
             {
-                if (_instance == null)
+                if (FindObjectOfType<DioGameManager>() == null)
                 {
                     GameObject gameManagerGO = new GameObject("DioGameManager");
                     gameManagerGO.SetActive(false);
@@ -86,6 +86,11 @@ namespace com.LazyGames.Dio
         #endregion
 
         #region Unity Methods
+
+        private void Awake()
+        {
+            _instance = this;
+        }
 
         void Start()
         {
