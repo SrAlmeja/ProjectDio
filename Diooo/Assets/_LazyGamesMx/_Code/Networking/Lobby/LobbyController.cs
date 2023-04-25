@@ -20,7 +20,24 @@ namespace com.LazyGames.Dio
         
         #region public variables
 
-        public static LobbyController Instance; 
+        public static LobbyController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    GameObject lobbyControllerGO = new GameObject("LobbyController");
+                    lobbyControllerGO.SetActive(false);
+                    _instance = lobbyControllerGO.AddComponent<LobbyController>();
+
+                    lobbyControllerGO.SetActive(true);
+                    DontDestroyOnLoad(lobbyControllerGO);
+                    
+                }
+
+                return _instance;
+            }   
+        }
         [SerializeField] string defaultPlayerName = "Player";
         [SerializeField] string lobbyName = "DinoLobby";
         [SerializeField] int maxPlayers = 4;
@@ -34,7 +51,7 @@ namespace com.LazyGames.Dio
         
         #region private variables
 
-        // private Lobby _hostLobby;
+        private static LobbyController _instance;
         private Lobby _myJoinedLobby;
         private int _listLobbyCount = 0;
         private float _heartbeatTimer = 0.0f;
@@ -48,7 +65,7 @@ namespace com.LazyGames.Dio
         
         private void Awake()
         {
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
