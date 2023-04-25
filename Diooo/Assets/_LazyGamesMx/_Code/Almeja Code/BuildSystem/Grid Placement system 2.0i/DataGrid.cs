@@ -27,7 +27,7 @@ public class DataGrid
         {
             for (int y = 0; y < objectSize.y; y++)
             {
-                returnVal.Add(gridPosition + new Vector3Int(x,y,0));
+                returnVal.Add(gridPosition + new Vector3Int(x,0,y));
             }
         }
         return returnVal;
@@ -35,13 +35,12 @@ public class DataGrid
 
     public bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
-        List<Vector3Int> positionOccupy = CalculatePositions(gridPosition, objectSize);
-        foreach (var pos in positionOccupy)
+        List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
+        foreach (var pos in positionToOccupy)
         {
             if (placedObject.ContainsKey(pos))
                 return false;
         }
-
         return true;
     }
 }
@@ -51,10 +50,11 @@ public class DataGrid
 {
     public List<Vector3Int> occupiedPositions;
     public int ID { get; private set; }
-    public int PlacedObjectIndex { get; private set; }
+    public int PlacedObjectIndex { get; private set; } 
 
     public PlacementData(List<Vector3Int> occupiedPositions, int iD, int placedObjectIndex)
     {
+        this.occupiedPositions = occupiedPositions;
         ID = iD;
         placedObjectIndex = placedObjectIndex;
     }
