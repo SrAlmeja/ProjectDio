@@ -1,19 +1,15 @@
-// Creado Raymundo Mosqueda 24/04/2023
-//
-
-using System;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
 {
-    public class DebugEventCarController : MonoBehaviour
+    public class DummyCarVelocityChange : MonoBehaviour
     {
-        
         [Header("Configurable Values")]
-        [SerializeField] private float motorForce = 2000f;
         [SerializeField] private float maxSteerAngle = 35f;
         [SerializeField] private float maxBreakForce = 8000f;
-        
+        [SerializeField] private float maxRPM= 8000f;
+        [SerializeField] private float myRPM;
+
         [Header("Serialized Wheel Colliders")]
         [SerializeField] private WheelCollider frontLeftWheelCollider;
         [SerializeField] private WheelCollider frontRightWheelCollider;
@@ -28,9 +24,8 @@ namespace com.LazyGames.Dio
 
         private DebugSteeringEventsListener _steeringEventsListener;
         private float currentSteerAngle;
-        private bool isBreaking;
         private float breakForce;
-        
+
         private void Start()
         {
             Prepare();
@@ -45,9 +40,15 @@ namespace com.LazyGames.Dio
 
         private void HandleMotor()
         {
-            frontLeftWheelCollider.motorTorque = _steeringEventsListener.torque  * motorForce;
-            frontRightWheelCollider.motorTorque = _steeringEventsListener.torque * motorForce;
+            float wheelRPM = _steeringEventsListener.torque;
+            frontLeftWheelCollider.motorTorque = CalculateTorque(wheelRPM);
+            frontRightWheelCollider.motorTorque = CalculateTorque(wheelRPM);
             ApplyBreaking();
+        }
+
+        private float CalculateTorque(float wheelRPM)
+        {
+            return wheelRPM >= myRPM ? 0 : (1 - wheelRPM / maxRPM) * _steeringEventsListener.torque * 5000;
         }
 
         private void ApplyBreaking()
@@ -87,11 +88,25 @@ namespace com.LazyGames.Dio
             wheelCollider.GetWorldPose(out pos, out rot);
             wheelTransform.rotation = rot;
             wheelTransform.position = pos;
+            float rpm = CalculateRPM(wheelCollider);
+            //myRPM = rpm;
+        }
+
+        private float CalculateRPM(WheelCollider wheelCollider)
+        {
+            float wheelRPM = wheelCollider.rpm;
+            float wheelRadius = wheelCollider.radius;
+            float rpm = wheelRPM * wheelRadius * 2 * Mathf.PI * 60 / 1000;
+            return rpm;
         }
 
         void Prepare()
         {
             _steeringEventsListener = GetComponent<DebugSteeringEventsListener>();
+            frontLeftWheelCollider.ConfigureVehicleSubsteps(5, 12, 15);
+            frontRightWheelCollider.ConfigureVehicleSubsteps(5, 12, 15);
+            rearLeftWheelCollider.ConfigureVehicleSubsteps(5, 12, 15);
+            rearRightWheelCollider.ConfigureVehicleSubsteps(5, 12, 15);
         }
     }
 }
