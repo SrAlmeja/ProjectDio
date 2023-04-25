@@ -7,6 +7,7 @@ namespace com.LazyGames.Dio
 {
     public class DebugSteeringEventsWrapper : CarController
     {
+        // inherits from CarController
     }
 }
 

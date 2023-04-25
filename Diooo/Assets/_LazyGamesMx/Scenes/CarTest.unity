@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &73173415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8013517507988068762, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+  m_PrefabInstance: {fileID: 882910601416389053}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &111688558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -699,10 +704,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5935608016089016070, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: indicator
+      value: 
+      objectReference: {fileID: 73173415}
+    - target: {fileID: -5935608016089016070, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: impulseStrength
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 441420292775046572, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
       propertyPath: m_Name
       value: DebugCar
       objectReference: {fileID: 0}
+    - target: {fileID: 448018275281591424, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _angleEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+    - target: {fileID: 448018275281591424, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _rotateEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
+    - target: {fileID: 448018275281591424, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _torqueEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+    - target: {fileID: 448018275281591424, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _impulseEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 35e7e3da2c95f02408d101c2bbd87652, type: 2}
+    - target: {fileID: 448018275281591424, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _stopTimeEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+    - target: {fileID: 448018275281591424, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _handBrakeEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+    - target: {fileID: 448018275281591424, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: _vector2InputEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
     - target: {fileID: 448018275281591425, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
       propertyPath: _angleEvent
       value: 
@@ -731,6 +772,10 @@ PrefabInstance:
       propertyPath: _vector2InputEvent
       value: 
       objectReference: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
+    - target: {fileID: 448018275281591426, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
+      propertyPath: slowFactor
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 448018275281591430, guid: d91eec0fb9d69c1499251376408f75bd, type: 3}
       propertyPath: m_RootOrder
       value: 3
