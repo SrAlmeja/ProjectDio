@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class DataGrid
@@ -15,7 +14,7 @@ public class DataGrid
         foreach (var pos in positionToOccupy)
         {
             if (placedObject.ContainsKey(pos))
-                throw new Exception($"Dictionary already Contains this cell position {pos}");
+                throw new Exception($"Diccionary already contains this cell position {pos}");
                 placedObject[pos] = data;
         }
     }
@@ -27,7 +26,7 @@ public class DataGrid
         {
             for (int y = 0; y < objectSize.y; y++)
             {
-                returnVal.Add(gridPosition + new Vector3Int(x,0,y));
+                returnVal.Add(gridPosition + new Vector3Int(x,y,0));
             }
         }
         return returnVal;
@@ -44,7 +43,6 @@ public class DataGrid
         return true;
     }
 }
-
 
     public class PlacementData
 {

@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
     [SerializeField] 
-    private GameObject mouseIndicator, cellIndicator;
+    private GameObject mouseIndicator;
 
     [SerializeField]
     private BuildInputManager bIM;
@@ -26,17 +27,20 @@ public class PlacementSystem : MonoBehaviour
 
     [SerializeField]
     private DataGrid floorData, furnitureData;
+    
 
-    private Renderer _previewRenderer;
+    private List<GameObject> placedGameObjects = new();
 
-    private List<GameObject> placedGameObjects = new(); 
+    [SerializeField]
+    private BuildPreviewSystem bPS;
+    
+    private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
     private void Start()
     {
         StopPlacement();
-        floorData = new();
+        floorData = new ();
         furnitureData = new();
-        _previewRenderer = cellIndicator.GetComponentInChildren<Renderer>();
     }
 
     
@@ -49,7 +53,8 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
         gridVisualization.SetActive(true);
-        cellIndicator.SetActive(true);
+        bPS.startShowingPlacementPreview(oDBSO.objectData[_selectedObjectIndex].Prefab,
+            oDBSO.objectData[_selectedObjectIndex].Size);
         bIM.Onclicked += PlaceStructure;
         bIM.OnExit += StopPlacement;
     }
@@ -79,6 +84,7 @@ public class PlacementSystem : MonoBehaviour
             oDBSO.objectData[_selectedObjectIndex].Size,
             oDBSO.objectData[_selectedObjectIndex].ID,
             placedGameObjects.Count -1);
+        bPS.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
@@ -91,9 +97,10 @@ public class PlacementSystem : MonoBehaviour
     private void StopPlacement()
     {
         gridVisualization.SetActive(false);
-        cellIndicator.SetActive(false);
+        bPS.StopShowingPreview();
         bIM.Onclicked -= PlaceStructure;
         bIM.OnExit -= StopPlacement;
+        lastDetectedPosition = Vector3Int.zero;
     }
 
     private void Update()
@@ -104,11 +111,13 @@ public class PlacementSystem : MonoBehaviour
         }
         Vector3 mousePosition = bIM.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+        if (lastDetectedPosition != gridPosition)
+        {
+            bool placementValidity = CheckPlacementValidity(gridPosition, _selectedObjectIndex);
         
-        bool placementValidity = CheckPlacementValidity(gridPosition, _selectedObjectIndex);
-        _previewRenderer.material.color = placementValidity ? Color.white : Color.red;
-        
-        mouseIndicator.transform.position = mousePosition;
-        cellIndicator.transform.position = grid.CellToWorld(gridPosition);
+            mouseIndicator.transform.position = mousePosition;
+            bPS.UpdatePosition(grid.CellToWorld(gridPosition),placementValidity);
+            lastDetectedPosition = gridPosition;
+        } 
     }
 }
