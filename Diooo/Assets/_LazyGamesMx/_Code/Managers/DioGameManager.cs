@@ -59,7 +59,7 @@ namespace com.LazyGames.Dio
         [Header("Player Prefab")]
         [SerializeField] private Transform playerCarPrefab;
         [Header("Countdown Settings")]
-        [SerializeField] private int countdownTimer = 3;
+        [SerializeField] private float countdownTimer = 3;
 
         [Header("Game State")] 
         [SerializeField]
@@ -109,7 +109,16 @@ namespace com.LazyGames.Dio
             {
                 return;
             }
-            
+
+            switch (myGameState.Value)
+            {
+                case GameStates.WaitingToStart:
+                    if (NetworkManager.Singleton.ConnectedClientsIds.Count == 2)
+                    {
+                        myGameState.Value = GameStates.Countdown;
+                    }
+                    break;
+            }
             
         }
 
@@ -185,8 +194,14 @@ namespace com.LazyGames.Dio
             }
             Debug.Log("all clients ready = " + allClientsReady);
         }
-            
+
+
+        private void HandleTimerCountdown()
+        {
+            countdownTimer -= 1 * Time.deltaTime;
+        }
         
         #endregion
     }
+    
 }
