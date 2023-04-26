@@ -3,53 +3,59 @@ using System.Collections.Generic;
 using com.LazyGames.Dio;
 using UnityEngine;
 
-public class WaitingPlayersUI : MonoBehaviour
+namespace com.LazyGames.Dio
 {
-
-    #region Serialized fields
-
-    [SerializeField] private GameObject waitingPlayersUI;
-    
-    #endregion
-    #region private Variables
-    
-
-    #endregion
-    void Start()
+    public class WaitingPlayersUI : MonoBehaviour
     {
-        
-        ShowWaitingPlayersUI();
-        DioGameManager.Instance.OnPlayerReady += HandleWaitingPlayersUI;
-        
-    }
 
-    void Update()
-    {
-        
-    }
+        #region Serialized fields
 
-    #region private methods
+        [SerializeField] private GameObject waitingPlayersUI;
 
-    private void HandleWaitingPlayersUI(bool value)
-    {
-        if (value)
+        #endregion
+
+        #region private Variables
+
+
+        #endregion
+
+        void Start()
         {
-            HideWaitingPlayersUI();
+
+            ShowWaitingPlayersUI();
+            DioGameManager.Instance.OnPlayerReady += HandleWaitingPlayersUI;
+
         }
+
+        void Update()
+        {
+
+        }
+
+        #region private methods
+
+        private void HandleWaitingPlayersUI(bool value)
+        {
+            if (value)
+            {
+                HideWaitingPlayersUI();
+            }
+        }
+
+        #endregion
+
+        #region public methods
+
+        public void ShowWaitingPlayersUI()
+        {
+            waitingPlayersUI.SetActive(true);
+        }
+
+        public void HideWaitingPlayersUI()
+        {
+            waitingPlayersUI.SetActive(false);
+        }
+
+        #endregion
     }
-    #endregion
-    
-    #region public methods
-    
-    public void ShowWaitingPlayersUI()
-    {
-        waitingPlayersUI.SetActive(true);
-    }
-    
-    public void HideWaitingPlayersUI()
-    {
-        waitingPlayersUI.SetActive(false);
-    }
-    
-    #endregion
 }
