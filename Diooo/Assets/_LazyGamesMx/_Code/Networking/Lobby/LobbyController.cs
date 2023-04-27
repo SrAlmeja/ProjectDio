@@ -2,15 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using Mono.CSharp;
 using Unity.Services.Authentication;
 using UnityEngine;
-using UnityEngine.UI;
-using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using Unity.Services.Relay;
-using Unity.Services.Relay.Models;
 
 
 namespace com.LazyGames.Dio
@@ -44,7 +39,6 @@ namespace com.LazyGames.Dio
 
         public Action<string> OnPlayerEnterRoom;
         public Action<string> OnFinishedCreateLobby;
-        public Action OnFinishedAuthenticating;
         public Action OnFinishedCheckedLobbies;
 
         #endregion
@@ -73,11 +67,9 @@ namespace com.LazyGames.Dio
         {
             if (!ConnectionNetworking.Instance.HasInternet)
                 return;
-
-            InitializeUnityAuthentication();
             
-            // UnityServicesInitializer.Instance.OnFinishedInitUnityServices += InitializeUnityAuthentication;
-            OnFinishedAuthenticating += ListLobbies;
+            
+            AuthenticatorController.Instance.OnFinishedAnonymousLogin += ListLobbies;
             OnFinishedCheckedLobbies += CheckedLobbyExists;
             
         }
@@ -93,38 +85,11 @@ namespace com.LazyGames.Dio
 
         private void OnDestroy()
         {
-            OnFinishedAuthenticating -= ListLobbies;
+            AuthenticatorController.Instance.OnFinishedAnonymousLogin -= ListLobbies;
             OnFinishedCheckedLobbies -= CheckedLobbyExists;
         }
 
         #endregion
-
-
-        #region Unity Servicies
-
-        //Autehntication Anonmoous
-        private async void InitializeUnityAuthentication()
-        {
-            if (UnityServices.State != ServicesInitializationState.Initialized)
-            {
-                InitializationOptions initializationOptions = new InitializationOptions();
-                initializationOptions.SetProfile(UnityEngine.Random.Range(0, 1000).ToString());
-                
-                await UnityServices.InitializeAsync(initializationOptions);
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                
-                Debug.Log("<color=#C4FF92>Signed in PLAYER ID = </color>" + AuthenticationService.Instance.PlayerId);
-                OnFinishedAuthenticating?.Invoke();
-                
-                CloudSaveController.Instance.SendTestCloudSave();
-
-            }
-            
-        }
-        
-
-        #endregion
-        
         
         
         #region Lobby

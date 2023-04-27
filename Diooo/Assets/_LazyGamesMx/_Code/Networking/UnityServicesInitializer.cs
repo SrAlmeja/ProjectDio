@@ -25,7 +25,7 @@ namespace com.LazyGames.Dio
         private async void InitUnityServices() 
         { 
             await UnityServices.InitializeAsync();
-            Debug.Log("<color=#C4FF92>Unity Services Initialized? = </color>" + UnityServices.State);
+            Debug.Log("<color=#C4FF92>Unity Services Initialized? = </color>");
             OnFinishedInitUnityServices?.Invoke();
         }
     }
