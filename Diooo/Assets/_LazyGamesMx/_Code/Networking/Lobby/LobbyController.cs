@@ -76,6 +76,7 @@ namespace com.LazyGames.Dio
 
             InitializeUnityAuthentication();
             
+            // UnityServicesInitializer.Instance.OnFinishedInitUnityServices += InitializeUnityAuthentication;
             OnFinishedAuthenticating += ListLobbies;
             OnFinishedCheckedLobbies += CheckedLobbyExists;
             
@@ -114,6 +115,8 @@ namespace com.LazyGames.Dio
                 
                 Debug.Log("<color=#C4FF92>Signed in PLAYER ID = </color>" + AuthenticationService.Instance.PlayerId);
                 OnFinishedAuthenticating?.Invoke();
+                
+                CloudSaveController.Instance.SendTestCloudSave();
 
             }
             
