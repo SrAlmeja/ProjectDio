@@ -890,11 +890,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: 
+  cloudProjectId: cb22770b-85b3-43f8-8e1a-8946781ce9ad
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: ProjectDio
+  organizationId: lazy-games-mx
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

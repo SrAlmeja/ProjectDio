@@ -1,8 +1,10 @@
 // Dino 05/04/2023 Creation of the script
 // Gameplay controller of the game scene
 
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,31 +12,114 @@ namespace com.LazyGames.Dio
 {
     public class DioGameManager : NetworkBehaviour
     {
-
+        
         #region public variables
 
-        public static DioGameManager Instance;
+        public static DioGameManager Instance
+        {
+            get
+            {
+                if (FindObjectOfType<DioGameManager>() == null)
+                {
+                    GameObject gameManagerGO = new GameObject("DioGameManager");
+                    gameManagerGO.SetActive(false);
+                    _instance = gameManagerGO.AddComponent<DioGameManager>();
 
+                    gameManagerGO.SetActive(true);
+                    DontDestroyOnLoad(gameManagerGO);
+                }
+
+                return _instance;
+            }
+        }
+
+        public int PlayersConnected
+        {
+            get => _playersConnected;
+            set => _playersConnected = value;
+        }
+        // public GameStates MyGameState
+        // {
+        //     get => myGameState;
+        //     set => myGameState = value;
+        // }
+        public bool IsLocalPlayerReady()
+        {
+            return _isLocalPlayerReady;
+        }
+        
+        public Action<bool> OnPlayerReady;
+
+        #endregion
+
+        #region Serialized variables
+        
+        [Header("Player Spawn Points")]
+        [SerializeField] private List<Transform> placesToSpawnCars;
+        [Header("Player Prefab")]
+        [SerializeField] private Transform playerCarPrefab;
+        [Header("Countdown Settings")]
+        [SerializeField] private float countdownTimer = 3;
+
+        [Header("Game State")] 
+        [SerializeField]
+        private NetworkVariable<GameStates> myGameState = new NetworkVariable<GameStates>(GameStates.WaitingToStart);
+
+        
         #endregion
 
         #region private variables
 
-        [SerializeField] private List<Transform> placesToSpawnCars;
-        [SerializeField] private Transform playerCarPrefab;
+        private static DioGameManager _instance;
+        
+        private int _spawnIndex = 0;
+        private int _playersConnected = 0;
+        private bool _isLocalPlayerReady = false;
+        
+        private Dictionary<ulong,bool> playerReadyDictionary = new Dictionary<ulong, bool>();
+
+
+        public enum GameStates
+        {
+            None,
+            WaitingToStart,
+            Countdown,
+            GamePlaying,
+            GameOver
+        }
 
 
         #endregion
 
         #region Unity Methods
 
+        private void Awake()
+        {
+            _instance = this;
+        }
+
         void Start()
         {
-
+            
         }
 
         void Update()
         {
+            if (!IsServer)
+            {
+                return;
+            }
 
+            switch (myGameState.Value)
+            {
+                case GameStates.WaitingToStart:
+                    if (NetworkManager.Singleton.ConnectedClientsIds.Count == 2)
+                    {
+                        myGameState.Value = GameStates.Countdown;
+                    }
+                    break;
+            }
+            
         }
 
         #endregion
@@ -43,15 +128,17 @@ namespace com.LazyGames.Dio
 
         public override void OnNetworkSpawn()
         {
-            Instance = this;
+            _instance = this;
             if (IsServer)
             {
                 // Debug.Log("Server is loading the scene");
                 Debug.Log("<color=#3B97FE>Number of players connected </color>" + NetworkManager.Singleton.ConnectedClientsIds.Count);
+                _playersConnected = NetworkManager.Singleton.ConnectedClientsIds.Count;
                 NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
             }
+            Debug.Log("<color=#7DFF33>Set game state to waiting to start</color>");
+            // myGameState = GameStates.WaitingToStart;
         }
-
         #endregion
 
         #region private methods
@@ -69,7 +156,7 @@ namespace com.LazyGames.Dio
                     return;
                 }
                 
-                Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
+                // Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
                 
                 Transform playerTransform = Instantiate(playerCarPrefab);
                 playerTransform.position = placesToSpawnCars[_spawnIndex].position;
@@ -80,9 +167,41 @@ namespace com.LazyGames.Dio
         }
 
         
-        int _spawnIndex = 0;
+        private void OnGameInput_SetReady()
+        {
+            if (myGameState.Value == GameStates.WaitingToStart)
+            {
+                _isLocalPlayerReady = true;
+                SetPlayerServerRPC();
+                OnPlayerReady?.Invoke(_isLocalPlayerReady);
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerServerRPC(ServerRpcParams serverRpcParams = default)
+        {
+            Debug.Log(serverRpcParams.Receive.SenderClientId + " is ready");
+            playerReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
+            
+            bool allClientsReady = true;
+            foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                if (!playerReadyDictionary.ContainsKey(clientId) || !playerReadyDictionary[clientId])
+                {
+                    allClientsReady = false;
+                    break;
+                }
+            }
+            Debug.Log("all clients ready = " + allClientsReady);
+        }
 
 
+        private void HandleTimerCountdown()
+        {
+            countdownTimer -= 1 * Time.deltaTime;
+        }
+        
         #endregion
     }
+    
 }
