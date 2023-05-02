@@ -1948,8 +1948,10 @@ MonoBehaviour:
   - {fileID: 1074513668}
   - {fileID: 258939379}
   - {fileID: 213946064}
-  playerCarPrefab: {fileID: 754094263971536061, guid: 4461c741861fd8e4c93533c014343b05, type: 3}
-  countdownTime: 3
+  playerCarPrefab: {fileID: 4735771677213841879, guid: 1749c76295a782b42914cda5aea94a01, type: 3}
+  countdownTimer: 3
+  myGameState:
+    m_InternalValue: 1
 --- !u!114 &1990556992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2443,7 +2445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
