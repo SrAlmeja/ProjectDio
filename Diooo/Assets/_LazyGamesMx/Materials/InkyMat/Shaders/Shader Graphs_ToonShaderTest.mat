@@ -82,7 +82,7 @@ Material:
     - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
-    - _CelShading: 253
+    - _CelShading: 251
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -103,12 +103,13 @@ Material:
     - _QueueOffset: -50
     - _ReceiveShadows: 1
     - _SampleGI: 0
+    - _ShadowStept: 0.06
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _ToonFade: 0.19
+    - _ToonFade: 0.126
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
