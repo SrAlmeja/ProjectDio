@@ -74,12 +74,9 @@ public class PlacementSystem : MonoBehaviour
         
         GameObject newPart= Instantiate(oDBSO.objectData[_selectedObjectIndex].Prefab);
         newPart.transform.position = grid.CellToWorld(gridPosition);
-        
         placedGameObjects.Add(newPart);
-        
         DataGrid selecteDataGrid = oDBSO.objectData[_selectedObjectIndex].ID == 0 ?
             floorData : furnitureData;
-        
         selecteDataGrid.AddObjectAt(gridPosition,
             oDBSO.objectData[_selectedObjectIndex].Size,
             oDBSO.objectData[_selectedObjectIndex].ID,
@@ -106,9 +103,8 @@ public class PlacementSystem : MonoBehaviour
     private void Update()
     {
         if (_selectedObjectIndex < 0)
-        {
             return;
-        }
+        
         Vector3 mousePosition = bIM.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
         if (lastDetectedPosition != gridPosition)
