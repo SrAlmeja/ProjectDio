@@ -58,9 +58,6 @@ namespace com.LazyGames.Dio
             }
         }
         
-        
-
-
         private void Prepare()
         {
             maxBreakForce = breakForce;

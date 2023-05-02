@@ -1,37 +1,36 @@
-//Raymundo cryoStorage Mosqueda 07/03/2023
-//
-using System;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
-    public class Car_TimeControl : NetworkBehaviour
+    public class NetworkCarTimeControl : NetworkBehaviour
     {
         [Header("Time Control")] 
         [SerializeField] private bool doSlow;
         [SerializeField] private float targetTimeScale;
         
-        private DebugSteeringEventsListener _listener;
+        private NetworkSteeringEventsListener _listener;
         private float currentTimeScale = 1;
         private float savedMagnitude;
         private readonly float normalizeFactor = .02f;
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
+            if(!IsOwner) return;
             Prepare();
+            base.OnNetworkSpawn();
         }
 
         private void Update()
         {
+            if(!IsOwner) return;
             Slow();
             Time.timeScale = currentTimeScale;
         }
 
         void Slow()
         {
+            if(!IsOwner) return;
             doSlow = _listener.stopTime;
             switch (doSlow)
             {
@@ -46,20 +45,19 @@ namespace com.LazyGames.Dio
                     doSlow = true;
                     break;
             }
-            // currentTimeScale = targetTimeScale;
-            // currentTimeScale = .33f> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
-            
         }
 
         private void NormalizeDeltaTime(float factor)
         {
+            if(!IsOwner) return;
             Time.timeScale = currentTimeScale;
             Time.fixedDeltaTime = Time.timeScale * factor;
         
         }
         private void Prepare()
         {
-            _listener = GetComponent<DebugSteeringEventsListener>();
+            if(!IsOwner) return;
+            _listener = GetComponent<NetworkSteeringEventsListener>();
 
         }
     }

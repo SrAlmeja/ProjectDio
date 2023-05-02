@@ -1,22 +1,23 @@
 //Daniel Navarrete 28/03/2023  Controller by events
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
     public class Listener : MonoBehaviour
     {
-        [SerializeField] private BoolEventChannelSO _hanbreakeEvent;
-        [SerializeField] private BoolEventChannelSO _stopTimeEvent;
-        [SerializeField] private FloatEventChannelSO _angleEvent;
-        [SerializeField] private FloatEventChannelSO _torqueEvent;
-        [SerializeField] private FloatEventChannelSO _rotateEvent;
-        [SerializeField] private VectorTwoEventChannelSO _vector2InputEvent;
-        [SerializeField] private VoidEventChannelSO _impulseEvent;
+        [SerializeField] protected BoolEventChannelSO _handBrakeEvent;
+        [SerializeField] protected BoolEventChannelSO _stopTimeEvent;
+        [SerializeField] protected FloatEventChannelSO _angleEvent;
+        [SerializeField] protected FloatEventChannelSO _torqueEvent;
+        [SerializeField] protected FloatEventChannelSO _rotateEvent;
+        [SerializeField] protected VectorTwoEventChannelSO _vector2InputEvent;
+        [SerializeField] protected VoidEventChannelSO _impulseEvent;
 
-        private void OnEnable()
+        protected void OnEnable()
         {
-            _hanbreakeEvent.BoolEvent += HandBrake;
+            _handBrakeEvent.BoolEvent += HandBrake;
             _stopTimeEvent.BoolEvent += StopTime;
             _angleEvent.FloatEvent += Angle;
             _torqueEvent.FloatEvent += Torque;
@@ -25,9 +26,9 @@ namespace com.LazyGames.Dio
             _impulseEvent.VoidEvent += Impulse;
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
-            _hanbreakeEvent.BoolEvent -= HandBrake;
+            _handBrakeEvent.BoolEvent -= HandBrake;
             _stopTimeEvent.BoolEvent -= StopTime;
             _angleEvent.FloatEvent -= Angle;
             _torqueEvent.FloatEvent -= Torque;
@@ -36,37 +37,37 @@ namespace com.LazyGames.Dio
             _impulseEvent.VoidEvent -= Impulse;
         }
 
-        void HandBrake(bool b)
+        protected virtual void HandBrake(bool b)
         {
             //Debug.Log("Booleano de freno: " + b);
         }
 
-        void StopTime(bool b)
+        protected virtual void StopTime(bool b)
         {
             //Debug.Log("Booleano de parar el tiempo: " + b);
         }
 
-        void Angle(float f)
+        protected virtual void Angle(float f)
         {
             //Debug.Log("Flotante llantas: " + f);
         }
 
-        void Torque(float f)
+        protected virtual void Torque(float f)
         {
             //Debug.Log("Flotante Aceleración: " + f);
         }
 
-        void Rotate(float f)
+        protected virtual void Rotate(float f)
         {
             //Debug.Log("Flotante angulo: " + f);
         }
 
-        void VecTwoInput(Vector2 v2)
+        protected virtual void VecTwoInput(Vector2 v2)
         {
             Debug.Log("vector2 value: " + v2);
         }
 
-        void Impulse()
+        protected virtual void Impulse()
         {
             //Debug.Log("Se llama el evento");
         }
