@@ -25,12 +25,12 @@ public class BuildInputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Onclicked.Invoke();
+            Onclicked?.Invoke();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OnExit.Invoke();
+            OnExit?.Invoke();
         }
     }
 
