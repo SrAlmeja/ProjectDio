@@ -11,26 +11,29 @@ public class InputRecorder : MonoBehaviour
     private List<Vector3> _positions = new List<Vector3>();
     private List<Quaternion> _rotations = new List<Quaternion>();
 
+    public ActionMap inputActionMap;
+
     void Start()
     {
-        foreach (var device in InputSystem.devices)
+        // Subscribe to all button press and joystick events
+        foreach (InputControl control in inputActionMap.controls)
         {
-            // Subscribe to all button press and joystick events
-            foreach (var control in device.allControls)
+            if (control is ButtonControl)
             {
-                if (control is ButtonControl buttonControl)
-                {
-                    buttonControl.started += ctx => RecordInput(buttonControl, ctx.startTime);
-                }
-                else if (control is AxisControl axisControl)
-                {
-                    axisControl.started += ctx => RecordInput(axisControl, ctx.startTime);
-                    axisControl.performed += ctx => RecordInput(axisControl, ctx.time);
-                    axisControl.canceled += ctx => RecordInput(axisControl, ctx.time);
-                }
+                ButtonControl buttonControl = (ButtonControl)control;
+
+                buttonControl.started += ctx => RecordInput(buttonControl, ctx.startTime);
+
+            }
+            else if (control is AxisControl axisControl)
+            {
+                axisControl.started += ctx => RecordInput(axisControl, ctx.startTime);
+                axisControl.performed += ctx => RecordInput(axisControl, ctx.time);
+                axisControl.canceled += ctx => RecordInput(axisControl, ctx.time);
             }
         }
     }
+}
 
     private void RecordInput(InputControl control, float timestamp)
     {
