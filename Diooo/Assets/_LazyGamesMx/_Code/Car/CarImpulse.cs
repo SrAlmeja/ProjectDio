@@ -41,6 +41,7 @@ namespace com.LazyGames.Dio
         {
             indicator.SetActive(_listener.stopTime);
             if(!_listener.stopTime)return;
+            impulseAngle = _listener.rotate;
             indicator.transform.position = impulsePos;
             indicator.transform.rotation = CryoMath.AimAtDirection(impulseCenter, impulsePos);
         }

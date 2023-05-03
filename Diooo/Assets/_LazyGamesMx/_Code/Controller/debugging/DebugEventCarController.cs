@@ -67,6 +67,7 @@ namespace com.LazyGames.Dio
 
         private void HandleSteering()
         {
+            if (_steeringEventsListener.stopTime) return;
             currentSteerAngle = maxSteerAngle * _steeringEventsListener.angle;
             frontLeftWheelCollider.steerAngle = currentSteerAngle;
             frontRightWheelCollider.steerAngle = currentSteerAngle;
