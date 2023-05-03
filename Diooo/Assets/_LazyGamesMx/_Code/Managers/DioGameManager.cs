@@ -38,11 +38,6 @@ namespace com.LazyGames.Dio
             get => _playersConnected;
             set => _playersConnected = value;
         }
-        // public GameStates MyGameState
-        // {
-        //     get => myGameState;
-        //     set => myGameState = value;
-        // }
         public bool IsLocalPlayerReady()
         {
             return _isLocalPlayerReady;
