@@ -1950,6 +1950,8 @@ MonoBehaviour:
   - {fileID: 213946064}
   playerCarPrefab: {fileID: 4735771677213841879, guid: 1749c76295a782b42914cda5aea94a01, type: 3}
   countdownTimer: 3
+  readyPlayerInput: {fileID: 11400000, guid: 5a303bd2ea541e544a1a84b907968d33, type: 2}
+  enableInputsPlayer: {fileID: 11400000, guid: 533ab5e987a711947b978d3fede0c561, type: 2}
   myGameState:
     m_InternalValue: 1
 --- !u!114 &1990556992
