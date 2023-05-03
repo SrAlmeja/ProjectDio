@@ -155,7 +155,7 @@ namespace com.LazyGames.Dio
         {
             if(_gasInput > 0) 
             {
-                _steeringInput = f * 100;
+                _steeringInput = f * 150;
             }
             if(_gasInput == 0)
             {
