@@ -2,15 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using Mono.CSharp;
 using Unity.Services.Authentication;
 using UnityEngine;
-using UnityEngine.UI;
-using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using Unity.Services.Relay;
-using Unity.Services.Relay.Models;
 
 
 namespace com.LazyGames.Dio
@@ -20,21 +15,37 @@ namespace com.LazyGames.Dio
         
         #region public variables
 
-        public static LobbyController Instance; 
+        public static LobbyController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    GameObject lobbyControllerGO = new GameObject("LobbyController");
+                    lobbyControllerGO.SetActive(false);
+                    _instance = lobbyControllerGO.AddComponent<LobbyController>();
+
+                    lobbyControllerGO.SetActive(true);
+                    DontDestroyOnLoad(lobbyControllerGO);
+                    
+                }
+
+                return _instance;
+            }   
+        }
         [SerializeField] string defaultPlayerName = "Player";
         [SerializeField] string lobbyName = "DinoLobby";
         [SerializeField] int maxPlayers = 4;
 
         public Action<string> OnPlayerEnterRoom;
         public Action<string> OnFinishedCreateLobby;
-        public Action OnFinishedAuthenticating;
         public Action OnFinishedCheckedLobbies;
 
         #endregion
         
         #region private variables
 
-        // private Lobby _hostLobby;
+        private static LobbyController _instance;
         private Lobby _myJoinedLobby;
         private int _listLobbyCount = 0;
         private float _heartbeatTimer = 0.0f;
@@ -48,7 +59,7 @@ namespace com.LazyGames.Dio
         
         private void Awake()
         {
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -56,10 +67,9 @@ namespace com.LazyGames.Dio
         {
             if (!ConnectionNetworking.Instance.HasInternet)
                 return;
-
-            InitializeUnityAuthentication();
             
-            OnFinishedAuthenticating += ListLobbies;
+            
+            AuthenticatorController.Instance.OnFinishedAnonymousLogin += ListLobbies;
             OnFinishedCheckedLobbies += CheckedLobbyExists;
             
         }
@@ -75,36 +85,11 @@ namespace com.LazyGames.Dio
 
         private void OnDestroy()
         {
-            OnFinishedAuthenticating -= ListLobbies;
+            AuthenticatorController.Instance.OnFinishedAnonymousLogin -= ListLobbies;
             OnFinishedCheckedLobbies -= CheckedLobbyExists;
         }
 
         #endregion
-
-
-        #region Unity Servicies
-
-        //Autehntication Anonmoous
-        private async void InitializeUnityAuthentication()
-        {
-            if (UnityServices.State != ServicesInitializationState.Initialized)
-            {
-                InitializationOptions initializationOptions = new InitializationOptions();
-                initializationOptions.SetProfile(UnityEngine.Random.Range(0, 1000).ToString());
-                
-                await UnityServices.InitializeAsync(initializationOptions);
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                
-                Debug.Log("<color=#C4FF92>Signed in PLAYER ID = </color>" + AuthenticationService.Instance.PlayerId);
-                OnFinishedAuthenticating?.Invoke();
-
-            }
-            
-        }
-        
-
-        #endregion
-        
         
         
         #region Lobby

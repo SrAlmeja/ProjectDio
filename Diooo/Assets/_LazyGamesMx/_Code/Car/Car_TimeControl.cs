@@ -1,13 +1,14 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
 //
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
-    public class Car_TimeControl : MonoBehaviour
+    public class Car_TimeControl : NetworkBehaviour
     {
         [Header("Time Control")] 
         [SerializeField] private bool doSlow;

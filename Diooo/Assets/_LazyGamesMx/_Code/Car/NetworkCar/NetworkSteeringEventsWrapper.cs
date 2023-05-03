@@ -28,16 +28,18 @@ using UnityEngine.InputSystem;
 
             public override void OnNetworkSpawn()
             {
+                
                 if (!IsOwner) return;
+                
+                Prepare();
+
                 handBrakeInputAction.Enable();
-                steeringInputAction.Enable();
+                steeringInputAction.Enable();   
                 accelerationInputAction.Enable();
                 timeStopInputAction.Enable();
                 rotateInputAction.Enable();
                 impulseInputAction.Enable();
                 
-                Prepare();
-                base.OnNetworkDespawn();
             }
 
             public override void OnNetworkDespawn()
@@ -63,7 +65,8 @@ using UnityEngine.InputSystem;
                 timeStopInputAction = gameplayActionMap.FindAction("TimeStop");
                 rotateInputAction = gameplayActionMap.FindAction("Rotate");
                 impulseInputAction = gameplayActionMap.FindAction("Impulse");
-
+                
+                Debug.Log("<color=blue>SteeringEventsWrapper OnEnable INPUT ACTIONS</color>");
                 handBrakeInputAction.performed += GetHandBrakeInput;
                 handBrakeInputAction.canceled += GetHandBrakeInput;
 
@@ -104,6 +107,7 @@ using UnityEngine.InputSystem;
             void GetTorqueInput(InputAction.CallbackContext context)
             {
                 if (!IsOwner) return;
+                Debug.Log("Get torque input");
                 _torqueEvent.RaiseEvent(context.ReadValue<float>());
             }
 

@@ -278,6 +278,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 569114560530446607, guid: af1d678ae04332640bc5531305ec6926, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3398703096
+      objectReference: {fileID: 0}
     - target: {fileID: 7382127228696186080, guid: af1d678ae04332640bc5531305ec6926, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -334,7 +338,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 569114560530446607, guid: af1d678ae04332640bc5531305ec6926, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af1d678ae04332640bc5531305ec6926, type: 3}
 --- !u!1 &630388688
 GameObject:
@@ -1050,6 +1055,11 @@ MonoBehaviour:
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
       Prefab: {fileID: 747746974545309079, guid: 4461c741861fd8e4c93533c014343b05, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 4733076956674025725, guid: 1749c76295a782b42914cda5aea94a01, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
