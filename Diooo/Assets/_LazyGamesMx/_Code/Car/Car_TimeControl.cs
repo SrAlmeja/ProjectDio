@@ -1,19 +1,20 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
 //
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
-    public class Car_TimeControl : MonoBehaviour
+    public class Car_TimeControl : NetworkBehaviour
     {
         [Header("Time Control")] 
         [SerializeField] private bool doSlow;
         [SerializeField] private float targetTimeScale;
         
-        private SteeringEventsListener _listener;
+        private DebugSteeringEventsListener _listener;
         private float currentTimeScale = 1;
         private float savedMagnitude;
         private readonly float normalizeFactor = .02f;
@@ -58,7 +59,7 @@ namespace com.LazyGames.Dio
         }
         private void Prepare()
         {
-            _listener = GetComponent<SteeringEventsListener>();
+            _listener = GetComponent<DebugSteeringEventsListener>();
 
         }
     }

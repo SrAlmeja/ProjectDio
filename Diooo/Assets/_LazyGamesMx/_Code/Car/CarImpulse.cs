@@ -11,7 +11,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private GameObject indicator;
         [SerializeField]private float impulseRadius = 4.5f;
         [SerializeField]private float impulseStrength = 5f;
-        [SerializeField] private float impulseSens = .1f;
+        // [SerializeField] private float impulseSens = .1f;
         [Tooltip("vertical offset of the center of the sphere")]
         [SerializeField] private float yOffset = .1f;
 
@@ -21,7 +21,7 @@ namespace com.LazyGames.Dio
         private Vector3 impulseCenter;
         private Vector3 impulsePos;
         private Vector3 impulseDir;
-        private SteeringEventsListener _listener;
+        private DebugSteeringEventsListener _listener;
 
         // Start is called before the first frame update
         void Start()
@@ -33,7 +33,6 @@ namespace com.LazyGames.Dio
         void Update()
         {
             GetDirection(); 
-            DebugCheckInput();
             Visualize();
             impulseCenter = transform.position + new Vector3(0, yOffset, 0);
         }
@@ -51,6 +50,14 @@ namespace com.LazyGames.Dio
             // Vector2 vel = new Vector2(rb.velocity.x, rb.velocity.z);
             // var angle = CryoMath.AngleFromOffset(vel);
            impulsePos = CryoMath.PointOnRadius(impulseCenter, impulseRadius , impulseAngle);
+           
+        }
+
+        public void ApplyImpulse()
+        {
+            if(!_listener.stopTime)return;
+            impulseDir = impulsePos - transform.position;
+            rb.AddForce(impulseDir.normalized * impulseStrength);
         }
 
         private void OnDrawGizmos()
@@ -61,29 +68,11 @@ namespace com.LazyGames.Dio
             Gizmos.DrawSphere(impulsePos,.3f);
         }
 
-        private void DebugCheckInput()
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                if(! _listener.stopTime)return;
-                impulseDir = impulsePos - transform.position + offsetVector;
-                rb.AddForce(impulseDir.normalized * impulseStrength);
-            }
-            if (Input.GetKey(KeyCode.Q))
-            {
-                impulseAngle += -impulseSens;
-            }
-            if (Input.GetKey(KeyCode.E))
-            {
-                impulseAngle += impulseSens;
-            }
-        }
-
         private void Prepare()
         {
             rb = GetComponent<Rigidbody>();
             impulseStrength = impulseStrength * rb.mass;
-            _listener = GetComponent<SteeringEventsListener>();
+            _listener = GetComponent<DebugSteeringEventsListener>();
             
         }
     }

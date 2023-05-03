@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 448018275281591427}
   - component: {fileID: 448018275281591424}
   - component: {fileID: 448018275281591425}
-  - component: {fileID: 448018275281591426}
+  - component: {fileID: -5935608016089016070}
   m_Layer: 0
   m_Name: DebugCar
   m_TagString: Untagged
@@ -104,14 +104,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44659d4ddccc2024ea3d67fb201aa55a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handbrakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
-  stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
-  angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
-  torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+  _handBrakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+  _stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+  _angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+  _torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+  _rotateEvent: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
+  _vector2InputEvent: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
+  _impulseEvent: {fileID: 11400000, guid: 35e7e3da2c95f02408d101c2bbd87652, type: 2}
   handBrake: 0
   stopTime: 0
   angle: 0
   torque: 0
+  rotate: 0
+  Vec2Input: {x: 0, y: 0}
 --- !u!114 &448018275281591425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,17 +130,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 195f0cbb6f06ff44bb3d19a9c25ed31f, type: 3}
-  handbrakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
-  stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
-  angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
-  torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
-  _gameplayActionMap:
-    m_Name: Gameplay
-    m_Id: 76d29157-b628-47d6-8422-f931a293ec9d
-    m_Asset: {fileID: 0}
-    m_Actions: []
-    m_Bindings: []
---- !u!114 &448018275281591426
+  _hanbreakEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+  _stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+  _angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+  _torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+  _rotateEvent: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
+  _vector2InputEvent: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
+  _impulseEvent: {fileID: 11400000, guid: 35e7e3da2c95f02408d101c2bbd87652, type: 2}
+--- !u!114 &-5935608016089016070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,10 +146,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 441420292775046572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9aa0568120434f42a74a4fd4ba32a4c, type: 3}
+  m_Script: {fileID: 11500000, guid: d01e425b577ec7545b61c580169eefdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowFactor: 0.03
+  indicator: {fileID: 8013517507988068762}
+  impulseRadius: 4.5
+  impulseStrength: 250
+  yOffset: 0.1
 --- !u!1 &441497783989945612
 GameObject:
   m_ObjectHideFlags: 0
