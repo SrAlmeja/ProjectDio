@@ -107,7 +107,6 @@ using UnityEngine.InputSystem;
             void GetTorqueInput(InputAction.CallbackContext context)
             {
                 if (!IsOwner) return;
-                Debug.Log("Get torque input");
                 _torqueEvent.RaiseEvent(context.ReadValue<float>());
             }
 

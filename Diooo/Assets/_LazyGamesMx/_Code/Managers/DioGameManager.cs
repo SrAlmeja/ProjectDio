@@ -12,7 +12,7 @@ namespace com.LazyGames.Dio
 {
     public class DioGameManager : NetworkBehaviour
     {
-        
+
         #region public variables
 
         public static DioGameManager Instance
@@ -38,12 +38,14 @@ namespace com.LazyGames.Dio
             get => _playersConnected;
             set => _playersConnected = value;
         }
+
         public bool IsLocalPlayerReady()
         {
             return _isLocalPlayerReady;
         }
-        
+
         public Action<bool> OnPlayerReady;
+        public Action OnGameStateChange;
 
         #endregion
 
@@ -114,10 +116,7 @@ namespace com.LazyGames.Dio
             switch (myGameState.Value)
             {
                 case GameStates.WaitingToStart:
-                    if (NetworkManager.Singleton.ConnectedClientsIds.Count == 2)
-                    {
-                        myGameState.Value = GameStates.Countdown;
-                    }
+                    
                     break;
             }
             
@@ -142,6 +141,16 @@ namespace com.LazyGames.Dio
             //Handle Ready Players Input
             readyPlayerInput.OnPlayerReadyInput += OnGameInput_SetReady;
 
+        }
+
+        public bool IsInCountDownState()
+        {
+            if(myGameState.Value == GameStates.Countdown)
+            {
+                return true;
+            }
+
+            return false;
         }
         #endregion
 
@@ -192,7 +201,6 @@ namespace com.LazyGames.Dio
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerServerRPC(ServerRpcParams serverRpcParams = default)
         {
-            
             Debug.Log(serverRpcParams.Receive.SenderClientId + "<color=#FF70E3> is ready</color>");
             playerReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
             
@@ -205,14 +213,18 @@ namespace com.LazyGames.Dio
                     break;
                 }
             }
-            Debug.Log("<color=#C2FF70>all clients ready = </color>" + allClientsReady);
+
+            if (allClientsReady)
+            {
+                Debug.Log("<color=#C2FF70>all clients ready = </color>" + allClientsReady);
+                Debug.Log("<color=#C2FF70>Set game state to countdown</color>");
+                myGameState.Value = GameStates.Countdown;
+                OnGameStateChange?.Invoke();
+            }
         }
 
 
-        private void HandleTimerCountdown()
-        {
-            countdownTimer -= 1 * Time.deltaTime;
-        }
+       
         
         #endregion
     }
