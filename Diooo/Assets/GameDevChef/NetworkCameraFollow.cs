@@ -12,13 +12,7 @@ public class NetworkCameraFollow : NetworkBehaviour
     [SerializeField] private float rotationSpeed = 10;
 
     [HideInInspector]public bool HasTarget;
-    
-    public override void OnNetworkSpawn()
-    {
-        
-        base.OnNetworkSpawn();
-    }
-    
+
     public void SetTarget(GameObject target)
     {
         this.target = target.transform;
@@ -29,8 +23,6 @@ public class NetworkCameraFollow : NetworkBehaviour
         yield return new WaitUntil(() =>HasTarget); 
     }
     
-    
-
     private void FixedUpdate()
     {
         if(!IsOwner) return;
