@@ -32,17 +32,6 @@ namespace com.LazyGames.Dio
                 return _instance;
             }
         }
-
-        public int PlayersConnected
-        {
-            get => _playersConnected;
-            set => _playersConnected = value;
-        }
-
-        public bool IsLocalPlayerReady()
-        {
-            return _isLocalPlayerReady;
-        }
         
       
 
@@ -59,13 +48,8 @@ namespace com.LazyGames.Dio
         [SerializeField] private List<Transform> placesToSpawnCars;
         [Header("Player Prefab")]
         [SerializeField] private Transform playerCarPrefab;
-        [Header("Countdown Settings")]
-        [SerializeField] private float countdownTimer = 3;
-        
-        [FormerlySerializedAs("startGameInput")]
         [Header("Events Player")]
         [SerializeField] private ReadyPlayerInput readyPlayerInput;
-        [SerializeField] private EnableInputsPlayer enableInputsPlayer;
         
         [Header("Game State")] 
         [SerializeField]
@@ -89,7 +73,6 @@ namespace com.LazyGames.Dio
             set
             {
                 myGameState.Value = value;
-                //SendGameStateToClientRpc(value);
             }
         }
 
@@ -114,12 +97,12 @@ namespace com.LazyGames.Dio
 
         void Start()
         {
-            readyPlayerInput.OnPlayerReadyInput += OnGameInput_SetReady;
-            myGameState.OnValueChanged += (prevValue, newValue) =>
-            {
-                OnGameStateChange?.Invoke(newValue);
-                Debug.Log("<color=#7DFF33>Game State changed to: </color>" + newValue);
-            };
+            // readyPlayerInput.OnPlayerReadyInput += OnGameInput_SetReady;
+            // myGameState.OnValueChanged += (prevValue, newValue) =>
+            // {
+            //     OnGameStateChange?.Invoke(newValue);
+            //     Debug.Log("<color=#7DFF33>Game State changed to: </color>" + newValue);
+            // };
         }
 
         void Update()
@@ -150,7 +133,12 @@ namespace com.LazyGames.Dio
             myGameState.OnValueChanged += (prevValue, newValue) =>
             {
                 OnGameStateChange?.Invoke(newValue);
+                Debug.Log("<color=#7DFF33>Game State changed to: </color>" + newValue);
+
             };
+            
+            //Handle Countdown
+            CountdownController.Instance.OnCountdownFinished += OnCountdownFinished;
 
         }
 
@@ -233,6 +221,11 @@ namespace com.LazyGames.Dio
                 // Debug.Log("<color=#C2FF70>all clients ready = </color>" + allClientsReady);
                 MyGameState = GameStates.Countdown;
             }
+        }
+        
+        private void OnCountdownFinished()
+        {
+            MyGameState = GameStates.GamePlaying;
         }
         
         #endregion

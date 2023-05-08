@@ -31,7 +31,6 @@ namespace com.LazyGames.Dio
 
         void OnPressReady(InputAction.CallbackContext context)
         {
-            Debug.Log("<color=#54BEDC>Ready Input</color>");
             OnPlayerReadyInput?.Invoke();
         }
     }

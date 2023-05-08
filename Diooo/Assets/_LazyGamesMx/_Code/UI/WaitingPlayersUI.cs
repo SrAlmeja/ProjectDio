@@ -26,12 +26,7 @@ namespace com.LazyGames.Dio
             DioGameManager.Instance.OnGameStateChange += HideUI;
                 
         }
-
-        void Update()
-        {
-
-        }
-
+        
         #region private methods
 
         private void HandleWaitingPlayersUI(bool value)

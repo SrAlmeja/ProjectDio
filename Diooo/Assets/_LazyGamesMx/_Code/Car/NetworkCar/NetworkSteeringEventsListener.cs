@@ -81,7 +81,7 @@ namespace com.LazyGames.Dio
             if(!IsOwner) return;
             _carImpulse = GetComponent<NetworkCarImpulse>();
 
-            if (state == DioGameManager.GameStates.Countdown)
+            if (state == DioGameManager.GameStates.GamePlaying)
             {
                 Debug.Log("<color=#E982EF>Prepare driving Inputs </color>");
                 _handBrakeEvent.BoolEvent += HandBrake;
