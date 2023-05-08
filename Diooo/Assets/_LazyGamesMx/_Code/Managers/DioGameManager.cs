@@ -232,19 +232,9 @@ namespace com.LazyGames.Dio
             {
                 // Debug.Log("<color=#C2FF70>all clients ready = </color>" + allClientsReady);
                 MyGameState = GameStates.Countdown;
-                
-                // CallReadyToClientRpc();
             }
         }
         
-
-        [ClientRpc]
-        private void SendGameStateToClientRpc(GameStates gameState)
-        {
-            // Debug.Log("<color=#DC9C54>SendGameStateToClientRpc</color>");
-            OnGameStateChange?.Invoke(gameState);
-        }
-
         #endregion
     }
     

@@ -27,7 +27,9 @@ namespace com.LazyGames.Dio
         public override void OnNetworkSpawn()
         {
             if(!IsOwner) return;
-            Prepare();
+            
+            DioGameManager.Instance.OnGameStateChange += Prepare;
+            // Prepare();
             base.OnNetworkSpawn();
 
         }
@@ -74,18 +76,33 @@ namespace com.LazyGames.Dio
             _carImpulse.ApplyImpulse();
         }
 
-        private void Prepare()
+        private void Prepare(DioGameManager.GameStates state)
         {
             if(!IsOwner) return;
             _carImpulse = GetComponent<NetworkCarImpulse>();
+
+            if (state == DioGameManager.GameStates.Countdown)
+            {
+                Debug.Log("<color=#E982EF>Prepare driving Inputs </color>");
+                _handBrakeEvent.BoolEvent += HandBrake;
+                _stopTimeEvent.BoolEvent += StopTime;
+                _angleEvent.FloatEvent += Angle;
+                _torqueEvent.FloatEvent += Torque;
+                _rotateEvent.FloatEvent += Rotate;
+                _vector2InputEvent.Vector2Event += VecTwoInput;
+                _impulseEvent.VoidEvent += Impulse;
+            }
+            else if (state == DioGameManager.GameStates.GameOver)
+            {
+                _handBrakeEvent.BoolEvent -= HandBrake;
+                _stopTimeEvent.BoolEvent -= StopTime;
+                _angleEvent.FloatEvent -= Angle;
+                _torqueEvent.FloatEvent -= Torque;
+                _rotateEvent.FloatEvent -= Rotate;
+                _vector2InputEvent.Vector2Event -= VecTwoInput;
+                _impulseEvent.VoidEvent -= Impulse;    
+            }
             
-            _handBrakeEvent.BoolEvent += HandBrake;
-            _stopTimeEvent.BoolEvent += StopTime;
-            _angleEvent.FloatEvent += Angle;
-            _torqueEvent.FloatEvent += Torque;
-            _rotateEvent.FloatEvent += Rotate;
-            _vector2InputEvent.Vector2Event += VecTwoInput;
-            _impulseEvent.VoidEvent += Impulse;
         }
     }
 }
