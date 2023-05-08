@@ -855,7 +855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 2934872202642037963}
   impulseRadius: 4.5
-  impulseStrength: 5
+  impulseStrength: 250
   yOffset: 0.1
 --- !u!114 &4735771677213841880
 MonoBehaviour:

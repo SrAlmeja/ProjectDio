@@ -16,7 +16,7 @@ namespace com.LazyGames.Dio
         [HideInInspector]public bool hasTarget;
         private Transform _target;
 
-        public void SetTarget(GameObject target)
+        public void SetTarget(Transform target)
         {
             if(!IsOwner) return;
             this._target = target.transform;
@@ -30,7 +30,12 @@ namespace com.LazyGames.Dio
             HandleTranslation();
             HandleRotation();
         }
-       
+
+        public override void OnNetworkSpawn()
+        {
+            gameObject.SetActive(IsOwner);
+        }
+
         private void HandleTranslation()
         {
             if(!IsOwner) return;

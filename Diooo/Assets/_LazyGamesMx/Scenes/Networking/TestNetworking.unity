@@ -1981,7 +1981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1476734950
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2383,8 +2383,8 @@ MonoBehaviour:
   - {fileID: 258939379}
   - {fileID: 213946064}
   playerCarPrefab: {fileID: 4735771677213841879, guid: 1749c76295a782b42914cda5aea94a01, type: 3}
+  networkCameraPrefab: {fileID: 5887603931751938721, guid: b0fc344dc40a2aa44a48457e98df0d2d, type: 3}
   readyPlayerInput: {fileID: 11400000, guid: 5a303bd2ea541e544a1a84b907968d33, type: 2}
-  countdownController: {fileID: 0}
   myGameState:
     m_InternalValue: 1
 --- !u!114 &1990556992
@@ -2880,7 +2880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y

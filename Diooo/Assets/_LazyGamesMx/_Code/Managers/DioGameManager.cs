@@ -45,6 +45,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private List<Transform> placesToSpawnCars;
         [Header("Player Prefab")]
         [SerializeField] private Transform playerCarPrefab;
+        [SerializeField] private Transform networkCameraPrefab;
         [Header("Events Player")]
         [SerializeField] private ReadyPlayerInput readyPlayerInput;
         
@@ -170,12 +171,24 @@ namespace com.LazyGames.Dio
                     return;
                 }
                 
-                // Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
+                Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
                 
                 Transform playerTransform = Instantiate(playerCarPrefab);
                 playerTransform.position = placesToSpawnCars[_spawnIndex].position;
-                NetworkObject networkObject = playerTransform.GetComponent<NetworkObject>();
-                networkObject.SpawnAsPlayerObject(clientID, true);
+                NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
+                networkCarObject.SpawnAsPlayerObject(clientID, true);
+                
+                Transform cameraTransform = Instantiate(networkCameraPrefab);
+                cameraTransform.position = placesToSpawnCars[_spawnIndex].position;
+                NetworkObject networkCameraObject = cameraTransform.GetComponent<NetworkObject>();
+                networkCameraObject.SpawnAsPlayerObject(clientID, true);
+                
+                NetworkCameraFollow networkCameraFollow = cameraTransform.GetComponent<NetworkCameraFollow>();
+                networkCameraFollow.SetTarget(playerTransform);
+                
+                Debug.Log("<color=#7AEFFF>Camera has target  on client </color>" + clientID +  " transform = " + playerTransform.name + networkCameraFollow.hasTarget);
+                
+                
                 // Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
             }
         }
