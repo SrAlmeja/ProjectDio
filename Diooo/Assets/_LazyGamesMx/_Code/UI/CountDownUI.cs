@@ -17,14 +17,18 @@ public class CountDownUI : MonoBehaviour
         CountdownController.Instance.OnHandleCountdown += HandleCountdown;
         CountdownController.Instance.OnSecondPassed += HandleSecondPassed;
     }
+    void OnDestroy()
+    {
+        CountdownController.Instance.OnHandleCountdown -= HandleCountdown;
+        CountdownController.Instance.OnSecondPassed -= HandleSecondPassed;
+    }
     
     void HandleSecondPassed(object sender, int seconds)
     {
         if (_previousSecond != seconds)
         {
-            Debug.Log(seconds);
-            imageCountDownUI.sprite = spritesCountDown[seconds];
-
+            if(seconds >= 0 && seconds < spritesCountDown.Length)
+                imageCountDownUI.sprite = spritesCountDown[seconds];
         }
         _previousSecond = seconds;
     }

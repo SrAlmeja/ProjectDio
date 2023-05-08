@@ -12,10 +12,8 @@ public class CountdownController : NetworkBehaviour
     [SerializeField] private float countdownTime = 3f;
 
     private bool _isTimerActive = false;
-    private NetworkVariable<float> _countdownTimer = new NetworkVariable<float>(0f);
-
-
-
+    private NetworkVariable<float> _countdownTimer = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    
     public static CountdownController Instance;
 
     public EventHandler<int> OnSecondPassed;
@@ -37,20 +35,37 @@ public class CountdownController : NetworkBehaviour
 
     private void Update()
     {
+        if (!IsServer)
+        {
+            return;
+        }
+        
         if (_isTimerActive)
         {
             if (_countdownTimer.Value <= 0)
             {
                 StopCountdown();
+                StopCountdownClientRpc();
                 return;
             }
             
             _countdownTimer.Value -= Time.deltaTime;
             OnSecondPassed?.Invoke(this, (int)_countdownTimer.Value);
+            SendSecondsToClientRpc();
         }
         
     }
 
+    [ClientRpc]
+    private void SendSecondsToClientRpc()
+    {
+        OnSecondPassed?.Invoke(this, (int)_countdownTimer.Value);
+    }
+    [ClientRpc]
+    private void StopCountdownClientRpc()
+    {
+        StopCountdown();
+    }
     private void StartCountdown()
     {
         _isTimerActive = true;

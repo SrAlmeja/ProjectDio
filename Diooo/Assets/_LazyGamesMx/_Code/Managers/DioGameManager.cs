@@ -33,12 +33,9 @@ namespace com.LazyGames.Dio
             }
         }
         
-      
 
         public Action<bool> OnPlayerReady;
         public Action<GameStates> OnGameStateChange;
-
-
 
         #endregion
 
@@ -94,22 +91,14 @@ namespace com.LazyGames.Dio
         {
             _instance = this;
         }
-
-        void Start()
+        
+        private void OnDisable()
         {
-            // readyPlayerInput.OnPlayerReadyInput += OnGameInput_SetReady;
-            // myGameState.OnValueChanged += (prevValue, newValue) =>
-            // {
-            //     OnGameStateChange?.Invoke(newValue);
-            //     Debug.Log("<color=#7DFF33>Game State changed to: </color>" + newValue);
-            // };
-        }
-
-        void Update()
-        {
-            
-            // if (!IsServer) return;
-            
+            readyPlayerInput.OnPlayerReadyInput -= OnGameInput_SetReady;
+            myGameState.OnValueChanged -= (prevValue, newValue) =>
+            { 
+                 OnGameStateChange?.Invoke(newValue); 
+            };
         }
 
         #endregion
@@ -225,6 +214,7 @@ namespace com.LazyGames.Dio
         
         private void OnCountdownFinished()
         {
+            if (!IsServer) return;
             MyGameState = GameStates.GamePlaying;
         }
         

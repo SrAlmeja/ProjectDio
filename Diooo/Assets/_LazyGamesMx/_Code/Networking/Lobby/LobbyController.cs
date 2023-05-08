@@ -76,9 +76,6 @@ namespace com.LazyGames.Dio
         
         private void Update()
         {
-            // if(Input.GetKeyDown(KeyCode.Space))
-            //     CreateLobby();
-            
             HandleLobbyHeartbeat();
             HandleLobbyPollUpdate();
         }
@@ -123,12 +120,12 @@ namespace com.LazyGames.Dio
             try
             {
                 QueryResponse queryResponse =  await Lobbies.Instance.QueryLobbiesAsync();
-                Debug.Log("Lobbies found: " + queryResponse.Results.Count);
+                // Debug.Log("Lobbies found: " + queryResponse.Results.Count);
                 _listLobbyCount = queryResponse.Results.Count;
-                foreach (Lobby lobby in queryResponse.Results)
-                {
-                    Debug.Log(lobby.Name + " " + lobby.MaxPlayers);
-                }
+                // foreach (Lobby lobby in queryResponse.Results)
+                // {
+                    // Debug.Log(lobby.Name + " " + lobby.MaxPlayers);
+                // }
 
                 OnFinishedCheckedLobbies?.Invoke();
             }
@@ -184,7 +181,7 @@ namespace com.LazyGames.Dio
                 string relayJoinCode = _myJoinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
                 RelayController.Instance.JoinRelayServer(relayJoinCode);
                 
-                Debug.Log("QUICK JOIN LOBBY CODE" + _myJoinedLobby.LobbyCode);
+                // Debug.Log("QUICK JOIN LOBBY CODE" + _myJoinedLobby.LobbyCode);
                 OnPlayerEnterRoom?.Invoke(GetPlayer().Data["Player Name"].Value);
             }
             catch (LobbyServiceException e)

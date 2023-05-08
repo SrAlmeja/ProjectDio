@@ -83,7 +83,7 @@ namespace com.LazyGames.Dio
 
             if (state == DioGameManager.GameStates.GamePlaying)
             {
-                Debug.Log("<color=#E982EF>Prepare driving Inputs </color>");
+                Debug.Log("<color=#E982EF>Enable driving Inputs </color>");
                 _handBrakeEvent.BoolEvent += HandBrake;
                 _stopTimeEvent.BoolEvent += StopTime;
                 _angleEvent.FloatEvent += Angle;
@@ -94,6 +94,8 @@ namespace com.LazyGames.Dio
             }
             else if (state == DioGameManager.GameStates.GameOver)
             {
+                Debug.Log("<color=#E982EF>Disable driving Inputs </color>");
+
                 _handBrakeEvent.BoolEvent -= HandBrake;
                 _stopTimeEvent.BoolEvent -= StopTime;
                 _angleEvent.FloatEvent -= Angle;

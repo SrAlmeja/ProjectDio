@@ -66,7 +66,6 @@ using UnityEngine.InputSystem;
                 rotateInputAction = gameplayActionMap.FindAction("Rotate");
                 impulseInputAction = gameplayActionMap.FindAction("Impulse");
                 
-                Debug.Log("<color=blue>SteeringEventsWrapper OnEnable INPUT ACTIONS</color>");
                 handBrakeInputAction.performed += GetHandBrakeInput;
                 handBrakeInputAction.canceled += GetHandBrakeInput;
 
