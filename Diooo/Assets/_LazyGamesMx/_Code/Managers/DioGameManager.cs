@@ -43,9 +43,13 @@ namespace com.LazyGames.Dio
         {
             return _isLocalPlayerReady;
         }
+        
+      
 
         public Action<bool> OnPlayerReady;
-        public Action OnGameStateChange;
+        public Action<GameStates> OnGameStateChange;
+
+
 
         #endregion
 
@@ -66,8 +70,6 @@ namespace com.LazyGames.Dio
         [Header("Game State")] 
         [SerializeField]
         private NetworkVariable<GameStates> myGameState = new NetworkVariable<GameStates>(GameStates.WaitingToStart);
-
-        
         
         #endregion
 
@@ -81,6 +83,15 @@ namespace com.LazyGames.Dio
         
         private Dictionary<ulong,bool> playerReadyDictionary = new Dictionary<ulong, bool>();
 
+        private GameStates MyGameState
+        {
+            get => myGameState.Value;
+            set
+            {
+                myGameState.Value = value;
+                //SendGameStateToClientRpc(value);
+            }
+        }
 
         public enum GameStates
         {
@@ -103,22 +114,18 @@ namespace com.LazyGames.Dio
 
         void Start()
         {
-            
+            readyPlayerInput.OnPlayerReadyInput += OnGameInput_SetReady;
+            myGameState.OnValueChanged += (prevValue, newValue) =>
+            {
+                OnGameStateChange?.Invoke(newValue);
+                Debug.Log("<color=#7DFF33>Game State changed to: </color>" + newValue);
+            };
         }
 
         void Update()
         {
-            if (!IsServer)
-            {
-                return;
-            }
-
-            switch (myGameState.Value)
-            {
-                case GameStates.WaitingToStart:
-                    
-                    break;
-            }
+            
+            // if (!IsServer) return;
             
         }
 
@@ -135,22 +142,31 @@ namespace com.LazyGames.Dio
                HandleConnectedClients();
             }
             
-            Debug.Log("<color=#7DFF33>Set game state to waiting to start</color>");
-            myGameState.Value = GameStates.WaitingToStart;
+            MyGameState = GameStates.WaitingToStart;
             
             //Handle Ready Players Input
             readyPlayerInput.OnPlayerReadyInput += OnGameInput_SetReady;
+            
+            myGameState.OnValueChanged += (prevValue, newValue) =>
+            {
+                OnGameStateChange?.Invoke(newValue);
+            };
 
         }
 
         public bool IsInCountDownState()
         {
-            if(myGameState.Value == GameStates.Countdown)
+            if(MyGameState == GameStates.Countdown)
             {
                 return true;
             }
 
             return false;
+        }
+        
+        public GameStates GetGameState()
+        {
+            return MyGameState;
         }
         #endregion
 
@@ -159,7 +175,7 @@ namespace com.LazyGames.Dio
         private void HandleConnectedClients()
         {
             // Debug.Log("Server is loading the scene");
-            Debug.Log("<color=#3B97FE>Number of players connected </color>" + NetworkManager.Singleton.ConnectedClientsIds.Count);
+            // Debug.Log("<color=#3B97FE>Number of players connected </color>" + NetworkManager.Singleton.ConnectedClientsIds.Count);
             _playersConnected = NetworkManager.Singleton.ConnectedClientsIds.Count;
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
         }
@@ -183,14 +199,14 @@ namespace com.LazyGames.Dio
                 playerTransform.position = placesToSpawnCars[_spawnIndex].position;
                 NetworkObject networkObject = playerTransform.GetComponent<NetworkObject>();
                 networkObject.SpawnAsPlayerObject(clientID, true);
-                Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+                // Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
             }
         }
 
         
         private void OnGameInput_SetReady()
         {
-            if (myGameState.Value == GameStates.WaitingToStart)
+            if (MyGameState == GameStates.WaitingToStart)
             {
                 _isLocalPlayerReady = true;
                 SetPlayerServerRPC();
@@ -201,9 +217,8 @@ namespace com.LazyGames.Dio
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerServerRPC(ServerRpcParams serverRpcParams = default)
         {
-            Debug.Log(serverRpcParams.Receive.SenderClientId + "<color=#FF70E3> is ready</color>");
+            // Debug.Log(serverRpcParams.Receive.SenderClientId + "<color=#FF70E3> is ready</color>");
             playerReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
-            
             bool allClientsReady = true;
             foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
             {
@@ -213,19 +228,23 @@ namespace com.LazyGames.Dio
                     break;
                 }
             }
-
             if (allClientsReady)
             {
-                Debug.Log("<color=#C2FF70>all clients ready = </color>" + allClientsReady);
-                Debug.Log("<color=#C2FF70>Set game state to countdown</color>");
-                myGameState.Value = GameStates.Countdown;
-                OnGameStateChange?.Invoke();
+                // Debug.Log("<color=#C2FF70>all clients ready = </color>" + allClientsReady);
+                MyGameState = GameStates.Countdown;
+                
+                // CallReadyToClientRpc();
             }
         }
-
-
-       
         
+
+        [ClientRpc]
+        private void SendGameStateToClientRpc(GameStates gameState)
+        {
+            // Debug.Log("<color=#DC9C54>SendGameStateToClientRpc</color>");
+            OnGameStateChange?.Invoke(gameState);
+        }
+
         #endregion
     }
     

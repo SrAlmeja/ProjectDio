@@ -51,8 +51,10 @@ namespace com.LazyGames.Dio
             readyText.SetActive(true);
         }
 
-        private void HideUI()
+        private void HideUI(DioGameManager.GameStates state)
         {
+            Debug.Log("HideUI called and get game state: " + DioGameManager.Instance.GetGameState());
+            
             if (DioGameManager.Instance.IsInCountDownState())
             {
                 waitingPlayersUI.SetActive(false);
