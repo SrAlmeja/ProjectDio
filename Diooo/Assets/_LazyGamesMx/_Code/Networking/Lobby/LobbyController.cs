@@ -142,11 +142,11 @@ namespace com.LazyGames.Dio
         {
             if (_listLobbyCount != 0)
             {
-                Debug.Log("<color=#92FFF0>EXISTE UN LOBBY Y SE PUEDE UNIR </color>");
+                // Debug.Log("<color=#92FFF0>EXISTE UN LOBBY Y SE PUEDE UNIR </color>");
                 QuickJoinLobby();
             }else
             {
-                Debug.Log("<color=#92FFF0>NO EXISTE UN LOBBY Y SE PUEDE CREAR</color>");
+                // Debug.Log("<color=#92FFF0>NO EXISTE UN LOBBY Y SE PUEDE CREAR</color>");
                 CreateLobby();
             }
            
