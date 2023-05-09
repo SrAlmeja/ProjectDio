@@ -38,11 +38,11 @@ Material:
     - _Outlider_Pixel: 0.68
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rim_Blend: 0.578
-    - _Rim_Size: 0.348
+    - _Rim_Blend: 1
+    - _Rim_Size: 0.97
     m_Colors:
-    - _OutLineColor: {r: 0.3361683, g: 1, b: 0, a: 0}
-    - _OutLine_Color: {r: 1, g: 0.3820755, b: 0.9680709, a: 0}
+    - _OutLineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _OutLine_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &9215505621533531208
 MonoBehaviour:
