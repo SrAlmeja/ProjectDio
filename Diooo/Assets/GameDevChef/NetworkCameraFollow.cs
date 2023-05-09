@@ -14,19 +14,20 @@ namespace com.LazyGames.Dio
         [SerializeField] private float rotationSpeed = 10;
 
         [HideInInspector]public bool hasTarget;
-        private Transform _target;
+        [SerializeField]private Transform _target;
 
         public void SetTarget(Transform target)
-        {
-            if(!IsOwner) return;
-            this._target = target.transform;
+        {   
+            if (!IsOwner) return;
+            Debug.Log("<color=#DDABFF> Target to car player = </color>" + target.name);
+            _target = target.transform; 
             hasTarget = true;
         }
 
         private void FixedUpdate()
         {
             if (!hasTarget) return;
-            if(!IsOwner) return;
+            if (!IsOwner) return;
             HandleTranslation();
             HandleRotation();
         }
@@ -34,6 +35,7 @@ namespace com.LazyGames.Dio
         public override void OnNetworkSpawn()
         {
             gameObject.SetActive(IsOwner);
+            ReceiveClient();
         }
 
         private void HandleTranslation()
@@ -49,5 +51,17 @@ namespace com.LazyGames.Dio
             var rotation = Quaternion.LookRotation(direction, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
+
+        private void ReceiveClient()
+        {
+            if (!IsOwner) return;
+            var target = OwnerClientId;
+            Debug.Log("<color=#DDABFF> ReceiveClient </color>" + target);
+            var player = NetworkManager.Singleton.ConnectedClients[target].PlayerObject;
+            Debug.Log("<color=#DDABFF> ReceiveClient </color>" + player.name);
+            var playerTransform = player.GetComponent<Transform>();
+            SetTarget(playerTransform);
+        }
+        
     }
 }

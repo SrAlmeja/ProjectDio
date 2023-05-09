@@ -36,6 +36,7 @@ namespace com.LazyGames.Dio
 
         public Action<bool> OnPlayerReady;
         public Action<GameStates> OnGameStateChange;
+        public Action<ClientRpcParams> OnFinishedSpawnPlayers;
 
         #endregion
 
@@ -174,26 +175,29 @@ namespace com.LazyGames.Dio
                 Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
                 
                 Transform playerTransform = Instantiate(playerCarPrefab);
+                playerTransform.name = "CAR CLIENT = "+ clientID;
                 playerTransform.position = placesToSpawnCars[_spawnIndex].position;
+                
                 NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
                 networkCarObject.SpawnAsPlayerObject(clientID, true);
                 
                 Transform cameraTransform = Instantiate(networkCameraPrefab);
+                cameraTransform.name = "CAMERA CLIENT = "+ clientID;
                 cameraTransform.position = placesToSpawnCars[_spawnIndex].position;
-                NetworkObject networkCameraObject = cameraTransform.GetComponent<NetworkObject>();
-                networkCameraObject.SpawnAsPlayerObject(clientID, true);
                 
-                NetworkCameraFollow networkCameraFollow = cameraTransform.GetComponent<NetworkCameraFollow>();
-                networkCameraFollow.SetTarget(playerTransform);
+                NetworkObject networkCamera = cameraTransform.GetComponent<NetworkObject>();
+                networkCamera.SpawnWithOwnership(clientID, true);
                 
-                Debug.Log("<color=#7AEFFF>Camera has target  on client </color>" + clientID +  " transform = " + playerTransform.name + networkCameraFollow.hasTarget);
-                
-                
-                // Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+                Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
             }
         }
-
         
+        // [ClientRpc]
+        // private void SetCameraToClientRpc(ClientRpcParams clientRpcParams = default)
+        // {
+        //     Debug.Log("<color=#7AEFFF>SetCameraToClientRpc</color>");
+        //     OnFinishedSpawnPlayers?.Invoke(clientRpcParams);
+        // }
         private void OnGameInput_SetReady()
         {
             if (MyGameState == GameStates.WaitingToStart)
