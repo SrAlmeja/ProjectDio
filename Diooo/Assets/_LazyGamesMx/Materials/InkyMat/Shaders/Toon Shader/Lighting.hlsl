@@ -1,4 +1,4 @@
-/*void MainLight_float(float3 WorldPos, out float3 Direction, out float3 Color, 
+void MainLight_float(float3 WorldPos, out float3 Direction, out float3 Color, 
 	out float DistanceAtten, out float ShadowAtten)
 {
 #ifdef SHADERGRAPH_PREVIEW
@@ -78,4 +78,4 @@ void AdditionalLight_half(half3 WorldPos, int Index, out half3 Direction,
 		ShadowAtten = light.shadowAttenuation;
 	}
 #endif
-}*/
+}
