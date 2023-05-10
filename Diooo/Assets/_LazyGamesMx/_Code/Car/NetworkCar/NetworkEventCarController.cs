@@ -32,6 +32,7 @@ namespace com.LazyGames.Dio
         public override void OnNetworkSpawn()
         {
             if (!IsOwner) return;
+            
             Prepare();
             base.OnNetworkSpawn();
         }

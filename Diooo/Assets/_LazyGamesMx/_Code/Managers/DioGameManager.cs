@@ -46,7 +46,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private List<Transform> placesToSpawnCars;
         [Header("Player Prefab")]
         [SerializeField] private Transform playerCarPrefab;
-        [SerializeField] private Transform networkCameraPrefab;
+        // [SerializeField] private Transform networkCameraPrefab;
         [Header("Events Player")]
         [SerializeField] private ReadyPlayerInput readyPlayerInput;
         
@@ -153,8 +153,7 @@ namespace com.LazyGames.Dio
 
         private void HandleConnectedClients()
         {
-            // Debug.Log("Server is loading the scene");
-            // Debug.Log("<color=#3B97FE>Number of players connected </color>" + NetworkManager.Singleton.ConnectedClientsIds.Count);
+            Debug.Log("<color=#3B97FE>Number of players connected </color>" + NetworkManager.Singleton.ConnectedClientsIds.Count);
             _playersConnected = NetworkManager.Singleton.ConnectedClientsIds.Count;
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
         }
@@ -172,7 +171,7 @@ namespace com.LazyGames.Dio
                     return;
                 }
                 
-                Debug.Log("<color=#C9FE3B>Spawned index players = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
+                // Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
                 
                 Transform playerTransform = Instantiate(playerCarPrefab);
                 playerTransform.name = "CAR CLIENT = "+ clientID;
@@ -181,23 +180,11 @@ namespace com.LazyGames.Dio
                 NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
                 networkCarObject.SpawnAsPlayerObject(clientID, true);
                 
-                Transform cameraTransform = Instantiate(networkCameraPrefab);
-                cameraTransform.name = "CAMERA CLIENT = "+ clientID;
-                cameraTransform.position = placesToSpawnCars[_spawnIndex].position;
-                
-                NetworkObject networkCamera = cameraTransform.GetComponent<NetworkObject>();
-                networkCamera.SpawnWithOwnership(clientID, true);
-                
                 Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
             }
         }
         
-        // [ClientRpc]
-        // private void SetCameraToClientRpc(ClientRpcParams clientRpcParams = default)
-        // {
-        //     Debug.Log("<color=#7AEFFF>SetCameraToClientRpc</color>");
-        //     OnFinishedSpawnPlayers?.Invoke(clientRpcParams);
-        // }
+        
         private void OnGameInput_SetReady()
         {
             if (MyGameState == GameStates.WaitingToStart)
@@ -211,7 +198,6 @@ namespace com.LazyGames.Dio
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerServerRPC(ServerRpcParams serverRpcParams = default)
         {
-            // Debug.Log(serverRpcParams.Receive.SenderClientId + "<color=#FF70E3> is ready</color>");
             playerReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
             bool allClientsReady = true;
             foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
@@ -224,7 +210,6 @@ namespace com.LazyGames.Dio
             }
             if (allClientsReady)
             {
-                // Debug.Log("<color=#C2FF70>all clients ready = </color>" + allClientsReady);
                 MyGameState = GameStates.Countdown;
             }
         }
