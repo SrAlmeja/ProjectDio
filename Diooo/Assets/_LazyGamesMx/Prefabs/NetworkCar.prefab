@@ -665,6 +665,7 @@ GameObject:
   - component: {fileID: 4735771677213841883}
   - component: {fileID: 4735771677213841881}
   - component: {fileID: 4735771677213841880}
+  - component: {fileID: 8961599167827948623}
   m_Layer: 0
   m_Name: NetworkCar
   m_TagString: Untagged
@@ -800,6 +801,13 @@ MonoBehaviour:
   torque: 0
   rotate: 0
   Vec2Input: {x: 0, y: 0}
+  _handBrakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+  _stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
+  _angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+  _torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+  _rotateEvent: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
+  _vector2InputEvent: {fileID: 11400000, guid: b66ee521a607b1c4f9d576dec3203700, type: 2}
+  _impulseEvent: {fileID: 11400000, guid: 35e7e3da2c95f02408d101c2bbd87652, type: 2}
 --- !u!64 &4733076956674025712
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -848,7 +856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 2934872202642037963}
   impulseRadius: 4.5
-  impulseStrength: 5
+  impulseStrength: 250
   yOffset: 0.1
 --- !u!114 &4735771677213841880
 MonoBehaviour:
@@ -864,6 +872,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doSlow: 0
   targetTimeScale: 0.33
+--- !u!114 &8961599167827948623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733076956674025725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6649b06f1f16a840bf2250f1dabe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkCameraFollow: {fileID: 0}
 --- !u!1 &4733277597485678685
 GameObject:
   m_ObjectHideFlags: 0
