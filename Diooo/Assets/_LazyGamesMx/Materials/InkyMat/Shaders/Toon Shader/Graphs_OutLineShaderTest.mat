@@ -24,6 +24,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_80c9e9775f584270ac0ef65cc57395f1_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 5d44f3c3b1280e844905682f199e300b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ShadowPathernTexture:
         m_Texture: {fileID: 2800000, guid: ad83065705cffdd47919ab6962727f62, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -46,7 +50,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CellShader: 0.18
+    - _Blue_Value: 0
+    - _CellShader: 0.017
+    - _Green_Value: 0
     - _OutLineFade: 0.812
     - _Outlider_Pixel: 0.68
     - _QueueControl: 0
