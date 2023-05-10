@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45138967, g: 0.50045115, b: 0.57003266, a: 1}
+  m_IndirectSpecularColor: {r: 0.43580896, g: 0.47387743, b: 0.5131277, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -407,14 +407,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283773676}
-  m_LocalRotation: {x: 0.8582635, y: 0.11023307, z: -0.45634574, w: 0.20731874}
+  m_LocalRotation: {x: -0.028582942, y: 0.9389063, z: -0.080492824, w: -0.33340493}
   m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -207.16, y: 1856, z: 0}
+  m_LocalEulerAnglesHint: {x: -350.2, y: 2019.1, z: 0}
 --- !u!114 &283773679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,7 +644,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 806e7becfecd7184f9912f16638b09b9, type: 2}
+  - {fileID: 2100000, guid: c074aa882f4613841b557fef8cda9f7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3779,6 +3779,10 @@ PrefabInstance:
     - target: {fileID: 2664473185666293593, guid: 78439f877b57dc845a001403ceb3f5ce, type: 3}
       propertyPath: m_Name
       value: Nueva Pista
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664473185666293593, guid: 78439f877b57dc845a001403ceb3f5ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3436752919364437475, guid: 78439f877b57dc845a001403ceb3f5ce, type: 3}
       propertyPath: m_RootOrder
@@ -8153,6 +8157,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pista 02
       objectReference: {fileID: 0}
+    - target: {fileID: 4673759555881056346, guid: 894dcdeee4d6152459a70052bb8adf0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5446918074501489376, guid: 894dcdeee4d6152459a70052bb8adf0a, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -9206,6 +9214,10 @@ PrefabInstance:
     - target: {fileID: 6784834355056890204, guid: bdd92b01cf9db834b88ef4ad36728819, type: 3}
       propertyPath: m_Name
       value: Pista 03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784834355056890204, guid: bdd92b01cf9db834b88ef4ad36728819, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdd92b01cf9db834b88ef4ad36728819, type: 3}
