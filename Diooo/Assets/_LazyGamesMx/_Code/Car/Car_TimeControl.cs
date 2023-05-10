@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
-    public class Car_TimeControl : NetworkBehaviour
+    public class Car_TimeControl : MonoBehaviour
     {
         [Header("Time Control")] 
         [SerializeField] private bool doSlow;

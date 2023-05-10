@@ -1,7 +1,5 @@
 // Creado Raymundo Mosqueda 24/04/2023
 //
-
-using System;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
@@ -67,6 +65,7 @@ namespace com.LazyGames.Dio
 
         private void HandleSteering()
         {
+            if (_steeringEventsListener.stopTime) return;
             currentSteerAngle = maxSteerAngle * _steeringEventsListener.angle;
             frontLeftWheelCollider.steerAngle = currentSteerAngle;
             frontRightWheelCollider.steerAngle = currentSteerAngle;

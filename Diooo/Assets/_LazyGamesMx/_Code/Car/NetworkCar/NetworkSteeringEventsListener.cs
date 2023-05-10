@@ -13,6 +13,15 @@ namespace com.LazyGames.Dio
         [HideInInspector]public float rotate;
         [HideInInspector]public Vector2 Vec2Input;
         
+        [SerializeField] protected BoolEventChannelSO _handBrakeEvent;
+        [SerializeField] protected BoolEventChannelSO _stopTimeEvent;
+        [SerializeField] protected FloatEventChannelSO _angleEvent;
+        [SerializeField] protected FloatEventChannelSO _torqueEvent;
+        [SerializeField] protected FloatEventChannelSO _rotateEvent;
+        [SerializeField] protected VectorTwoEventChannelSO _vector2InputEvent;
+        [SerializeField] protected VoidEventChannelSO _impulseEvent;
+
+        
         private NetworkCarImpulse _carImpulse;
 
         public override void OnNetworkSpawn()
@@ -69,6 +78,14 @@ namespace com.LazyGames.Dio
         {
             if(!IsOwner) return;
             _carImpulse = GetComponent<NetworkCarImpulse>();
+            
+            _handBrakeEvent.BoolEvent += HandBrake;
+            _stopTimeEvent.BoolEvent += StopTime;
+            _angleEvent.FloatEvent += Angle;
+            _torqueEvent.FloatEvent += Torque;
+            _rotateEvent.FloatEvent += Rotate;
+            _vector2InputEvent.Vector2Event += VecTwoInput;
+            _impulseEvent.VoidEvent += Impulse;
         }
     }
 }

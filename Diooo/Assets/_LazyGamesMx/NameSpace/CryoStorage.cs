@@ -6,8 +6,9 @@ namespace CryoStorage
     {
         public static Vector3 PointOnRadius(Vector3 center, float radius, float angle)
         {
-            float xOffset = radius * Mathf.Cos(angle);
-            float zOffset = radius * Mathf.Sin(angle);
+            float rad = angle * Mathf.Deg2Rad;
+            float xOffset = radius * Mathf.Cos(-rad + 90f);
+            float zOffset = radius * Mathf.Sin(-rad + 90f);
             Vector3 result = new Vector3(center.x + xOffset, center.y, center.z + zOffset);
             return result;
             
