@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
@@ -79,11 +77,12 @@ namespace com.LazyGames.Dio
         {
             Hashtable hash = new Hashtable();
             hash.Add("position", _currentData.Records[index].position);
-            hash.Add("rotation", _currentData.Records[index].rotation);
-            hash.Add("time", _currentData.Records[index].time - _currentData.Records[index - 1].time);
+            hash.Add("rotation", _currentData.Records[index].rotation.eulerAngles);
+            hash.Add("time", _currentData.Records[index].time - (_currentIndex > 0 ? _currentData.Records[index - 1].time : 0f));
             hash.Add("easetype", iTween.EaseType.easeInOutQuad);
 
             iTween.MoveTo(gameObject, hash);
+            iTween.RotateTo(gameObject, _currentData.Records[index].rotation.eulerAngles, hash["time"] as float? ?? 0f);
         }
     }
 
