@@ -33,6 +33,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private float _idleRPM;
         [SerializeField] private TMP_Text _rpmText;
         [SerializeField] private TMP_Text _gearText;
+        [SerializeField] private TMP_Text _kilometerPerHour;
         [SerializeField] private Transform _rpmNeedle;
         [SerializeField] private float _minNeedleRotation;
         [SerializeField] private float _maxNeedleRotation;
@@ -103,6 +104,15 @@ namespace com.LazyGames.Dio
             ApplySteering();
             ApplyBrake();
             ApplyWheelPositions();
+            KilometerPerHour();
+        }
+
+        void KilometerPerHour()
+        {
+            Vector3 velocity = _playerRB.velocity;
+            float speedInKmPerHour = velocity.magnitude * 3.6f;
+            int truncatedSpeed = Mathf.FloorToInt(speedInKmPerHour);
+            _kilometerPerHour.text = truncatedSpeed + "km/h";
         }
 
         void CheckInput()
@@ -155,7 +165,7 @@ namespace com.LazyGames.Dio
         {
             if(_gasInput > 0) 
             {
-                _steeringInput = f * 100;
+                _steeringInput = f * 150;
             }
             if(_gasInput == 0)
             {
