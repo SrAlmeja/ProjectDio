@@ -7,6 +7,7 @@ namespace com.LazyGames.Dio
     public class RecordData : ScriptableObject
     {
         public List<Record> Records = new List<Record>();
+        public float StartTime = 0f;
 
         public void AddRecord(Vector3 position, Quaternion rotation, float time)
         {

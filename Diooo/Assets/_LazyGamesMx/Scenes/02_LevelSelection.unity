@@ -3145,10 +3145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8a357533709fc49896f38b0a28ead3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recordInterval: 0.016666668
   _recordData: {fileID: 11400000, guid: 377d34767da20364dbd472435a250953, type: 2}
-  _isRecording: 1
-  _eraseOnAwake: 1
+  _recordInterval: 0.3
+  _atFramerate: 0
+  _isRecording: 0
+  _eraseOnAwake: 0
 --- !u!114 &1852239575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3161,10 +3162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab036ae2df522d44b647cccf790e37a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _recordData: {fileID: 11400000, guid: 377d34767da20364dbd472435a250953, type: 2}
   PlaybackSpeed: 1
   LoopPlayback: 1
   _playOnAwake: 0
-  _recordData: {fileID: 11400000, guid: 377d34767da20364dbd472435a250953, type: 2}
+  _useTweenInterpolation: 0
 --- !u!65 &1852239576
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5,26 +5,32 @@ namespace com.LazyGames.Dio
 {
     public class PlaybackData : MonoBehaviour
     {
+        [Header("Dependencies")]
+        [SerializeField] private RecordData _recordData;
+
         [Header("Settings")]
         public float PlaybackSpeed = 1f;
         public bool LoopPlayback = true;
 
+        [Header("Playback Options")]
         [SerializeField] private bool _playOnAwake;
+        [Tooltip("If checked, it will use iTween to interpolate values. Recommended for datasets of 1-3 recordings per second")]
+        [SerializeField] private bool _useTweenInterpolation; 
 
-        [Header("Dependencies")]
-        [SerializeField] private RecordData _recordData;   
 
-        private int _currentIndex = 0;  
-        private float _elapsedTime = 0f; 
+
+
+        private int _currentIndex = 0;
+        private float _elapsedTime = 0f;
         private bool _isPlaying = false;
 
-     
+
         void Start()
         {
             iTween.Init(gameObject);
             _currentIndex = 0;
             _elapsedTime = 0f;
-           if(_playOnAwake) Play();
+            if (_playOnAwake) Play();
         }
 
         // Update is called once per frame
@@ -49,12 +55,23 @@ namespace com.LazyGames.Dio
         {
             if (!_isPlaying) return;
 
+            float duration = _recordData.Records[_recordData.Records.Count - 1].time - _recordData.StartTime;
+
             _elapsedTime += Time.deltaTime * PlaybackSpeed;
 
-            if (_elapsedTime >= _recordData.Records[_currentIndex].time)
+            if (_elapsedTime >= duration)
             {
-                _currentIndex++;
+                _elapsedTime = 0f;
+                _currentIndex = 0;
+            }
 
+            float t = (_elapsedTime - _recordData.Records[_currentIndex].time + _recordData.StartTime) /
+                      (_recordData.Records[_currentIndex + 1].time - _recordData.Records[_currentIndex].time);
+
+            if (t > 1f)
+            {
+                t = 1f;
+                _currentIndex++;
                 if (_currentIndex >= _recordData.Records.Count)
                 {
                     if (LoopPlayback)
@@ -67,11 +84,17 @@ namespace com.LazyGames.Dio
                         return;
                     }
                 }
+            }
 
-                ApplyRecording(_recordData, _currentIndex);
-             
+            if(_useTweenInterpolation)
+            {
+            ApplyRecording(_recordData, _currentIndex);
+            } else
+            {
+            ApplyRecordingLerped(_recordData, _currentIndex, t);
             }
         }
+
 
         private void ApplyRecording(RecordData _currentData, int index)
         {
@@ -84,6 +107,14 @@ namespace com.LazyGames.Dio
             iTween.MoveTo(gameObject, hash);
             iTween.RotateTo(gameObject, _currentData.Records[index].rotation.eulerAngles, hash["time"] as float? ?? 0f);
         }
-    }
 
+        private void ApplyRecordingLerped(RecordData currentData, int index, float t)
+        {
+            var targetPosition = currentData.Records[index].position;
+            var targetRotation = currentData.Records[index].rotation;
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, t);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, t);
+        }
+    }
 }

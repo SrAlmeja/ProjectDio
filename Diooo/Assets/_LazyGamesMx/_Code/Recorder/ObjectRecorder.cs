@@ -24,6 +24,7 @@ namespace com.LazyGames.Dio
         private void Start()
         {
             if (_eraseOnAwake) _recordData.ClearData();
+            if (_recordData.Records.Count == 0) _recordData.StartTime = Time.time;
             _lastRecordTime = Time.time;
         }
 
