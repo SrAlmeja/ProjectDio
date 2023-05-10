@@ -4,7 +4,7 @@
     {
         public static string MAIN_MENU_SCENE = "MainMenu";
         public static string LOBBY_SCENE = "Lobby_Dio";
-        public static string GAME_SCENE = "TestNetworking";
+        public static string GAME_SCENE = "Race_Multiplayer";
         
     }
 }
