@@ -1,3 +1,4 @@
+using CryoStorage;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -131,22 +132,9 @@ using UnityEngine.InputSystem;
             void RotateInput(InputAction.CallbackContext context)
             {
                 if (!IsOwner) return;
-                Vector2 VectorInput = context.ReadValue<Vector2>();
-                float angle = Vector2.Angle(Vector2.right, VectorInput); // obtiene el ángulo en un rango de 0 a 180 grados
-
-                if (VectorInput.y < 0) // ajusta el ángulo si está en el segundo o tercer cuadrante
-                {
-                    angle = 360 - angle;
-                }
-
-                float finalAngle = Mathf.Atan2(VectorInput.y, VectorInput.x) * Mathf.Rad2Deg; // convierte el ángulo a grados
-
-                if (finalAngle < 0) // ajusta el ángulo si es negativo
-                {
-                    finalAngle += 360;
-                }
-
-                _rotateEvent.RaiseEvent(finalAngle);
+                Vector2 vectorInput = context.ReadValue<Vector2>();
+                float angle = CryoMath.AngleFromOffset(vectorInput);
+                _rotateEvent.RaiseEvent(angle);
                 _vector2InputEvent.RaiseEvent(context.ReadValue<Vector2>());
             }
 
