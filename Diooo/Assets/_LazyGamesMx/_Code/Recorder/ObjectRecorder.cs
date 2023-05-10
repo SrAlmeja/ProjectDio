@@ -1,30 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectRecorder : MonoBehaviour
+namespace com.LazyGames.Dio
 {
-    [SerializeField] private float recordInterval = 1.0f;
-    [SerializeField] private PlaybackData playbackData;
-
-    private float lastRecordTime;
-
-    private void Start()
+    public class ObjectRecorder : MonoBehaviour
     {
-        lastRecordTime = Time.time;
-    }
+        [SerializeField] private float _recordInterval = 1.0f;
+        [SerializeField] private RecordData _recordData;
 
-    private void Update()
-    {
-        if (Time.time - lastRecordTime >= recordInterval)
+        [SerializeField] private bool _isRecording;
+
+        [Header("===Danger Zone===")]
+        [SerializeField] private bool _eraseOnAwake;
+
+        private float _lastRecordTime;
+
+        private void Start()
         {
-            Vector3 position = transform.position;
-            Quaternion rotation = transform.rotation;
-            float time = Time.time;
+            if (_eraseOnAwake) _recordData.ClearData();
+            _lastRecordTime = Time.time;
+        }
 
-            playbackData.AddRecord(position, rotation, time);
+        private void Update()
+        {
+            RecordDataPoint();
+        }
 
-            lastRecordTime = time;
+        private void RecordDataPoint()
+        {
+            if (!_isRecording) return;
+
+            if (Time.time - _lastRecordTime >= _recordInterval)
+            {
+                Vector3 position = transform.position;
+                Quaternion rotation = transform.rotation;
+                float time = Time.time;
+
+                _recordData.AddRecord(position, rotation, time);
+
+                _lastRecordTime = time;
+            }
         }
     }
 }
+
