@@ -1,7 +1,6 @@
 //Dino 05/04/2023 Creation of the script
 //This script manage info of the player that is in the lobby
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerLobbyUI : MonoBehaviour
