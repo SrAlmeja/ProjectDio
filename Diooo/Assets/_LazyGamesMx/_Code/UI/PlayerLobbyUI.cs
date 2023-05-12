@@ -22,22 +22,14 @@ public class PlayerLobbyUI : NetworkBehaviour
     {
         LobbyUI lobbyUI = FindObjectOfType<LobbyUI>();
         string playerName = lobbyUI.MyplayerName;
-        Sprite playerImage = lobbyUI.SelectRandomImagePlayer();
-        SetPlayerInfo(playerName, playerImage );
+        string playerId = lobbyUI.MyPlayerId;
+        Sprite playerImage = lobbyUI.MyplayerImage;
+        SetPlayerInfo(playerName + " "+ playerId, playerImage);
     }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }   
+    
     #endregion
 
-    public void SetPlayerInfo(string playerName, Sprite playerImage)
+    private void SetPlayerInfo(string playerName, Sprite playerImage)
     {
         _playerNameText.text = playerName;
         _playerImage.sprite = playerImage;

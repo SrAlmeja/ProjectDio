@@ -84,7 +84,9 @@ namespace com.LazyGames.Dio
 
         private void OnDestroy()
         {
-            AuthenticatorController.Instance.OnFinishedAnonymousLogin -= ListLobbies;
+            if(AuthenticatorController.Instance != null)
+                AuthenticatorController.Instance.OnFinishedAnonymousLogin -= ListLobbies;
+           
             OnFinishedCheckedLobbies -= CheckedLobbyExists;
         }
 
@@ -110,7 +112,9 @@ namespace com.LazyGames.Dio
                 
                 OnFinishedCreateLobby?.Invoke( new PlayerLobbyData
                 {
-                    PlayerName = GetPlayer().Data["Player Name"].Value +" " +GetPlayer().Data["Player Id"].Value
+                    PlayerName = GetPlayer().Data["Player Name"].Value,
+                    PlayerImageIndex = 0,
+                    PlayerId = GetPlayer().Data["Player Id"].Value
                 });
 
             }
@@ -189,7 +193,9 @@ namespace com.LazyGames.Dio
                 // Debug.Log("QUICK JOIN LOBBY CODE" + _myJoinedLobby.LobbyCode);
                 OnPlayerEnterRoom?.Invoke(new PlayerLobbyData
                     {
-                        PlayerName =  GetPlayer().Data["Player Name"].Value + " " + GetPlayer().Data["Player Id"].Value
+                        PlayerName =  GetPlayer().Data["Player Name"].Value,
+                        PlayerImageIndex = 0,
+                        PlayerId = GetPlayer().Data["Player Id"].Value
                     });
             }
             catch (LobbyServiceException e)
@@ -221,7 +227,7 @@ namespace com.LazyGames.Dio
                 Data = new Dictionary<string, PlayerDataObject>
                 {
                     {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, defaultPlayerName)},
-                    {"Player Id", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, AuthenticationService.Instance.PlayerId)}
+                    {"Player Id", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, AuthenticationService.Instance.PlayerId)},
                 }
             };
         }
@@ -310,14 +316,16 @@ namespace com.LazyGames.Dio
         
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
+            
             serializer.SerializeValue(ref PlayerName);
             serializer.SerializeValue(ref PlayerImageIndex);
             serializer.SerializeValue(ref PlayerId);
+
         }
-        
+
         public bool Equals(PlayerLobbyData other)
         {
-            return PlayerId.Equals(other.PlayerId);
+            return PlayerName == other.PlayerName && PlayerImageIndex == other.PlayerImageIndex && PlayerId == other.PlayerId;
         }
     }
 }
