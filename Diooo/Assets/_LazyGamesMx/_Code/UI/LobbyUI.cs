@@ -69,7 +69,7 @@ namespace com.LazyGames.Dio
             }
             else
             {
-                DioGameMultiplayer.Instance.OnStartClient += SpawnPlayerUI;
+                // DioGameMultiplayer.Instance.OnStartClient += SpawnPlayerUI;
                 
             }
 
@@ -109,10 +109,14 @@ namespace com.LazyGames.Dio
 
         void JoinPlayerUI(string playerName)
         {
-           _playerName = playerName;
+            _playerName = playerName;
             UploadLobbyCode();
             UpdatePlayerCount();
-            
+
+            if (DioGameMultiplayer.Instance.IsHostInitialized.Value)
+            {
+                SpawnPlayerUI();
+            }
         }
 
         void SpawnPlayerUI()
@@ -121,10 +125,11 @@ namespace com.LazyGames.Dio
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
             playerLobby.transform.SetParent(lobbyLayoutParent.transform);
-            // playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerInfo(_playerName, SelectRandomImagePlayer());
             playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
             
         }
+        
+        
        public Sprite SelectRandomImagePlayer()
         {
             int randomIndex = Random.Range(0, playerImages.Count);

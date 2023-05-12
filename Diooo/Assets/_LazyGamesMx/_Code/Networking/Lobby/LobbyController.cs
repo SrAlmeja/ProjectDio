@@ -182,7 +182,7 @@ namespace com.LazyGames.Dio
                 RelayController.Instance.JoinRelayServer(relayJoinCode);
                 
                 // Debug.Log("QUICK JOIN LOBBY CODE" + _myJoinedLobby.LobbyCode);
-                OnPlayerEnterRoom?.Invoke(GetPlayer().Data["Player Name"].Value);
+                OnPlayerEnterRoom?.Invoke(GetPlayer().Data["Player Name"].Value + " " + GetPlayer().Data["Player Id"].Value);
             }
             catch (LobbyServiceException e)
             {

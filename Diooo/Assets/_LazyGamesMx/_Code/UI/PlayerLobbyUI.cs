@@ -21,7 +21,6 @@ public class PlayerLobbyUI : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         LobbyUI lobbyUI = FindObjectOfType<LobbyUI>();
-        
         string playerName = lobbyUI.PlayerName;
         Sprite playerImage = lobbyUI.SelectRandomImagePlayer();
         SetPlayerInfo(playerName, playerImage );
