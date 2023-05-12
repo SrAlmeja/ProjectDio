@@ -106,7 +106,7 @@ namespace com.LazyGames.Dio
                 Debug.Log("Created lobby with id: " + _myJoinedLobby.Name + " " + _myJoinedLobby.MaxPlayers + " LOBBY ID =  " + _myJoinedLobby.Id);
                 RelayController.Instance.CreateRelayServer(_myJoinedLobby.Id, KEY_RELAY_JOIN_CODE);
 
-                OnFinishedCreateLobby?.Invoke(GetPlayer().Data["Player Name"].Value);
+                OnFinishedCreateLobby?.Invoke(GetPlayer().Data["Player Name"].Value +" " +GetPlayer().Data["Player Id"].Value);
 
             }
             catch (LobbyServiceException exception)
@@ -210,10 +210,10 @@ namespace com.LazyGames.Dio
         {
             return new Player
             {
-                // Id = AuthenticationService.Instance.PlayerId,
                 Data = new Dictionary<string, PlayerDataObject>
                 {
-                    {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, defaultPlayerName)}
+                    {"Player Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, defaultPlayerName)},
+                    {"Player Id", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, AuthenticationService.Instance.PlayerId)}
                 }
             };
         }

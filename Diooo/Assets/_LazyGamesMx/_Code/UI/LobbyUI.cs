@@ -15,6 +15,7 @@ namespace com.LazyGames.Dio
         #region private Variables
 
         [SerializeField] private Text lobbyCodeText;
+        [SerializeField] private Text playerCountText;
         [SerializeField] private GameObject lobbyLayoutParent;
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private List<PlayerLobbyUI> playerLobbyUIs = new List<PlayerLobbyUI>();
@@ -71,6 +72,11 @@ namespace com.LazyGames.Dio
             string lobbyName = LobbyController.Instance.GetLobby().Name;
             lobbyCodeText.text = lobbyName + " CODE =  " + lobbyCode;
         }
+        void UpdatePlayerCount()
+        {
+            int playerCount = LobbyController.Instance.GetLobby().Players.Count;
+            playerCountText.text = playerCount + " / " + LobbyController.Instance.GetLobby().MaxPlayers;
+        }
 
         void JoinPlayerUI(string playerName)
         {
@@ -78,6 +84,7 @@ namespace com.LazyGames.Dio
             playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerInfo(playerName, SelectRandomImagePlayer());
             playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
             UploadLobbyCode();
+            UpdatePlayerCount();
         }
 
         Sprite SelectRandomImagePlayer()
