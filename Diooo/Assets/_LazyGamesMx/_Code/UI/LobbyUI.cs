@@ -24,8 +24,15 @@ namespace com.LazyGames.Dio
         [SerializeField] private Button startGameButton;
         
         private string _playerName = "Player";
-        int _playerIspawnIndex = 0;
         
+        
+        
+        #endregion
+
+        #region public variables
+
+
+        public string PlayerName => _playerName;
         #endregion
         
         #region Unity Methods
@@ -66,7 +73,6 @@ namespace com.LazyGames.Dio
                 
             }
 
-
             if (IsServer)
             {
                 startGameButton.gameObject.SetActive(true);
@@ -106,11 +112,7 @@ namespace com.LazyGames.Dio
            _playerName = playerName;
             UploadLobbyCode();
             UpdatePlayerCount();
-            if (DioGameMultiplayer.Instance.IsHostInitialized.Value)
-            {
-                SpawnPlayerUI();
-            }
-
+            
         }
 
         void SpawnPlayerUI()
@@ -119,13 +121,11 @@ namespace com.LazyGames.Dio
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
             playerLobby.transform.SetParent(lobbyLayoutParent.transform);
-            playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerInfo(_playerName, SelectRandomImagePlayer());
+            // playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerInfo(_playerName, SelectRandomImagePlayer());
             playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
             
-            _playerIspawnIndex++;
-            Debug.Log("<color=#E8FF81>Players spawn </color>" + _playerIspawnIndex);
         }
-        Sprite SelectRandomImagePlayer()
+       public Sprite SelectRandomImagePlayer()
         {
             int randomIndex = Random.Range(0, playerImages.Count);
             Sprite randomImage = playerImages[randomIndex];

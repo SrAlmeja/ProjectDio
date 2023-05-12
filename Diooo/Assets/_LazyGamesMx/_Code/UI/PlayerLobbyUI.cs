@@ -18,6 +18,15 @@ public class PlayerLobbyUI : NetworkBehaviour
 
     #region Unity Methods
 
+    public override void OnNetworkSpawn()
+    {
+        LobbyUI lobbyUI = FindObjectOfType<LobbyUI>();
+        
+        string playerName = lobbyUI.PlayerName;
+        Sprite playerImage = lobbyUI.SelectRandomImagePlayer();
+        SetPlayerInfo(playerName, playerImage );
+    }
+
     void Start()
     {
         
