@@ -6,6 +6,8 @@ using Unity.Services.Authentication;
 using UnityEngine;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.Collections;
+using Unity.Netcode;
 
 
 namespace com.LazyGames.Dio
@@ -37,8 +39,8 @@ namespace com.LazyGames.Dio
         [SerializeField] string lobbyName = "DinoLobby";
         [SerializeField] int maxPlayers = 4;
 
-        public Action<string> OnPlayerEnterRoom;
-        public Action<string> OnFinishedCreateLobby;
+        public Action<PlayerLobbyData> OnPlayerEnterRoom;
+        public Action<PlayerLobbyData> OnFinishedCreateLobby;
         public Action OnFinishedCheckedLobbies;
 
         #endregion
@@ -105,11 +107,11 @@ namespace com.LazyGames.Dio
                });
                 Debug.Log("Created lobby with id: " + _myJoinedLobby.Name + " " + _myJoinedLobby.MaxPlayers + " LOBBY ID =  " + _myJoinedLobby.Id);
                 RelayController.Instance.CreateRelayServer(_myJoinedLobby.Id, KEY_RELAY_JOIN_CODE);
-
                 
-                
-                
-                OnFinishedCreateLobby?.Invoke(GetPlayer().Data["Player Name"].Value +" " +GetPlayer().Data["Player Id"].Value);
+                OnFinishedCreateLobby?.Invoke( new PlayerLobbyData
+                {
+                    PlayerName = GetPlayer().Data["Player Name"].Value +" " +GetPlayer().Data["Player Id"].Value
+                });
 
             }
             catch (LobbyServiceException exception)
@@ -185,7 +187,10 @@ namespace com.LazyGames.Dio
                 RelayController.Instance.JoinRelayServer(relayJoinCode);
                 
                 // Debug.Log("QUICK JOIN LOBBY CODE" + _myJoinedLobby.LobbyCode);
-                OnPlayerEnterRoom?.Invoke(GetPlayer().Data["Player Name"].Value + " " + GetPlayer().Data["Player Id"].Value);
+                OnPlayerEnterRoom?.Invoke(new PlayerLobbyData
+                    {
+                        PlayerName =  GetPlayer().Data["Player Name"].Value + " " + GetPlayer().Data["Player Id"].Value
+                    });
             }
             catch (LobbyServiceException e)
             {
@@ -293,8 +298,26 @@ namespace com.LazyGames.Dio
         
         
         #endregion
-        
 
-       
+    }
+    
+    
+    public struct PlayerLobbyData : INetworkSerializable, IEquatable<PlayerLobbyData>
+    {
+        public FixedString128Bytes PlayerName;
+        public int PlayerImageIndex;
+        public FixedString128Bytes PlayerId;
+        
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref PlayerName);
+            serializer.SerializeValue(ref PlayerImageIndex);
+            serializer.SerializeValue(ref PlayerId);
+        }
+        
+        public bool Equals(PlayerLobbyData other)
+        {
+            return PlayerId.Equals(other.PlayerId);
+        }
     }
 }

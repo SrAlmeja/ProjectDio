@@ -1,8 +1,6 @@
 //Dino this script manage the multiplayer of the game
 //Decides who is the host and who is the client
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -65,19 +63,7 @@ namespace com.LazyGames.Dio
         
     }
 
-    public struct PlayerData : INetworkSerializable
-    {
-        public string PlayerName;
-        public int PlayerImageIndex;
-        public string PlayerId;
-        
-        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-        {
-            serializer.SerializeValue(ref PlayerName);
-            serializer.SerializeValue(ref PlayerImageIndex);
-            serializer.SerializeValue(ref PlayerId);
-        }
-    }
+ 
     
     
     

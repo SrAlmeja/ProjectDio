@@ -18,14 +18,15 @@ namespace com.LazyGames.Dio
         [SerializeField] private Text playerCountText;
         [SerializeField] private GameObject lobbyLayoutParent;
         [SerializeField] private GameObject playerUIPrefab;
-        [SerializeField] private List<PlayerLobbyUI> playerLobbyUIs = new List<PlayerLobbyUI>();
         [SerializeField] private List<Sprite> playerImages;
 
         [SerializeField] private Button startGameButton;
         
         private string _myplayerName = "Player";
+        // private NetworkList<T> playerLobbyUIs = new NetworkList<>();
         
-        
+        private PlayerLobbyData _myPlayerData;
+        private NetworkList<PlayerLobbyData> playerLobbyUIs;
         
         #endregion
 
@@ -105,9 +106,10 @@ namespace com.LazyGames.Dio
             playerCountText.text = playerCount + " / " + LobbyController.Instance.GetLobby().MaxPlayers;
         }
 
-        void JoinPlayerUI(string playerName = null)
+        void JoinPlayerUI(PlayerLobbyData playerData)
         {
-            _myplayerName = playerName;
+            _myPlayerData = playerData;
+            _myplayerName = playerData.PlayerName.Value;
             UploadLobbyCode();
             UpdatePlayerCount();
 
@@ -121,7 +123,7 @@ namespace com.LazyGames.Dio
 
         void JoinClientUpdate(ulong clientId)
         {
-            JoinPlayerUI();
+            JoinPlayerUI(_myPlayerData);
         }
             
 
