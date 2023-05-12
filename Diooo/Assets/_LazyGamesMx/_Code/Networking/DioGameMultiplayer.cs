@@ -61,10 +61,27 @@ namespace com.LazyGames.Dio
             OnStartClient?.Invoke();
         }
         #endregion
-
-        
-        // private 
         
         
     }
+
+    public struct PlayerData : INetworkSerializable
+    {
+        public string PlayerName;
+        public int PlayerImageIndex;
+        public string PlayerId;
+        
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref PlayerName);
+            serializer.SerializeValue(ref PlayerImageIndex);
+            serializer.SerializeValue(ref PlayerId);
+        }
+    }
+    
+    
+    
 }
+
+
+

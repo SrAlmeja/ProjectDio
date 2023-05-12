@@ -23,7 +23,7 @@ namespace com.LazyGames.Dio
 
         [SerializeField] private Button startGameButton;
         
-        private string _playerName = "Player";
+        private string _myplayerName = "Player";
         
         
         
@@ -32,7 +32,7 @@ namespace com.LazyGames.Dio
         #region public variables
 
 
-        public string PlayerName => _playerName;
+        public string MyplayerName => _myplayerName;
         #endregion
         
         #region Unity Methods
@@ -66,13 +66,11 @@ namespace com.LazyGames.Dio
             if (IsServer)
             {
                 DioGameMultiplayer.Instance.OnStartHost += SpawnPlayerUI;
-            }
-            else
-            {
-                // DioGameMultiplayer.Instance.OnStartClient += SpawnPlayerUI;
-                
-            }
-
+                NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
+            } 
+            
+            // DioGameMultiplayer.Instance.OnStartClient += SpawnPlayerUI;
+            
             if (IsServer)
             {
                 startGameButton.gameObject.SetActive(true);
@@ -107,17 +105,25 @@ namespace com.LazyGames.Dio
             playerCountText.text = playerCount + " / " + LobbyController.Instance.GetLobby().MaxPlayers;
         }
 
-        void JoinPlayerUI(string playerName)
+        void JoinPlayerUI(string playerName = null)
         {
-            _playerName = playerName;
+            _myplayerName = playerName;
             UploadLobbyCode();
             UpdatePlayerCount();
 
             if (DioGameMultiplayer.Instance.IsHostInitialized.Value)
             {
+                Debug.Log("SpawnPlayerUI");
                 SpawnPlayerUI();
+                SpawnPlayersInRoom();
             }
         }
+
+        void JoinClientUpdate(ulong clientId)
+        {
+            JoinPlayerUI();
+        }
+            
 
         void SpawnPlayerUI()
         {
@@ -125,8 +131,17 @@ namespace com.LazyGames.Dio
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
             playerLobby.transform.SetParent(lobbyLayoutParent.transform);
-            playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
+            // playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
             
+        }
+        
+        void SpawnPlayersInRoom()
+        {
+            for (int i = 0; i <NetworkManager.Singleton.ConnectedClientsList.Count - 1 ; i++)
+            {
+                if (!IsServer)
+                    SpawnPlayerUI();
+            }
         }
         
         

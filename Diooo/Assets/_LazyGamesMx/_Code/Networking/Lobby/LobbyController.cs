@@ -106,6 +106,9 @@ namespace com.LazyGames.Dio
                 Debug.Log("Created lobby with id: " + _myJoinedLobby.Name + " " + _myJoinedLobby.MaxPlayers + " LOBBY ID =  " + _myJoinedLobby.Id);
                 RelayController.Instance.CreateRelayServer(_myJoinedLobby.Id, KEY_RELAY_JOIN_CODE);
 
+                
+                
+                
                 OnFinishedCreateLobby?.Invoke(GetPlayer().Data["Player Name"].Value +" " +GetPlayer().Data["Player Id"].Value);
 
             }
