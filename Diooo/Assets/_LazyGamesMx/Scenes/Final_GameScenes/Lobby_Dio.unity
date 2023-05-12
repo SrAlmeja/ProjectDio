@@ -701,6 +701,11 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 7832981114796464020, guid: f159ee7a4b8ea0d478925d2d1c2a726a, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -1211,6 +1216,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 43776091}
     m_Modifications:
+    - target: {fileID: 100747860463242249, guid: 70f34c6a043b28a4697e7730f6640771, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3899573867
+      objectReference: {fileID: 0}
     - target: {fileID: 3992376531624068746, guid: 70f34c6a043b28a4697e7730f6640771, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 80977816
@@ -1303,5 +1312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobbyUICanvas
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8093290085748504650, guid: 70f34c6a043b28a4697e7730f6640771, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3418486350
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8093290085748504650, guid: 70f34c6a043b28a4697e7730f6640771, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 70f34c6a043b28a4697e7730f6640771, type: 3}

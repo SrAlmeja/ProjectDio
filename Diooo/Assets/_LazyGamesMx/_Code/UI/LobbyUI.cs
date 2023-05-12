@@ -22,9 +22,12 @@ namespace com.LazyGames.Dio
         [SerializeField] private List<Sprite> playerImages;
 
         [SerializeField] private Button startGameButton;
+        
+        private string _playerName = "Player";
+        int _playerIspawnIndex = 0;
+        
         #endregion
-
-
+        
         #region Unity Methods
 
         void Start()
@@ -32,8 +35,18 @@ namespace com.LazyGames.Dio
             startGameButton.gameObject.SetActive(false);
             LobbyController.Instance.OnFinishedCreateLobby += JoinPlayerUI;
             LobbyController.Instance.OnPlayerEnterRoom += JoinPlayerUI;
+
+           
+            
         }
 
+        void OnDestroy()
+        {
+            LobbyController.Instance.OnFinishedCreateLobby -= JoinPlayerUI;
+            LobbyController.Instance.OnPlayerEnterRoom -= JoinPlayerUI;
+            DioGameMultiplayer.Instance.OnStartHost -= SpawnPlayerUI;
+            DioGameMultiplayer.Instance.OnStartClient -= SpawnPlayerUI;
+        }
         void Update()
         {
 
@@ -43,6 +56,16 @@ namespace com.LazyGames.Dio
         {
             LobbyController.Instance.OnFinishedCreateLobby += JoinPlayerUI;
             LobbyController.Instance.OnPlayerEnterRoom += JoinPlayerUI;
+            if (IsServer)
+            {
+                DioGameMultiplayer.Instance.OnStartHost += SpawnPlayerUI;
+            }
+            else
+            {
+                DioGameMultiplayer.Instance.OnStartClient += SpawnPlayerUI;
+                
+            }
+
 
             if (IsServer)
             {
@@ -80,13 +103,28 @@ namespace com.LazyGames.Dio
 
         void JoinPlayerUI(string playerName)
         {
-            GameObject playerLobby = Instantiate(playerUIPrefab, lobbyLayoutParent.transform);
-            playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerInfo(playerName, SelectRandomImagePlayer());
-            playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
+           _playerName = playerName;
             UploadLobbyCode();
             UpdatePlayerCount();
+            if (DioGameMultiplayer.Instance.IsHostInitialized.Value)
+            {
+                SpawnPlayerUI();
+            }
+
         }
 
+        void SpawnPlayerUI()
+        {
+            GameObject playerLobby = Instantiate(playerUIPrefab);
+            NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
+            networkObject.Spawn(true);
+            playerLobby.transform.SetParent(lobbyLayoutParent.transform);
+            playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerInfo(_playerName, SelectRandomImagePlayer());
+            playerLobbyUIs.Add(playerLobby.GetComponent<PlayerLobbyUI>());
+            
+            _playerIspawnIndex++;
+            Debug.Log("<color=#E8FF81>Players spawn </color>" + _playerIspawnIndex);
+        }
         Sprite SelectRandomImagePlayer()
         {
             int randomIndex = Random.Range(0, playerImages.Count);

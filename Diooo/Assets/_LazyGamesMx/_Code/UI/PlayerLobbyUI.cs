@@ -2,10 +2,11 @@
 //This script manage info of the player that is in the lobby
 
 using com.LazyGames.Dio;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerLobbyUI : MonoBehaviour
+public class PlayerLobbyUI : NetworkBehaviour
 {
     #region public variables
 
