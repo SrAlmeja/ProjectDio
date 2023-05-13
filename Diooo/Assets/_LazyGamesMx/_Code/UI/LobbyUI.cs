@@ -1,12 +1,10 @@
 //Dino 05/04/2023 Creation of the script
 //This script control the number of players that are in the lobby and their behavior
 
-using System;
 using System.Collections.Generic;
 using com.LazyGames.Dio;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -26,6 +24,8 @@ namespace com.LazyGames.Dio
         [SerializeField] private Button startGameButton;
 
         private NetworkList<PlayerLobbyData> _playersLobbyDatas;
+        
+        PlayerLobbyData _clientPlayerLobbyData;
 
 
         #endregion
@@ -46,8 +46,8 @@ namespace com.LazyGames.Dio
         void Start()
         {
             startGameButton.gameObject.SetActive(false);
-            LobbyController.Instance.OnFinishedCreateLobby += SaveLobbyPlayerData;
-            LobbyController.Instance.OnClientEnterRoom += SaveLobbyPlayerData;
+            // LobbyController.Instance.OnFinishedCreateLobby += SaveLobbyPlayerData;
+            // LobbyController.Instance.OnClientEnterRoom += SaveLobbyPlayerData;
 
            
             
@@ -71,14 +71,11 @@ namespace com.LazyGames.Dio
 
             LobbyController.Instance.OnFinishedCreateLobby += SaveLobbyPlayerData;
             LobbyController.Instance.OnClientEnterRoom += SaveLobbyPlayerData;
-           
-            if (IsServer)
-            {
-                // NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
-            } 
+            
             
             if (IsServer)
             {
+               NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
                 startGameButton.gameObject.SetActive(true);
             }
                 
@@ -121,14 +118,17 @@ namespace com.LazyGames.Dio
             SpawnPlayersInRoom();
         }
 
-        // void JoinClientUpdate(ulong clientId)
-        // {
-        //     SpawnPlayersInRoom();
-        // }
-        //     
+        void JoinClientUpdate(ulong clientId)
+        {
+            // Debug.Log("JoinClientUpdate");
+            // RemoveRepeatedPlayers();
+            JoinPlayer();
+        }
+            
 
         void SpawnPlayerUI(PlayerLobbyData playerLobbyData)
         {
+            Debug.Log("SpawnPlayerUI");
             GameObject playerLobby = Instantiate(playerUIPrefab);
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
@@ -140,22 +140,23 @@ namespace com.LazyGames.Dio
         
         void SpawnPlayersInRoom()
         {
-            Debug.Log("SpawnPlayersInRoom");
-            if (_playersLobbyDatas.Count == 1)
+            
+            foreach (PlayerLobbyData playerLobbyData in _playersLobbyDatas)
             {
-                SpawnPlayerUI(_playersLobbyDatas[0]);
-            }
-            else
-            {
-                foreach (PlayerLobbyData playerLobbyData in _playersLobbyDatas)
-                {
-                    ulong clientID = playerLobbyData.ClientId;
-                    Debug.Log("Player to spawn" + clientID);
-                    if(clientID == NetworkManager.Singleton.LocalClientId) return;
-                    SpawnPlayerUI(playerLobbyData);
-                }
+                ulong clientID = playerLobbyData.ClientId; 
+                if (clientID == NetworkManager.Singleton.LocalClientId) 
+                { 
+                    if (NetworkManager.Singleton.IsHost) 
+                    { 
+                        SpawnPlayerUI(_playersLobbyDatas[0]);
+                    } 
+                    return;
+                } 
+                Debug.Log("Player to spawn" + clientID); 
+                SpawnPlayerUI(playerLobbyData); 
             }
            
+
         }
         
         
@@ -174,25 +175,64 @@ namespace com.LazyGames.Dio
 
        private void SaveLobbyPlayerData(PlayerLobbyData playerData)
        {
+
+           PlayerLobbyData playerLobbyData = new PlayerLobbyData
+           {
+               PlayerName = playerData.PlayerName,
+               PlayerImageIndex = AssignRandomImagePlayer(),
+               PlayerId = playerData.PlayerId,
+               ClientId = playerData.ClientId
+           };
            if (IsServer)
            {
-               _playersLobbyDatas.Add(new PlayerLobbyData
-               {
-                   PlayerName = playerData.PlayerName,
-                   PlayerImageIndex = AssignRandomImagePlayer(),
-                   PlayerId = playerData.PlayerId,
-                   ClientId = playerData.ClientId
-                
-               }); 
+               _playersLobbyDatas.Add(playerLobbyData);
+               RemoveRepeatedPlayers();
+
            }
-          
-           Debug.Log("Players DatasList" + _playersLobbyDatas.Count);
-           
+           else
+           {
+               if (IsOwner)
+               {
+                   AddPlayerDataToServerRPC(playerLobbyData);
+               }
+           }
+           Debug.Log("<color=#CDFF7A>Players DatasList</color>" + _playersLobbyDatas.Count);
            JoinPlayer();
 
        }
        
-       #endregion
+        private void RemoveRepeatedPlayers()
+       {
+           bool isRepeated = false;
+              for (int i = 0; i < _playersLobbyDatas.Count; i++)
+              {
+                for (int j = 0; j < _playersLobbyDatas.Count; j++)
+                {
+                     if (i == j) continue;
+                     if (_playersLobbyDatas[i].ClientId == _playersLobbyDatas[j].ClientId)
+                     {
+                          isRepeated = true;
+                          break;
+                     }
+                }
+    
+                if (isRepeated)
+                {
+                     Debug.Log("<color=#FF907A>Repeated Player</color>");
+                     _playersLobbyDatas.RemoveAt(i);
+                     isRepeated = false;
+                }
+              }
+       }
+        [ServerRpc]
+        void AddPlayerDataToServerRPC(PlayerLobbyData playerData)
+        {
+            Debug.Log("AddPlayerDataToServerRPC");
+            _playersLobbyDatas.Add(playerData);
+                
+        }
+        #endregion
 
+        
     }
 }
