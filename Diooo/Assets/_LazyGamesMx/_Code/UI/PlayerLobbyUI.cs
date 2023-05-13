@@ -1,6 +1,7 @@
 //Dino 05/04/2023 Creation of the script
 //This script manage info of the player that is in the lobby
 
+using System;
 using com.LazyGames.Dio;
 using Unity.Netcode;
 using UnityEngine;
@@ -12,28 +13,22 @@ public class PlayerLobbyUI : NetworkBehaviour
 
     [SerializeField] private Text _playerNameText;
     [SerializeField] private Image _playerImage;
-    
-
     #endregion
 
     #region Unity Methods
 
-    public override void OnNetworkSpawn()
+    private void Start()
     {
-        LobbyUI lobbyUI = FindObjectOfType<LobbyUI>();
-        string playerName = lobbyUI.MyplayerName;
-        string playerId = lobbyUI.MyPlayerId;
-        Sprite playerImage = lobbyUI.MyplayerImage;
-        SetPlayerInfo(playerName + " "+ playerId, playerImage);
     }
     
     #endregion
 
-    private void SetPlayerInfo(string playerName, Sprite playerImage)
+    public void SetPlayerData(PlayerLobbyData playerLobbyData , Sprite playerImage)
     {
-        _playerNameText.text = playerName;
+        _playerNameText.text = playerLobbyData.PlayerName + " " + playerLobbyData.PlayerId;
         _playerImage.sprite = playerImage;
     }
+    
 
    
 }

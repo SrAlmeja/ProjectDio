@@ -24,60 +24,30 @@ namespace com.LazyGames.Dio
         [SerializeField] private List<Sprite> playerImages;
 
         [SerializeField] private Button startGameButton;
-        
-        private string _myplayerName = "Player";
-        private Sprite _myplayerImage;
-        private int _myplayerImageIndex;
-        private string _myPlayerId;
-        private PlayerLobbyData _myPlayerData;
-        public NetworkList<PlayerLobbyData> PlayersLobbyDatas;
-        
+
+        private NetworkList<PlayerLobbyData> _playersLobbyDatas;
+
+
         #endregion
 
         #region public variables
 
-        public PlayerLobbyData MyPlayerData
-        {
-            get
-            {
-                return _myPlayerData;
-            }
-            set
-            {
-                _myPlayerData = value;
-            }
-        }
-
-        public string MyplayerName => _myplayerName;
-        public Sprite MyplayerImage
-        {
-            get
-            {
-                if (!IsServer)
-                {
-                    _myplayerImage = SelectImagePlayer(_myplayerImageIndex);
-                }
-                return _myplayerImage;
-            }
-        }
         
-        public string MyPlayerId => _myPlayerId;
-
         #endregion
         
         #region Unity Methods
 
         private void Awake()
         {
-            PlayersLobbyDatas = new NetworkList<PlayerLobbyData>();
+            _playersLobbyDatas = new NetworkList<PlayerLobbyData>();
 
         }
 
         void Start()
         {
             startGameButton.gameObject.SetActive(false);
-            LobbyController.Instance.OnFinishedCreateLobby += JoinPlayerUI;
-            LobbyController.Instance.OnPlayerEnterRoom += JoinPlayerUI;
+            LobbyController.Instance.OnFinishedCreateLobby += SaveLobbyPlayerData;
+            LobbyController.Instance.OnClientEnterRoom += SaveLobbyPlayerData;
 
            
             
@@ -85,11 +55,9 @@ namespace com.LazyGames.Dio
 
         void OnDestroy()
         {
-            LobbyController.Instance.OnFinishedCreateLobby -= JoinPlayerUI;
-            LobbyController.Instance.OnPlayerEnterRoom -= JoinPlayerUI;
-            DioGameMultiplayer.Instance.OnStartHost -= SpawnPlayerUI;
-            DioGameMultiplayer.Instance.OnStartClient -= SpawnPlayerUI;
-            DioGameMultiplayer.Instance.OnStartHost -= SaveLobbyPlayerData;
+            LobbyController.Instance.OnFinishedCreateLobby -= SaveLobbyPlayerData;
+            LobbyController.Instance.OnClientEnterRoom -= SaveLobbyPlayerData;
+            
 
         }
         void Update()
@@ -100,16 +68,14 @@ namespace com.LazyGames.Dio
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            
-            LobbyController.Instance.OnFinishedCreateLobby += JoinPlayerUI;
-            LobbyController.Instance.OnPlayerEnterRoom += JoinPlayerUI;
+
+            LobbyController.Instance.OnFinishedCreateLobby += SaveLobbyPlayerData;
+            LobbyController.Instance.OnClientEnterRoom += SaveLobbyPlayerData;
+           
             if (IsServer)
             {
-                DioGameMultiplayer.Instance.OnStartHost += SpawnPlayerUI;
-                DioGameMultiplayer.Instance.OnStartHost += SaveLobbyPlayerData;
-                NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
+                // NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
             } 
-            
             
             if (IsServer)
             {
@@ -145,87 +111,84 @@ namespace com.LazyGames.Dio
             playerCountText.text = playerCount + " / " + LobbyController.Instance.GetLobby().MaxPlayers;
         }
 
-        void JoinPlayerUI(PlayerLobbyData playerData)
+        
+        
+        
+        void JoinPlayer()
         {
-            Debug.Log("<color=#7AFFD5>Se crea lobby antes de iniciar host</color>");
-            _myPlayerData = playerData;
-            _myplayerName = playerData.PlayerName.Value;
-            _myplayerImage = SelectRandomImagePlayer();
-            _myPlayerId = playerData.PlayerId.Value;
-            
-            if (IsServer)
-            {
-                SaveLobbyPlayerData();
-            }
-            
             UploadLobbyCode();
             UpdatePlayerCount();
-
-            if (DioGameMultiplayer.Instance.IsHostInitialized.Value)
-            {
-                Debug.Log("SpawnPlayerUI");
-                SpawnPlayerUI();
-                SpawnPlayersInRoom();
-            }
+            SpawnPlayersInRoom();
         }
 
-        void JoinClientUpdate(ulong clientId)
-        {
-            JoinPlayerUI(_myPlayerData);
-        }
-            
+        // void JoinClientUpdate(ulong clientId)
+        // {
+        //     SpawnPlayersInRoom();
+        // }
+        //     
 
-        void SpawnPlayerUI()
+        void SpawnPlayerUI(PlayerLobbyData playerLobbyData)
         {
             GameObject playerLobby = Instantiate(playerUIPrefab);
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
             playerLobby.transform.SetParent(lobbyLayoutParent.transform);
+            playerLobby.gameObject.name = playerLobbyData.ClientId.ToString();
+            playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerData(playerLobbyData, SelectImagePlayer(playerLobbyData.PlayerImageIndex));
             
         }
         
         void SpawnPlayersInRoom()
         {
-            for (int i = 0; i <NetworkManager.Singleton.ConnectedClientsList.Count - 1 ; i++)
+            Debug.Log("SpawnPlayersInRoom");
+            if (_playersLobbyDatas.Count == 1)
             {
-                if (!IsServer)
+                SpawnPlayerUI(_playersLobbyDatas[0]);
+            }
+            else
+            {
+                foreach (PlayerLobbyData playerLobbyData in _playersLobbyDatas)
                 {
-                    MyPlayerData = PlayersLobbyDatas[i];
-                    SpawnPlayerUI();
-
+                    ulong clientID = playerLobbyData.ClientId;
+                    Debug.Log("Player to spawn" + clientID);
+                    if(clientID == NetworkManager.Singleton.LocalClientId) return;
+                    SpawnPlayerUI(playerLobbyData);
                 }
             }
+           
         }
         
         
-       private Sprite SelectRandomImagePlayer()
+       private int AssignRandomImagePlayer()
         {
             int randomIndex = Random.Range(0, playerImages.Count);
-            Sprite randomImage = playerImages[randomIndex];
-            _myPlayerData.PlayerImageIndex = randomIndex;
-            
-            return randomImage;
+            return randomIndex;
         }
        
-       private Sprite SelectImagePlayer(int index)
+       public Sprite SelectImagePlayer(int index)
        {
-           Sprite randomImage = playerImages[index];
-           return randomImage;
+           Sprite selectedImage = playerImages[index];
+           return selectedImage;
        }
 
 
-       private void SaveLobbyPlayerData()
+       private void SaveLobbyPlayerData(PlayerLobbyData playerData)
        {
-           PlayerLobbyData newPlayerData = new PlayerLobbyData
+           if (IsServer)
            {
-               PlayerName = _myPlayerData.PlayerName.Value,
-               PlayerImageIndex = _myPlayerData.PlayerImageIndex,
-               PlayerId = _myPlayerData.PlayerId.Value
-           };
+               _playersLobbyDatas.Add(new PlayerLobbyData
+               {
+                   PlayerName = playerData.PlayerName,
+                   PlayerImageIndex = AssignRandomImagePlayer(),
+                   PlayerId = playerData.PlayerId,
+                   ClientId = playerData.ClientId
+                
+               }); 
+           }
+          
+           Debug.Log("Players DatasList" + _playersLobbyDatas.Count);
            
-           Debug.Log("<color=#7AFFD5>SaveLobbyPlayerData</color>" + newPlayerData.PlayerName.Value +"<color=#7AFFD5>Image index </color>" +  newPlayerData.PlayerImageIndex +"<color=#7AFFD5> Id </color>"  +newPlayerData.PlayerId.Value);
-           PlayersLobbyDatas.Add(newPlayerData);
-           Debug.Log(PlayersLobbyDatas.Count);
+           JoinPlayer();
 
        }
        

@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Player uql2eyetKikRBhX7ORL9Aty5lA5M
 --- !u!1 &7832981114796464020
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc31b203c89b2f546b52bada067ed568, type: 3}
+  m_Sprite: {fileID: 1610803836, guid: c1490922456004040975c9fab2d7deab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
