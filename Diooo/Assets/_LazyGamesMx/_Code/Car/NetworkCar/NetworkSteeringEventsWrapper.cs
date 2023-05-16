@@ -67,7 +67,6 @@ using UnityEngine.InputSystem;
                 rotateInputAction = gameplayActionMap.FindAction("Rotate");
                 impulseInputAction = gameplayActionMap.FindAction("Impulse");
                 
-                Debug.Log("<color=blue>SteeringEventsWrapper OnEnable INPUT ACTIONS</color>");
                 handBrakeInputAction.performed += GetHandBrakeInput;
                 handBrakeInputAction.canceled += GetHandBrakeInput;
 
@@ -108,7 +107,6 @@ using UnityEngine.InputSystem;
             void GetTorqueInput(InputAction.CallbackContext context)
             {
                 if (!IsOwner) return;
-                Debug.Log("Get torque input");
                 _torqueEvent.RaiseEvent(context.ReadValue<float>());
             }
 

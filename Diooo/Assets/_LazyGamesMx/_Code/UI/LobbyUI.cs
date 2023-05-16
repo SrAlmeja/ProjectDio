@@ -2,6 +2,7 @@
 //This script control the number of players that are in the lobby and their behavior
 using System.Collections.Generic;
 using com.LazyGames.Dio;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 namespace com.LazyGames.Dio
 {
 
-    public class LobbyUI : MonoBehaviour
+    public class LobbyUI : NetworkBehaviour
     {
         #region private Variables
 
@@ -19,6 +20,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private List<PlayerLobbyUI> playerLobbyUIs = new List<PlayerLobbyUI>();
         [SerializeField] private List<Sprite> playerImages;
 
+        [SerializeField] private Button startGameButton;
         #endregion
 
 
@@ -26,14 +28,26 @@ namespace com.LazyGames.Dio
 
         void Start()
         {
+            startGameButton.gameObject.SetActive(false);
             LobbyController.Instance.OnFinishedCreateLobby += JoinPlayerUI;
             LobbyController.Instance.OnPlayerEnterRoom += JoinPlayerUI;
-
         }
 
         void Update()
         {
 
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            LobbyController.Instance.OnFinishedCreateLobby += JoinPlayerUI;
+            LobbyController.Instance.OnPlayerEnterRoom += JoinPlayerUI;
+
+            if (IsServer)
+            {
+                startGameButton.gameObject.SetActive(true);
+            }
+                
         }
 
         #endregion
