@@ -38,7 +38,7 @@ namespace CryoStorage
         
         public static float AngleFromOffset(Vector2 vectorInput)
         {
-            float angle = Mathf.Atan2(vectorInput.y, vectorInput.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(vectorInput.x, vectorInput.y) * Mathf.Rad2Deg;
             if (angle < 0f)
             {
                 angle += 360f;
