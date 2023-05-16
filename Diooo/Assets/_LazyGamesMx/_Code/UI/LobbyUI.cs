@@ -113,6 +113,10 @@ namespace com.LazyGames.Dio
         
         void JoinPlayer()
         {
+            foreach (var player in _playersLobbyDatas)
+            {
+                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerImageIndex + " " + player.PlayerId + " " + player.ClientId);
+            }
             UploadLobbyCode();
             UpdatePlayerCount();
             SpawnPlayersInRoom();
@@ -120,15 +124,17 @@ namespace com.LazyGames.Dio
 
         void JoinClientUpdate(ulong clientId)
         {
-            // Debug.Log("JoinClientUpdate");
-            // RemoveRepeatedPlayers();
+            foreach (var player in _playersLobbyDatas)
+            {
+                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerImageIndex + " " + player.PlayerId + " " + player.ClientId);
+            }
             JoinPlayer();
         }
             
 
         void SpawnPlayerUI(PlayerLobbyData playerLobbyData)
         {
-            Debug.Log("SpawnPlayerUI");
+            // Debug.Log("SpawnPlayerUI");
             GameObject playerLobby = Instantiate(playerUIPrefab);
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
@@ -186,50 +192,52 @@ namespace com.LazyGames.Dio
            if (IsServer)
            {
                _playersLobbyDatas.Add(playerLobbyData);
-               RemoveRepeatedPlayers();
 
            }
            else
            {
                if (IsOwner)
                {
-                   AddPlayerDataToServerRPC(playerLobbyData);
+                   AddPlayerDataToServerRpc(playerLobbyData);
                }
            }
            Debug.Log("<color=#CDFF7A>Players DatasList</color>" + _playersLobbyDatas.Count);
            JoinPlayer();
-
        }
        
-        private void RemoveRepeatedPlayers()
-       {
-           bool isRepeated = false;
-              for (int i = 0; i < _playersLobbyDatas.Count; i++)
-              {
-                for (int j = 0; j < _playersLobbyDatas.Count; j++)
-                {
-                     if (i == j) continue;
-                     if (_playersLobbyDatas[i].ClientId == _playersLobbyDatas[j].ClientId)
-                     {
-                          isRepeated = true;
-                          break;
-                     }
-                }
-    
-                if (isRepeated)
-                {
-                     Debug.Log("<color=#FF907A>Repeated Player</color>");
-                     _playersLobbyDatas.RemoveAt(i);
-                     isRepeated = false;
-                }
-              }
-       }
+       //  private void RemoveRepeatedPlayers()
+       // {
+       //     bool isRepeated = false;
+       //        for (int i = 0; i < _playersLobbyDatas.Count; i++)
+       //        {
+       //          for (int j = 0; j < _playersLobbyDatas.Count; j++)
+       //          {
+       //               if (i == j) continue;
+       //               if (_playersLobbyDatas[i].ClientId == _playersLobbyDatas[j].ClientId)
+       //               {
+       //                    isRepeated = true;
+       //                    break;
+       //               }
+       //          }
+       //
+       //          if (isRepeated)
+       //          {
+       //               Debug.Log("<color=#FF907A>Repeated Player</color>");
+       //               _playersLobbyDatas.RemoveAt(i);
+       //               isRepeated = false;
+       //          }
+       //        }
+       // }
         [ServerRpc]
-        void AddPlayerDataToServerRPC(PlayerLobbyData playerData)
+        void AddPlayerDataToServerRpc(PlayerLobbyData playerData)
         {
             Debug.Log("AddPlayerDataToServerRPC");
             _playersLobbyDatas.Add(playerData);
                 
+            foreach (var player in _playersLobbyDatas)
+            {
+                Debug.Log("<color=#F5F378>Player Added</color>" + player.PlayerName + " " + player.PlayerImageIndex + " " + player.PlayerId + " " + player.ClientId);
+            }
         }
         #endregion
 
