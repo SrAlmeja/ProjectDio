@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.LazyGames.Dio;
 using UnityEngine;
 
 public class DioGameManagerSingleplayer : MonoBehaviour
@@ -64,6 +65,12 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         else
         {
             DestroyImmediate(this);
+        }
+        
+        //Game is in Multiplayer Mode
+        if (DioGameMultiplayer.Instance.IsHostInitialized.Value)
+        {
+            enabled = false;
         }
     }
 
