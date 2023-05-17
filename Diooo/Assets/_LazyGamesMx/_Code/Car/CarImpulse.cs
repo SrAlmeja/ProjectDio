@@ -34,6 +34,7 @@ namespace com.LazyGames.Dio
         {
             GetDirection(); 
             Visualize();
+            impulseAngle = _listener.rotate;
             impulseCenter = transform.position + new Vector3(0, yOffset, 0);
         }
 
