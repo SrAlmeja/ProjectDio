@@ -7,14 +7,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountdownController : NetworkBehaviour
+public class CountdownControllerMultiplayer : NetworkBehaviour
 {
     [SerializeField] private float countdownTime = 3f;
 
     private bool _isTimerActive = false;
     private NetworkVariable<float> _countdownTimer = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     
-    public static CountdownController Instance;
+    public static CountdownControllerMultiplayer Instance;
 
     public EventHandler<int> OnSecondPassed;
     public EventHandler<bool> OnHandleCountdown;
@@ -30,7 +30,7 @@ public class CountdownController : NetworkBehaviour
         Instance = this;
         _isTimerActive = false;
         _countdownTimer.Value = countdownTime;
-        DioGameManager.Instance.OnGameStateChange += HandleGameStateChange;
+        DioGameManagerMultiplayer.Instance.OnGameStateChange += HandleGameStateChange;
     }
 
     private void Update()
@@ -79,9 +79,9 @@ public class CountdownController : NetworkBehaviour
         OnCountdownFinished?.Invoke();
     }
 
-    private void HandleGameStateChange(DioGameManager.GameStates state)
+    private void HandleGameStateChange(DioGameManagerMultiplayer.GameStates state)
     {
-        if (state == DioGameManager.GameStates.Countdown)
+        if (state == DioGameManagerMultiplayer.GameStates.Countdown)
         {
             StartCountdown();
         }

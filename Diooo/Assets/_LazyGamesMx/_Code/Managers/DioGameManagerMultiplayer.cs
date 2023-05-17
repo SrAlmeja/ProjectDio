@@ -10,20 +10,20 @@ using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
-    public class DioGameManager : NetworkBehaviour
+    public class DioGameManagerMultiplayer : NetworkBehaviour
     {
 
         #region public variables
 
-        public static DioGameManager Instance
+        public static DioGameManagerMultiplayer Instance
         {
             get
             {
-                if (FindObjectOfType<DioGameManager>() == null)
+                if (FindObjectOfType<DioGameManagerMultiplayer>() == null)
                 {
                     GameObject gameManagerGO = new GameObject("DioGameManager");
                     gameManagerGO.SetActive(false);
-                    _instance = gameManagerGO.AddComponent<DioGameManager>();
+                    _instance = gameManagerGO.AddComponent<DioGameManagerMultiplayer>();
 
                     gameManagerGO.SetActive(true);
                     DontDestroyOnLoad(gameManagerGO);
@@ -58,7 +58,7 @@ namespace com.LazyGames.Dio
 
         #region private variables
 
-        private static DioGameManager _instance;
+        private static DioGameManagerMultiplayer _instance;
         
         private int _spawnIndex = 0;
         private int _playersConnected = 0;
@@ -129,7 +129,7 @@ namespace com.LazyGames.Dio
             };
             
             //Handle Countdown
-            CountdownController.Instance.OnCountdownFinished += OnCountdownFinished;
+            CountdownControllerMultiplayer.Instance.OnCountdownFinished += OnCountdownFinished;
 
         }
 
