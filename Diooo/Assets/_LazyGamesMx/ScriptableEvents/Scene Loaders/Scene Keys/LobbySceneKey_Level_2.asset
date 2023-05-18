@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed93d15048173f844b372a4b111c5bf8, type: 3}
-  m_Name: LobbySceneKey
+  m_Name: LobbySceneKey_Level_2
   m_EditorClassIdentifier: 
-  myKey: 1
+  myKey: 7
