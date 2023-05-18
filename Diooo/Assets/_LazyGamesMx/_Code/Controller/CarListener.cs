@@ -22,29 +22,29 @@ namespace com.LazyGames.Dio
 
         [SerializeField] private WheelColliders _colliders;
         [SerializeField] private WheelMeshes _wheelMeshes;
-        [SerializeField] private float _motorPower;
-        [SerializeField] private float _brakePower;
-        [SerializeField] private float _slipAngle;
-        [SerializeField] private float _speed;
+        [SerializeField] private float _motorPower = 100f;
+        [SerializeField] private float _brakePower = 50000f;
         [SerializeField] private AnimationCurve _steeringCurve;
-        [SerializeField] private int _isEngineRunning;
-        [SerializeField] private float _RPM;
-        [SerializeField] private float _redLine;
-        [SerializeField] private float _idleRPM;
-        [SerializeField] private TMP_Text _rpmText;
-        [SerializeField] private TMP_Text _gearText;
-        [SerializeField] private TMP_Text _kilometerPerHour;
-        [SerializeField] private Transform _rpmNeedle;
-        [SerializeField] private float _minNeedleRotation;
-        [SerializeField] private float _maxNeedleRotation;
-        [SerializeField] private int _currentGear;
-        [SerializeField] private float[] _gearRatios;
-        [SerializeField] private float _differentialRatio;
+        [SerializeField] private float _redLine = 6500f;
+        [SerializeField] private float _idleRPM = 800f;
+        [SerializeField] private float _minNeedleRotation = 30f;
+        [SerializeField] private float _maxNeedleRotation = -220f;
+        [SerializeField] private float[] _gearRatios = {3f,2.5f,2f,1.5f,1f,0.8f};
+        [SerializeField] private float _differentialRatio = 4f;
         [SerializeField] private AnimationCurve _hpToRPMCurve;
-        [SerializeField] private float _increaseGearRPM;
-        [SerializeField] private float _decreaseGearRPM;
+        [SerializeField] private float _increaseGearRPM = 5500f;
+        [SerializeField] private float _decreaseGearRPM = 300f;
         [SerializeField] private float _changeGearTime = 0.5f;
 
+        private float _slipAngle;
+        private float _speed;
+        private float _RPM;
+        private int _isEngineRunning;
+        private int _currentGear;
+        private TMP_Text _rpmText;
+        private TMP_Text _gearText;
+        private TMP_Text _kilometerPerHour;
+        private Transform _rpmNeedle;
         private Rigidbody _playerRB;
         private float _gasInput;
         private float _brakeInput;
@@ -54,7 +54,7 @@ namespace com.LazyGames.Dio
         private float _clutch;
         private float _wheelRPM;
         private GearState _gearState;
-        private bool _freno = false;
+        private bool _freno;
 
         private void OnEnable()
         {
@@ -313,18 +313,18 @@ namespace com.LazyGames.Dio
     [System.Serializable]
     public class WheelColliders
     {
-        public WheelCollider FRWheel;
         public WheelCollider FLWheel;
-        public WheelCollider RRWheel;
+        public WheelCollider FRWheel;
         public WheelCollider RLWheel;
+        public WheelCollider RRWheel;
     }
     [System.Serializable]
     public class WheelMeshes
     {
-        public MeshRenderer FRWheel;
         public MeshRenderer FLWheel;
-        public MeshRenderer RRWheel;
+        public MeshRenderer FRWheel;
         public MeshRenderer RLWheel;
+        public MeshRenderer RRWheel;
     }
 
     
