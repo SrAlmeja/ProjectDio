@@ -8,15 +8,16 @@ using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
-    public class Car_TimeControl : NetworkBehaviour
+    public class Car_TimeControl : MonoBehaviour
     {
         [Header("Time Control")] 
-        [SerializeField] private bool doSlow;
-        [SerializeField] private float targetTimeScale;
+        [SerializeField] private AnimationCurve targetTimeScale;
         
+        private bool doSlow;
         private DebugSteeringEventsListener _listener;
-        private float currentTimeScale = 1;
         private float savedMagnitude;
+        private float _stasisMeter = 5f;
+        private float currentTimeScale = 1;
         private readonly float normalizeFactor = .02f;
 
         private void Start()
@@ -36,12 +37,14 @@ namespace com.LazyGames.Dio
             switch (doSlow)
             {
                 case true:
-                    currentTimeScale = targetTimeScale;
+                    currentTimeScale = targetTimeScale.Evaluate(_stasisMeter);
+                    _stasisMeter -= Time.deltaTime;
                     NormalizeDeltaTime(normalizeFactor);
                     doSlow = false;
                     break;
                 case false:
                     currentTimeScale = 1f;
+                    _stasisMeter += Time.deltaTime;
                     NormalizeDeltaTime(normalizeFactor);
                     doSlow = true;
                     break;

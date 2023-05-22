@@ -17,7 +17,7 @@ namespace com.LazyGames.Dio
 
         private Vector3 offsetVector;
         private Rigidbody rb;
-        private float impulseAngle;
+        [SerializeField]private float impulseAngle;
         private Vector3 impulseCenter;
         private Vector3 impulsePos;
         private Vector3 impulseDir;
@@ -34,6 +34,7 @@ namespace com.LazyGames.Dio
         {
             GetDirection(); 
             Visualize();
+            impulseAngle = _listener.rotate;
             impulseCenter = transform.position + new Vector3(0, yOffset, 0);
         }
 
@@ -41,6 +42,7 @@ namespace com.LazyGames.Dio
         {
             indicator.SetActive(_listener.stopTime);
             if(!_listener.stopTime)return;
+            // impulseAngle = _listener.rotate;
             indicator.transform.position = impulsePos;
             indicator.transform.rotation = CryoMath.AimAtDirection(impulseCenter, impulsePos);
         }

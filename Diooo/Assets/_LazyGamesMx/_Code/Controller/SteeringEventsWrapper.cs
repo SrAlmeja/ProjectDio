@@ -95,8 +95,12 @@ namespace com.LazyGames.Dio
                 _steeringInputAction = _gameplayActionMap.FindAction("SteeringAngle");
                 _accelerationInputAction = _gameplayActionMap.FindAction("Acceleration");
                 _timeStopInputAction = _gameplayActionMap.FindAction("TimeStop");
-                
-            }catch { Debug.LogWarning($"{gameObject.name} error preparing input actions"); }
+
+            }
+            catch
+            {
+                Debug.LogWarning($"{gameObject.name} error preparing input actions");
+            }
             
             _handBrakeInputAction.performed += GetHandBrakeInput;
             _handBrakeInputAction.canceled += GetHandBrakeInput;

@@ -6,8 +6,9 @@ namespace CryoStorage
     {
         public static Vector3 PointOnRadius(Vector3 center, float radius, float angle)
         {
-            float xOffset = radius * Mathf.Cos(angle);
-            float zOffset = radius * Mathf.Sin(angle);
+            float rad = angle * Mathf.Deg2Rad;
+            float xOffset = radius * Mathf.Cos(-rad + 90f);
+            float zOffset = radius * Mathf.Sin(-rad + 90f);
             Vector3 result = new Vector3(center.x + xOffset, center.y, center.z + zOffset);
             return result;
             
@@ -19,26 +20,7 @@ namespace CryoStorage
             Quaternion result = Quaternion.LookRotation(aimDir);
             return result;
         }
-        
-        public static float AngleFromOffset(Vector2 inputVector)
-        {
-            float angle = Vector2.Angle(Vector2.right, inputVector);
 
-            if (inputVector.y < 0)
-            {
-                angle = 360 - angle;
-            }
-
-            float finalAngle = Mathf.Atan2(inputVector.y, inputVector.x) * Mathf.Rad2Deg;
-
-            if (finalAngle < 0)
-            {
-                finalAngle += 360;
-            }
-
-            return finalAngle;
-        }
-        
         public static float InverseMap(float maxValue, float currentValue, float minValue)
         {
             var result = (maxValue - currentValue) / (maxValue - minValue) * (minValue - 1f) + 1f;;
@@ -53,6 +35,17 @@ namespace CryoStorage
             float result = (1.2f - skewedValue) / resultRange * inputRange + maxValue;
             return result;
         }
+        
+        public static float AngleFromOffset(Vector2 vectorInput)
+        {
+            float angle = Mathf.Atan2(vectorInput.x, vectorInput.y) * Mathf.Rad2Deg;
+            if (angle < 0f)
+            {
+                angle += 360f;
+            }
+            return angle;
+        }
+    
   
     }
 }

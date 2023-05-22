@@ -11,6 +11,7 @@ namespace com.LazyGames.Dio
         #region Serialized fields
 
         [SerializeField] private GameObject waitingPlayersUI;
+        [SerializeField] private GameObject readyText;
 
         #endregion
 
@@ -21,39 +22,40 @@ namespace com.LazyGames.Dio
 
         void Start()
         {
-
-            ShowWaitingPlayersUI();
-            DioGameManager.Instance.OnPlayerReady += HandleWaitingPlayersUI;
-
+            DioGameManagerMultiplayer.Instance.OnPlayerReady += HandleWaitingPlayersUI;
+            DioGameManagerMultiplayer.Instance.OnGameStateChange += HideUI;
+                
         }
-
-        void Update()
-        {
-
-        }
-
+        
         #region private methods
 
         private void HandleWaitingPlayersUI(bool value)
         {
             if (value)
             {
-                HideWaitingPlayersUI();
+                ShowImReady();
             }
         }
 
         #endregion
 
         #region public methods
-
-        public void ShowWaitingPlayersUI()
+        
+        public void ShowImReady()
         {
-            waitingPlayersUI.SetActive(true);
+            readyText.SetActive(true);
         }
 
-        public void HideWaitingPlayersUI()
+        private void HideUI(DioGameManagerMultiplayer.GameStates state)
         {
-            waitingPlayersUI.SetActive(false);
+            if (DioGameManagerMultiplayer.Instance.IsInCountDownState())
+            {
+                waitingPlayersUI.SetActive(false);
+                
+                DioGameManagerMultiplayer.Instance.OnGameStateChange -= HideUI;
+                DioGameManagerMultiplayer.Instance.OnPlayerReady -= HandleWaitingPlayersUI;
+            }
+            
         }
 
         #endregion

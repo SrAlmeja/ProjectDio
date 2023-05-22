@@ -23,6 +23,7 @@ namespace com.LazyGames.Dio
         public static RelayController Instance;
 
         public string RelayJoinCode => _relayJoinCode;
+        
 
         #endregion
         
@@ -73,7 +74,6 @@ namespace com.LazyGames.Dio
                 
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
                 DioGameMultiplayer.Instance.StartHost();
-
             }
             catch (RelayServiceException e)
             {
@@ -98,6 +98,7 @@ namespace com.LazyGames.Dio
             }
             
         }
+        
         
         #endregion
 
