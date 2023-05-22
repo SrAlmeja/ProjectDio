@@ -22,8 +22,8 @@ namespace com.LazyGames.Dio
 
         void Start()
         {
-            DioGameManager.Instance.OnPlayerReady += HandleWaitingPlayersUI;
-            DioGameManager.Instance.OnGameStateChange += HideUI;
+            DioGameManagerMultiplayer.Instance.OnPlayerReady += HandleWaitingPlayersUI;
+            DioGameManagerMultiplayer.Instance.OnGameStateChange += HideUI;
                 
         }
         
@@ -46,14 +46,14 @@ namespace com.LazyGames.Dio
             readyText.SetActive(true);
         }
 
-        private void HideUI(DioGameManager.GameStates state)
+        private void HideUI(DioGameManagerMultiplayer.GameStates state)
         {
-            if (DioGameManager.Instance.IsInCountDownState())
+            if (DioGameManagerMultiplayer.Instance.IsInCountDownState())
             {
                 waitingPlayersUI.SetActive(false);
                 
-                DioGameManager.Instance.OnGameStateChange -= HideUI;
-                DioGameManager.Instance.OnPlayerReady -= HandleWaitingPlayersUI;
+                DioGameManagerMultiplayer.Instance.OnGameStateChange -= HideUI;
+                DioGameManagerMultiplayer.Instance.OnPlayerReady -= HandleWaitingPlayersUI;
             }
             
         }

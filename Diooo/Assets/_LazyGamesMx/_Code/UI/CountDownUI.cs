@@ -14,13 +14,13 @@ public class CountDownUI : MonoBehaviour
     void Start()
     {
         countDownUI.SetActive(false);
-        CountdownController.Instance.OnHandleCountdown += HandleCountdown;
-        CountdownController.Instance.OnSecondPassed += HandleSecondPassed;
+        CountdownControllerMultiplayer.Instance.OnHandleCountdown += HandleCountdown;
+        CountdownControllerMultiplayer.Instance.OnSecondPassed += HandleSecondPassed;
     }
     void OnDestroy()
     {
-        CountdownController.Instance.OnHandleCountdown -= HandleCountdown;
-        CountdownController.Instance.OnSecondPassed -= HandleSecondPassed;
+        CountdownControllerMultiplayer.Instance.OnHandleCountdown -= HandleCountdown;
+        CountdownControllerMultiplayer.Instance.OnSecondPassed -= HandleSecondPassed;
     }
     
     void HandleSecondPassed(object sender, int seconds)
