@@ -5,7 +5,8 @@ namespace com.LazyGames.Dio
     public class Goal : MonoBehaviour
     {
         [SerializeField] private VoidEventChannelSO _actualLap;
-        private bool _isReverse = false;
+        [SerializeField] private BoolEventChannelSO _isReverse;
+        private bool _reverse = false;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -25,11 +26,21 @@ namespace com.LazyGames.Dio
 
                 if (dotProduct >= threshold)
                 {
-                    Debug.Log("Se está tocando la cara frontal del objeto");
+                    if (_reverse) 
+                    {
+                        _isReverse.BoolEvent(false);
+                        _reverse = false;
+                        return;
+                    }
+                    else if(!_reverse)
+                    {
+                        _actualLap.VoidEvent();
+                    }
                 }
                 else
                 {
-                    Debug.Log("Se está tocando la cara trasera del objeto");
+                    _isReverse.BoolEvent(true);
+                    _reverse = true;
                 }
             }
         }
