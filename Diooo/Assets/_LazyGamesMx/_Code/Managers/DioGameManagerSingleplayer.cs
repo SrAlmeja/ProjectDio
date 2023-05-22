@@ -1,6 +1,6 @@
+// Dino 19/05/23 Creation of variant of the script for singleplayer
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using com.LazyGames.Dio;
 using UnityEngine;
 
@@ -51,6 +51,8 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         GamePlaying,
         GameOver
     }
+    
+    public Action<GameStatesSingleplayer> OnGameStateChange;
     #endregion
     
 
