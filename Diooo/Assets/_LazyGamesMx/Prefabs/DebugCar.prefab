@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 448018275281591430}
   - component: {fileID: 441420292775046562}
   - component: {fileID: 441420292775046561}
-  - component: {fileID: 448018275281591427}
+  - component: {fileID: 882910601416389071}
   - component: {fileID: 448018275281591424}
   - component: {fileID: 448018275281591425}
   - component: {fileID: -5935608016089016070}
+  - component: {fileID: 882910601416389064}
   m_Layer: 0
   m_Name: DebugCar
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: 09f57a5ba9f33584a8118fed10afd1a0, type: 3}
---- !u!114 &448018275281591427
+--- !u!114 &882910601416389071
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,20 +79,87 @@ MonoBehaviour:
   m_GameObject: {fileID: 441420292775046572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db04d6b363f6c74588536a69ab37fa6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d6b0a794a43c4b46abc684ecacc7abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorForce: 2000
-  maxSteerAngle: 35
-  maxBreakForce: 8000
-  frontLeftWheelCollider: {fileID: 3503832860679842351}
-  frontRightWheelCollider: {fileID: 3503832861630887550}
-  rearLeftWheelCollider: {fileID: 3503832861716317431}
-  rearRightWheelCollider: {fileID: 3503832861275259313}
-  frontLeftWheelTransform: {fileID: 447898665468525194}
-  frontRightWheeTransform: {fileID: 444074830304440316}
-  rearLeftWheelTransform: {fileID: 444031926150947616}
-  rearRightWheelTransform: {fileID: 443953230620278946}
+  _hanbreakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
+  _angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
+  _torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
+  _colliders:
+    FLWheel: {fileID: 3503832860679842351}
+    FRWheel: {fileID: 3503832861630887550}
+    RLWheel: {fileID: 3503832861716317431}
+    RRWheel: {fileID: 3503832861275259313}
+  _wheelMeshes:
+    FLWheel: {fileID: 465256452216440832}
+    FRWheel: {fileID: 465405731326168118}
+    RLWheel: {fileID: 465130563546581812}
+    RRWheel: {fileID: 464930436607172768}
+  _motorPower: 100
+  _brakePower: 50000
+  _steeringCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.0023499
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.05084204
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _redLine: 6500
+  _idleRPM: 800
+  _minNeedleRotation: 30
+  _maxNeedleRotation: -220
+  _gearRatios:
+  - 3
+  - 2.5
+  - 2
+  - 1.5
+  - 1
+  - 0.8
+  _differentialRatio: 4
+  _hpToRPMCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 1
+    m_RotationOrder: 4
+  _increaseGearRPM: 5500
+  _decreaseGearRPM: 300
+  _changeGearTime: 0.5
 --- !u!114 &448018275281591424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,9 +218,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 8013517507988068762}
-  impulseRadius: 4.5
+  impulseRadius: 2.25
   impulseStrength: 250
   yOffset: 0.1
+  impulseAngle: 0
+--- !u!114 &882910601416389064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441420292775046572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a63948a193e7a4d88ac653e48ccafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTimeScale:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &441497783989945612
 GameObject:
   m_ObjectHideFlags: 0
