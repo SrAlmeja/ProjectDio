@@ -10,9 +10,9 @@ public class CountDownController_Singleplayer : MonoBehaviour
     private bool _isTimerActive = false;
     private float _countdownTimer = 0f;
     public static CountDownController_Singleplayer Instance;
-    public System.EventHandler<int> OnSecondPassed;
-    public System.EventHandler<bool> OnHandleCountdown;
-    public System.Action OnCountdownFinished;
+    public EventHandler<int> OnSecondPassed;
+    public EventHandler<bool> OnHandleCountdown;
+    public event Action OnCountdownFinished;
 
     private void Awake()
     {
