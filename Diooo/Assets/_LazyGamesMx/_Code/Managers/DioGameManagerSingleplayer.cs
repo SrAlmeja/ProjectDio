@@ -7,8 +7,8 @@ using UnityEngine;
 public class DioGameManagerSingleplayer : MonoBehaviour
 {
     #region Serialized Fields
-    [SerializeField] private GameObject prefabPlayer;
-    
+
+    [SerializeField] private VoidEventChannelSO onFinishedCinematicEvent;
     #endregion    
     
     #region private variables
@@ -69,17 +69,12 @@ public class DioGameManagerSingleplayer : MonoBehaviour
             DestroyImmediate(this);
         }
         
-        //Game is in Multiplayer Mode
-        if (DioGameMultiplayer.Instance.IsHostInitialized.Value)
-        {
-            enabled = false;
-        }
     }
 
     void Start()
     {
         MyGameState = GameStatesSingleplayer.WaitingToCinematic;
-        SpawnPlayer();
+        onFinishedCinematicEvent.VoidEvent += HandleOnFinishedCinematic;
     }
 
     void Update()
@@ -89,16 +84,16 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     #endregion
 
     #region public Methods
-
     
-
+    
     #endregion
 
     #region private Methods
 
-    private void SpawnPlayer()
+    private void HandleOnFinishedCinematic()
     {
-        Instantiate(prefabPlayer, Vector3.zero, Quaternion.identity);
+        MyGameState = GameStatesSingleplayer.Countdown;
+        OnGameStateChange?.Invoke(MyGameState);
     }
 
     #endregion
