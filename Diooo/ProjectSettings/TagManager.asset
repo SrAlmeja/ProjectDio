@@ -5,6 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - DragParent
+  - Building
+  - Tree
+  - Nature
+  - Vehicles
+  - Misc
+  - VFX
+  - NPC
+  - Terrain
+  - Roads
+  - Lights
+  - Focal Points
   layers:
   - Default
   - TransparentFX
