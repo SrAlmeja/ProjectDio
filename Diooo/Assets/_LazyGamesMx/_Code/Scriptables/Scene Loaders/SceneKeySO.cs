@@ -13,7 +13,13 @@ public class SceneKeySO : ScriptableObject
         none,
         LOBBY_SCENE,
         GAME_SCENE,
-        MENU_SCENE    
+        MENU_SCENE,
+        GAME_SINGLEPLAYER,
+        TUTORIAL,
+        LEVEL_1,
+        LEVEL_2,
+        LEVEL_3,
+        LEVEL_4,
     }
     
    [SerializeField] private Keys myKey;
@@ -30,7 +36,19 @@ public class SceneKeySO : ScriptableObject
                     return SceneKeys.GAME_SCENE;
                 case Keys.MENU_SCENE:
                     return SceneKeys.MAIN_MENU_SCENE;
-                break;
+                case Keys.GAME_SINGLEPLAYER:
+                    return SceneKeys.GAME_SCENE_SINGLEPLAYER;
+                case Keys.TUTORIAL:
+                    return SceneKeys.GAME_TUTORIAL;
+                case Keys.LEVEL_1:
+                    return SceneKeys.GAME_LEVEL_1;
+                case Keys.LEVEL_2:
+                    return SceneKeys.GAME_LEVEL_2;
+                case Keys.LEVEL_3:
+                    return SceneKeys.GAME_LEVEL_3;
+                case Keys.LEVEL_4:
+                    return SceneKeys.GAME_LEVEL_4;
+                        break;
             }
             return Keys.none.ToString();
         }

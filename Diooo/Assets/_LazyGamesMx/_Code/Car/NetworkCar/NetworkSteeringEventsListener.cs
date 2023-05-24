@@ -28,7 +28,7 @@ namespace com.LazyGames.Dio
         {
             if(!IsOwner) return;
             
-            DioGameManager.Instance.OnGameStateChange += Prepare;
+            DioGameManagerMultiplayer.Instance.OnGameStateChange += Prepare;
             // Prepare();
             base.OnNetworkSpawn();
 
@@ -76,12 +76,12 @@ namespace com.LazyGames.Dio
             _carImpulse.ApplyImpulse();
         }
 
-        private void Prepare(DioGameManager.GameStates state)
+        private void Prepare(DioGameManagerMultiplayer.GameStates state)
         {
             if(!IsOwner) return;
             _carImpulse = GetComponent<NetworkCarImpulse>();
 
-            if (state == DioGameManager.GameStates.GamePlaying)
+            if (state == DioGameManagerMultiplayer.GameStates.GamePlaying)
             {
                 Debug.Log("<color=#E982EF>Enable driving Inputs </color>");
                 _handBrakeEvent.BoolEvent += HandBrake;
@@ -92,7 +92,7 @@ namespace com.LazyGames.Dio
                 _vector2InputEvent.Vector2Event += VecTwoInput;
                 _impulseEvent.VoidEvent += Impulse;
             }
-            else if (state == DioGameManager.GameStates.GameOver)
+            else if (state == DioGameManagerMultiplayer.GameStates.GameOver)
             {
                 Debug.Log("<color=#E982EF>Disable driving Inputs </color>");
 
