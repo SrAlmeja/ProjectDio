@@ -50,8 +50,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Blue_Value: 0
-    - _CellShader: 0.017
+    - _Blue_Value: 0.043
+    - _CellShader: 0
     - _Green_Value: 0
     - _OutLineFade: 0.812
     - _Outlider_Pixel: 0.68
