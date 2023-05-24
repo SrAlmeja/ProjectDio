@@ -14,15 +14,35 @@ public class CountDownUI : MonoBehaviour
     void Start()
     {
         countDownUI.SetActive(false);
-        CountdownController.Instance.OnHandleCountdown += HandleCountdown;
-        CountdownController.Instance.OnSecondPassed += HandleSecondPassed;
+        if (CountdownControllerMultiplayer.Instance != null)
+        {
+            CountdownControllerMultiplayer.Instance.OnHandleCountdown += HandleCountdown;
+            CountdownControllerMultiplayer.Instance.OnSecondPassed += HandleSecondPassed;
+        }
+
+        if (CountDownController_Singleplayer.Instance != null)
+        {
+            CountDownController_Singleplayer.Instance.OnHandleCountdown += HandleCountdown;
+            CountDownController_Singleplayer.Instance.OnSecondPassed += HandleSecondPassed;
+        }
+           
     }
+
     void OnDestroy()
     {
-        CountdownController.Instance.OnHandleCountdown -= HandleCountdown;
-        CountdownController.Instance.OnSecondPassed -= HandleSecondPassed;
+        if (CountdownControllerMultiplayer.Instance != null)
+        {
+            CountdownControllerMultiplayer.Instance.OnHandleCountdown -= HandleCountdown;
+            CountdownControllerMultiplayer.Instance.OnSecondPassed -= HandleSecondPassed;
+        }
+
+        if (CountDownController_Singleplayer.Instance != null)
+        {
+            CountDownController_Singleplayer.Instance.OnHandleCountdown -= HandleCountdown;
+            CountDownController_Singleplayer.Instance.OnSecondPassed -= HandleSecondPassed;
+        }
     }
-    
+
     void HandleSecondPassed(object sender, int seconds)
     {
         if (_previousSecond != seconds)

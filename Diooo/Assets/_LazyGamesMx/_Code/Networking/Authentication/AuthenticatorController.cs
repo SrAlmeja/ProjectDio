@@ -22,7 +22,7 @@ namespace com.LazyGames.Dio
                     authenticatorGO.SetActive(false);
                     _instance = authenticatorGO.AddComponent<AuthenticatorController>();
                     authenticatorGO.SetActive(true);
-                    DontDestroyOnLoad(authenticatorGO);
+                    // DontDestroyOnLoad(authenticatorGO);
                     
                 }
 
