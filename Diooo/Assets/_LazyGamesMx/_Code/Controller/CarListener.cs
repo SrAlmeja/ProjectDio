@@ -41,10 +41,10 @@ namespace com.LazyGames.Dio
         private float _RPM;
         private int _isEngineRunning;
         private int _currentGear;
-        private TMP_Text _rpmText;
-        private TMP_Text _gearText;
-        private TMP_Text _kilometerPerHour;
-        private Transform _rpmNeedle;
+        [SerializeField] private TMP_Text _rpmText;
+        [SerializeField] private TMP_Text _gearText;
+        [SerializeField] private TMP_Text _kilometerPerHour;
+        [SerializeField] private Transform _rpmNeedle;
         private Rigidbody _playerRB;
         private float _gasInput;
         private float _brakeInput;
