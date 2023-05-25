@@ -16,13 +16,14 @@ namespace com.LazyGames.Dio
         private bool doSlow;
         private DebugSteeringEventsListener _listener;
         private float savedMagnitude;
-        private float _stasisMeter = 5f;
+        private float _stasisMeter = 1f;
         private float currentTimeScale = 1;
         private readonly float normalizeFactor = .02f;
 
         private void Start()
         {
             Prepare();
+            Debug.Log(_stasisMeter);
         }
 
         private void Update()
