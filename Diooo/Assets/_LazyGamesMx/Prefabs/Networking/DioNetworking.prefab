@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056fbee1467c0094e91f733e07817def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxConnections: 3
+  maxConnections: 4
 --- !u!1 &492120542084837685
 GameObject:
   m_ObjectHideFlags: 0

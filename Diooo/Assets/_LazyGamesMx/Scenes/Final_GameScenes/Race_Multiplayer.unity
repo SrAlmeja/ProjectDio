@@ -2127,6 +2127,7 @@ MonoBehaviour:
   - {fileID: 1074513668}
   - {fileID: 258939379}
   - {fileID: 213946064}
+  - {fileID: 388893473}
   playerCarPrefab: {fileID: 4735771677213841879, guid: 1749c76295a782b42914cda5aea94a01, type: 3}
   readyPlayerInput: {fileID: 11400000, guid: 5a303bd2ea541e544a1a84b907968d33, type: 2}
   myGameState:
