@@ -5,17 +5,19 @@ public class PlayerLaps : MonoBehaviour
 {
     [SerializeField] private VoidEventChannelSO _actualLap;
     [SerializeField] private BoolEventChannelSO _isReverse;
-    private bool _reverse;
-    private int _currentLap;
+    private bool _reverse = false;
+    public int _currentLap = 0;
 
     private void OnEnable()
     {
         _isReverse.BoolEvent += UpdateBool;
+        _actualLap.VoidEvent += LapsEvent;
     }
 
     private void OnDisable()
     {
         _isReverse.BoolEvent -= UpdateBool;
+        _actualLap.VoidEvent -= LapsEvent;
     }
 
     void Start()
@@ -23,9 +25,9 @@ public class PlayerLaps : MonoBehaviour
         _currentLap = 0;
     }
 
-    void LapsEvent(int i)
+    void LapsEvent()
     {
-        if(!_isReverse)
+        if(!_reverse)
         {
             _currentLap++;
             if (_currentLap >= 3)
@@ -33,14 +35,11 @@ public class PlayerLaps : MonoBehaviour
                 Debug.Log("push to db");
             }
         }
-        if (_isReverse)
-        {
-
-        }
     }
 
     void UpdateBool(bool b) 
     { 
         _reverse = b;
+        Debug.Log("car in reverse");
     }
 }
