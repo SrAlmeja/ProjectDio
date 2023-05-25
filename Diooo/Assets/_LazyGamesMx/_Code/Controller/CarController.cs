@@ -121,7 +121,6 @@ namespace com.LazyGames.Dio
             float angle = CryoMath.AngleFromOffset(vectorInput);
             _rotateEvent?.RaiseEvent(angle);
             _vector2InputEvent?.RaiseEvent(context.ReadValue<Vector2>());
-            Debug.Log("happened");
         }
 
         void GetImpulseInput(InputAction.CallbackContext context)
