@@ -178,17 +178,17 @@ namespace com.LazyGames.Dio
             foreach (var clientID in NetworkManager.Singleton.ConnectedClientsIds)
             {
                 _spawnIndex++;
-                if (_spawnIndex >= placesToSpawnCars.Count)
+                if (_spawnIndex > placesToSpawnCars.Count)
                 {
                     Debug.Log("<color=#FE4A3B>Not enough spawn points</color>");
                     return;
                 }
                 
-                // Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex].name);
+                Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex - 1].name);
                 
                 Transform playerTransform = Instantiate(playerCarPrefab);
                 playerTransform.name = "CAR CLIENT = "+ clientID;
-                playerTransform.position = placesToSpawnCars[_spawnIndex].position;
+                playerTransform.position = placesToSpawnCars[_spawnIndex - 1].position;
                 
                 NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
                 networkCarObject.SpawnAsPlayerObject(clientID, true);

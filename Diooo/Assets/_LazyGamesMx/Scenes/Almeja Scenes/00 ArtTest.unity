@@ -11202,6 +11202,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &6718197508058476298
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5907241498630341309, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_Name
+      value: Pista Calamardo Testeable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5070629
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -61.308388
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535123783034771463, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a82dbcf77c3c23341b6af31f37e1e8fd, type: 3}
 --- !u!1 &6722496486828937051
 GameObject:
   m_ObjectHideFlags: 0
