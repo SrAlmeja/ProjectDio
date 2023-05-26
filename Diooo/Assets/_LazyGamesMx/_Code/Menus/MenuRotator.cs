@@ -3,6 +3,7 @@
 /// This script handles all movement requiered by the main menu. 
 /// </summary>
 
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
@@ -13,6 +14,10 @@ namespace com.LazyGames.Dio
         [SerializeField] private GameObjectFloatChannelSO _rotationRequestChannel;
         [SerializeField] private GameObjectFloatChannelSO _moveRequestChannel;
         [SerializeField] private VoidEventChannelSO _finishedAnimatingChannel;
+
+        [Header("Settings")]
+        [SerializeField] private float _moveSpeed = 1;
+        [SerializeField] private float _rotationSpeed = 1;
 
         private int _currentAnimations = 0;
 
@@ -32,7 +37,7 @@ namespace com.LazyGames.Dio
             _currentAnimations++;
             iTween.RotateTo(senderPivot, iTween.Hash(
                 "rotation", new Vector3(0f, 45f * position, 0f),
-                "time", 1f, 
+                "time", _rotationSpeed, 
                 "easetype", iTween.EaseType.easeInOutSine,
                 "looptype", iTween.LoopType.none, 
                 "oncomplete","Finished",
@@ -44,7 +49,7 @@ namespace com.LazyGames.Dio
             _currentAnimations++;
             iTween.MoveTo(mainPivot, iTween.Hash(
                "position", new Vector3(0f, 5f * position, 0f),
-               "time", 1f,
+               "time", _moveSpeed,
                "easetype", iTween.EaseType.easeInOutSine,
                "looptype", iTween.LoopType.none,
                "oncomplete","Finished",
