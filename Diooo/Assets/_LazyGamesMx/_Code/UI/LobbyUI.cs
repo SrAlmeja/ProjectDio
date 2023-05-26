@@ -1,5 +1,6 @@
 //Dino 05/04/2023 Creation of the script
 //This script control the number of players that are in the lobby and their behavior
+// Script already works with the new lobby system
 
 using System.Collections.Generic;
 using com.LazyGames.Dio;
@@ -23,12 +24,7 @@ namespace com.LazyGames.Dio
 
         [SerializeField] private Button startGameButton;
 
-        // private NetworkList<PlayerLobbyData> _playersLobbyDatas;
-        
-        // PlayerLobbyData _clientPlayerLobbyData;
-        // private int _clientsIndex;
         private int _spawnPointIndex;
-        private int _currentConnectedPlayers;
 
 
         #endregion
@@ -40,11 +36,6 @@ namespace com.LazyGames.Dio
         
         #region Unity Methods
 
-        private void Awake()
-        {
-            // _playersLobbyDatas = new NetworkList<PlayerLobbyData>();
-
-        }
 
         void Start()
         {
@@ -68,7 +59,7 @@ namespace com.LazyGames.Dio
             if (IsServer)
             {
                NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
-                startGameButton.gameObject.SetActive(true);
+                // startGameButton.gameObject.SetActive(true);
             }
                 
         }
@@ -103,7 +94,6 @@ namespace com.LazyGames.Dio
         
         void JoinPlayer()
         {
-            _currentConnectedPlayers = NetworkManager.Singleton.ConnectedClientsIds.Count;
             UploadLobbyCode();
             UpdatePlayerCount();
             SpawnPlayersInRoom();
@@ -111,10 +101,11 @@ namespace com.LazyGames.Dio
 
         void JoinClientUpdate(ulong clientId)
         {
+            UpdatePlayersSpawned();
             JoinPlayer();
         }
             
-
+        
         void SpawnPlayerUI(PlayerLobbyData playerLobbyData)
         {
             _spawnPointIndex++;
@@ -133,7 +124,16 @@ namespace com.LazyGames.Dio
             playerLobby.GetComponent<PlayerLobbyCar>().SetPlayerData(playerLobbyData, playerLobbyData.PlayerCarIndex);
             
         }
-        
+
+        private void UpdatePlayersSpawned()
+        {
+            PlayerLobbyCar[] playerLobbyCars = FindObjectsOfType<PlayerLobbyCar>();
+            foreach (PlayerLobbyCar playerLobbyCar in playerLobbyCars)
+            {
+                playerLobbyCar.SendPlayerDataClientRpc(playerLobbyCar.PlayerLobbyData,
+                    playerLobbyCar.PlayerLobbyData.PlayerCarIndex);
+            }
+        }
         void SpawnPlayersInRoom()
         {
             Debug.Log("SpawnPlayersInRoom");
@@ -163,16 +163,6 @@ namespace com.LazyGames.Dio
        
        private void SaveLobbyPlayerData(PlayerLobbyData playerData)
        {
-
-           PlayerLobbyData playerLobbyData = new PlayerLobbyData
-           {
-               PlayerName = AssignRandomNamePlayer(),
-               PlayerCarIndex = AssignRandomCarPlayer(),
-               PlayerId = playerData.PlayerId,
-               ClientId = playerData.ClientId
-           };
-           
-           // _clientPlayerLobbyData = playerLobbyData;
            JoinPlayer();
        }
 
