@@ -73,8 +73,8 @@ namespace com.LazyGames.Dio
                 return;
             }
 
-            RequestNavigation(_currentAdress.ForwardTo);
             _generalSFX.Play();
+            RequestNavigation(_currentAdress.ForwardTo);
         }
 
         private void MoveBackward()
@@ -86,19 +86,21 @@ namespace com.LazyGames.Dio
                 return;
             }
 
-            RequestNavigation(_currentAdress.BackTo);
             _backSFX.Play();
+            RequestNavigation(_currentAdress.BackTo);
         }
 
         private void GoLeftAdress()
         {
             if (!_enabledInputs) return;
+            _secondarySFX.Play();
             RequestNavigation(_currentAdress.LeftAdress);
         }
 
         private void GoRightAdress()
         {
             if (!_enabledInputs) return;
+            _secondarySFX.Play();
             RequestNavigation(_currentAdress.RightAdress);
         }
 
