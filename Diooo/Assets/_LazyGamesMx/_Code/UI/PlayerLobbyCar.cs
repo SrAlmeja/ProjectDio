@@ -26,11 +26,21 @@ public class PlayerLobbyCar : NetworkBehaviour
 
     public void SetPlayerData(PlayerLobbyData playerLobbyData, int playerCar)
     {
-        _playerNameText.text = playerLobbyData.PlayerName + " " + NetworkManager.Singleton.LocalClientId;
+        _playerNameText.text = playerLobbyData.PlayerName.Value;
         cars[playerCar].SetActive(true);
+        
+        SendPlayerDataClientRpc(playerLobbyData, playerCar);
+        
         
     }
     
+    [ClientRpc]
+    public void SendPlayerDataClientRpc(PlayerLobbyData playerLobbyData, int playerCar)
+    {
+        Debug.Log("SendPlayerDataClientRpc");
+        _playerNameText.text = playerLobbyData.PlayerName.Value;
+        cars[playerCar].SetActive(true);
+    }
 
    
 }
