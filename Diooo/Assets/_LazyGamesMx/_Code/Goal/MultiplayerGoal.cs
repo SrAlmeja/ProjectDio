@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace com.LazyGames.Dio
 {
-    public class Goal : MonoBehaviour
+    public class MultiplayerGoal : MonoBehaviour
     {
         private Dictionary<AutoData, int> vueltasPorAuto = new Dictionary<AutoData, int>();
         private Dictionary<AutoData, bool> direccionCorrectaPorAuto = new Dictionary<AutoData, bool>();
