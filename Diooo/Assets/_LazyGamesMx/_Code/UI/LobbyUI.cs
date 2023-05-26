@@ -4,6 +4,8 @@
 
 using System.Collections.Generic;
 using com.LazyGames.Dio;
+using Mono.CSharp;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -17,21 +19,20 @@ namespace com.LazyGames.Dio
     {
         #region private Variables
 
-        [SerializeField] private Text lobbyCodeText;
-        [SerializeField] private Text playerCountText;
+        [SerializeField] private TMP_Text lobbyCodeText;
+        [SerializeField] private TMP_Text playerCountText;
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private List<GameObject> spawnPoints;
+        [SerializeField] private GameObject startGameTxt;
+        [SerializeField] private GoToMatchInput goToMatchInput;
 
-        [SerializeField] private Button startGameButton;
-
-        private int _spawnPointIndex;
-
-
+    private int _spawnPointIndex;
+        private bool _canStartMatch;
         #endregion
 
         #region public variables
 
-        
+        public bool CanStartMatch => _canStartMatch;
         #endregion
         
         #region Unity Methods
@@ -39,15 +40,13 @@ namespace com.LazyGames.Dio
 
         void Start()
         {
-            startGameButton.gameObject.SetActive(false);
+            startGameTxt.gameObject.SetActive(false);
         }
 
         void OnDestroy()
         {
             LobbyController.Instance.OnFinishedCreateLobby -= SaveLobbyPlayerData;
-            // LobbyController.Instance.OnClientEnterRoom -= SaveLobbyPlayerData;
-            
-
+            NetworkManager.Singleton.OnClientConnectedCallback -= JoinClientUpdate;
         }
         
         public override void OnNetworkSpawn()
@@ -59,7 +58,6 @@ namespace com.LazyGames.Dio
             if (IsServer)
             {
                NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
-                // startGameButton.gameObject.SetActive(true);
             }
                 
         }
@@ -68,11 +66,10 @@ namespace com.LazyGames.Dio
 
         #region public methods
 
-        public void GoToMatch()
-        {
-            SceneController.Instance.LoadSceneNetwork(SceneKeys.GAME_SCENE);
-        }
-
+        // public void GoToMatch()
+        // {
+        //     SceneController.Instance.LoadSceneNetwork(SceneKeys.GAME_SCENE);
+        // }
 
         #endregion
 
@@ -103,13 +100,19 @@ namespace com.LazyGames.Dio
         {
             UpdatePlayersSpawned();
             JoinPlayer();
+            if (NetworkManager.Singleton.ConnectedClientsIds.Count >= 2)
+            {
+                startGameTxt.gameObject.SetActive(true);
+                _canStartMatch = true;
+                if(IsServer)
+                    goToMatchInput.PrepareInputs();
+            }
         }
             
         
         void SpawnPlayerUI(PlayerLobbyData playerLobbyData)
         {
             _spawnPointIndex++;
-            Debug.Log("<color=#CDFF7A>Spawn Index  </color>" +_spawnPointIndex);
             if (_spawnPointIndex > NetworkManager.Singleton.ConnectedClientsIds.Count)
             {
                 Debug.Log("<color=#FE4A3B>Not enough spawn points</color>");
@@ -136,15 +139,11 @@ namespace com.LazyGames.Dio
         }
         void SpawnPlayersInRoom()
         {
-            Debug.Log("SpawnPlayersInRoom");
             Debug.Log(NetworkManager.Singleton.ConnectedClientsIds.Count + " Clients Connected");
-
             if (IsServer)
             { 
                 SpawnPlayerUI(GenerateRandomPlayerData());
             }
-            
-            
         }
         
         
