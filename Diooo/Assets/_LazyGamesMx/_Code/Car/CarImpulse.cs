@@ -4,6 +4,7 @@
 using System.Collections;
 using UnityEngine;
 using CryoStorage;
+using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
@@ -11,10 +12,12 @@ namespace com.LazyGames.Dio
     {
         [Header("Configurable Variables")]
         [SerializeField]private float impulseRadius = 4.5f;
+        [SerializeField]private float FighterRadius = 9f;
         [SerializeField]private float impulseStrength = 5f;
-        // [SerializeField] private float impulseSens = .1f;
+        [FormerlySerializedAs("yOffset")]
         [Tooltip("vertical offset of the center of the sphere")]
-        [SerializeField] private float yOffset = .1f;
+        [SerializeField] private float indicatorOffset = .1f;
+        [FormerlySerializedAs("FighterOffset")] [SerializeField] private float fighterOffset = .5f;
         
         [Header("Serialized References")]
         [SerializeField] private GameObject indicator;
@@ -25,6 +28,7 @@ namespace com.LazyGames.Dio
         private Rigidbody rb;
         private float impulseAngle;
         private Vector3 impulseCenter;
+        private Vector3 _fighterCenter;
         private Vector3 fighterPos;
         private Vector3 impulseDir;
         private DebugSteeringEventsListener _listener;
@@ -49,7 +53,8 @@ namespace com.LazyGames.Dio
             if(!doStasis)return;
             MoveFighter();
             MoveIndicator();
-            impulseCenter = transform.position + new Vector3(0, yOffset, 0);
+            impulseCenter = transform.position + new Vector3(0, indicatorOffset, 0);
+            _fighterCenter = transform.position + new Vector3(0, fighterOffset, 0);
         }
 
         private void MoveIndicator()
@@ -66,10 +71,12 @@ namespace com.LazyGames.Dio
             if (!doStasis)
             {
                 fighter.transform.position = DriverSeat.transform.position;
-                return;       
             }
-            fighter.transform.position = CryoMath.PointOnRadius(impulseCenter, impulseRadius , impulseAngle);
-            indicator.transform.rotation = CryoMath.AimAtDirection(impulseCenter, indicator.transform.position);
+            else
+            {
+                fighter.transform.position = CryoMath.PointOnRadius(_fighterCenter, FighterRadius , _listener.angle);
+                indicator.transform.rotation = CryoMath.AimAtDirection(_fighterCenter, fighter.transform.position);
+            }
         }
 
         public void ApplyImpulse()
@@ -78,14 +85,6 @@ namespace com.LazyGames.Dio
             impulseDir = fighter.transform.position - transform.position;
             rb.AddForce(impulseDir.normalized * impulseStrength);
         }
-
-        // private void OnDrawGizmos()
-        // {
-        //     Gizmos.color = Color.magenta;
-        //     Gizmos.DrawWireSphere(impulseCenter, impulseRadius);
-        //     Gizmos.color = Color.cyan;
-        //     Gizmos.DrawSphere(impulsePos,.3f);
-        // }
 
         private void Prepare()
         {
