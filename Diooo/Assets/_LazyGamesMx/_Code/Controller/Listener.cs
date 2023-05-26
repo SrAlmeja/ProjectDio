@@ -54,7 +54,7 @@ namespace com.LazyGames.Dio
 
         protected virtual void Torque(float f)
         {
-            //Debug.Log("Flotante Aceleración: " + f);
+            //Debug.Log("Flotante Aceleraciï¿½n: " + f);
         }
 
         protected virtual void Rotate(float f)
