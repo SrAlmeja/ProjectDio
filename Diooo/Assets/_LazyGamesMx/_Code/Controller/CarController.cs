@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CryoStorage;
+using UnityEditor.Scripting;
 
 namespace com.LazyGames.Dio
 {
@@ -59,22 +60,22 @@ namespace com.LazyGames.Dio
             impulseInputAction = gameplayActionMap.FindAction("Impulse");
 
             handBrakeInputAction.performed += GetHandBrakeInput;
-            handBrakeInputAction.canceled += GetHandBrakeInput;
+            // handBrakeInputAction.canceled += GetHandBrakeInput;
 
             steeringInputAction.performed += GetAngleInput;
-            steeringInputAction.canceled += GetAngleInput;
+            // steeringInputAction.canceled += GetAngleInput;
 
             accelerationInputAction.performed += GetTorqueInput;
-            accelerationInputAction.canceled += GetTorqueInput;
+            // accelerationInputAction.canceled += GetTorqueInput;
 
             timeStopInputAction.performed += StopTimeInput;
-            timeStopInputAction.canceled += StopTimeInput;
+            // timeStopInputAction.canceled += StopTimeInput;
 
             rotateInputAction.performed += RotateInput;
-            rotateInputAction.canceled += RotateInput;
+            // rotateInputAction.canceled += RotateInput;
 
             impulseInputAction.performed += GetImpulseInput;
-            impulseInputAction.canceled += GetImpulseInput;
+            // impulseInputAction.canceled += GetImpulseInput;
         }
 
         void GetHandBrakeInput(InputAction.CallbackContext context)
@@ -118,8 +119,8 @@ namespace com.LazyGames.Dio
         {
             Vector2 vectorInput = context.ReadValue<Vector2>();
             float angle = CryoMath.AngleFromOffset(vectorInput);
-            _rotateEvent.RaiseEvent(angle);
-            _vector2InputEvent.RaiseEvent(context.ReadValue<Vector2>());
+            _rotateEvent?.RaiseEvent(angle);
+            _vector2InputEvent?.RaiseEvent(context.ReadValue<Vector2>());
         }
 
         void GetImpulseInput(InputAction.CallbackContext context)

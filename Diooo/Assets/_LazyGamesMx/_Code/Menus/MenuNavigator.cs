@@ -5,6 +5,8 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 namespace com.LazyGames.Dio
 {
@@ -26,6 +28,12 @@ namespace com.LazyGames.Dio
         [Header("Dependencies")]
         [SerializeField] private List<GameObject> _menuPivots;
         [SerializeField] private GameObject _rootPivotGameObject;
+
+        [Header("FMOD Dependencies")]
+        [SerializeField] private StudioEventEmitter _generalSFX;
+        [SerializeField] private StudioEventEmitter _secondarySFX;
+        [SerializeField] private StudioEventEmitter _confirmSFX;
+        [SerializeField] private StudioEventEmitter _backSFX;
 
         [Header("Initial Dependency")]
         [SerializeField] private MenuAdress _currentAdress;
@@ -65,6 +73,7 @@ namespace com.LazyGames.Dio
                 return;
             }
 
+            _generalSFX.Play();
             RequestNavigation(_currentAdress.ForwardTo);
         }
 
@@ -77,18 +86,21 @@ namespace com.LazyGames.Dio
                 return;
             }
 
+            _backSFX.Play();
             RequestNavigation(_currentAdress.BackTo);
         }
 
         private void GoLeftAdress()
         {
             if (!_enabledInputs) return;
+            _secondarySFX.Play();
             RequestNavigation(_currentAdress.LeftAdress);
         }
 
         private void GoRightAdress()
         {
             if (!_enabledInputs) return;
+            _secondarySFX.Play();
             RequestNavigation(_currentAdress.RightAdress);
         }
 
