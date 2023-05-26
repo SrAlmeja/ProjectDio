@@ -1531,11 +1531,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1293639054
-      Data2: 1305493802
-      Data3: 677681807
-      Data4: 956093743
-    Path: event:/Click Regresar_One Shot_UI_SFX
+      Data1: 1552636581
+      Data2: 1094415728
+      Data3: 786791328
+      Data4: -579057180
+    Path: event:/UI/Click Regresar_One Shot_UI_SFX
   Event: 
   PlayEvent: 0
   StopEvent: 12
@@ -2283,11 +2283,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -538204410
-      Data2: 1258614891
-      Data3: 1808170386
-      Data4: -692399105
-    Path: event:/Click Aceptar_One Shot_UI_SFX
+      Data1: -1328713764
+      Data2: 1201644543
+      Data3: -1866785872
+      Data4: 64210265
+    Path: event:/UI/Click Aceptar_One Shot_UI_SFX
   Event: 
   PlayEvent: 0
   StopEvent: 12
@@ -3708,11 +3708,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -70548570
-      Data2: 1283399300
-      Data3: 685179802
-      Data4: -1916307729
-    Path: event:/Click Secundario_One Shot_UI_SFX
+      Data1: -857176355
+      Data2: 1217716382
+      Data3: 246361232
+      Data4: -24629449
+    Path: event:/UI/Click Secundario_One Shot_UI_SFX
   Event: 
   PlayEvent: 0
   StopEvent: 12
@@ -4109,11 +4109,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -2005552493
-      Data2: 1265089228
-      Data3: -1399929208
-      Data4: -509206129
-    Path: event:/Click General_One Shot_UI_SFX
+      Data1: -1594777925
+      Data2: 1304096852
+      Data3: 264736678
+      Data4: 1072734171
+    Path: event:/UI/Click General_One Shot_UI_SFX
   Event: 
   PlayEvent: 0
   StopEvent: 12
@@ -4316,8 +4316,8 @@ MonoBehaviour:
   _rotationRequestChannel: {fileID: 11400000, guid: 9c9a064354969a449b8270cd12a9ffce, type: 2}
   _moveRequestChannel: {fileID: 11400000, guid: 181a69739c3202e4ea05f0528ae9aaf3, type: 2}
   _finishedAnimatingChannel: {fileID: 11400000, guid: 733f2abd30788fd458a6a3fd58e36dbd, type: 2}
-  _moveSpeed: 1.5
-  _rotationSpeed: 1.5
+  _moveSpeed: 1
+  _rotationSpeed: 1
 --- !u!114 &2095381149
 MonoBehaviour:
   m_ObjectHideFlags: 0

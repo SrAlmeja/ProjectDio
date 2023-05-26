@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: ../DioSounds/Build/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/UI
-  lastModified: 638206290724704508
+  lastModified: 638206402623587572
   FileSizes:
   - Name: Desktop
-    Value: 72704
+    Value: 74176
   Exists: 1
 --- !u!114 &-6526969954652263911
 MonoBehaviour:
@@ -35,12 +35,12 @@ MonoBehaviour:
   Path: ../DioSounds/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638206290724495063
+  lastModified: 638206401486164666
   FileSizes:
   - Name: Desktop
-    Value: 1330
+    Value: 1334
   Exists: 1
---- !u!114 &-4372792713307474953
+--- !u!114 &-5658177283137098030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,14 +50,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Click Regresar_One Shot_UI_SFX
+  m_Name: event:/UI/Click Aceptar_One Shot_UI_SFX
   m_EditorClassIdentifier: 
-  Path: event:/Click Regresar_One Shot_UI_SFX
+  Path: event:/UI/Click Aceptar_One Shot_UI_SFX
   Guid:
-    Data1: -1293639054
-    Data2: 1305493802
-    Data3: 677681807
-    Data4: 956093743
+    Data1: -1328713764
+    Data2: 1201644543
+    Data3: -1866785872
+    Data4: 64210265
   Banks:
   - {fileID: -7254047634992679510}
   IsStream: 0
@@ -66,34 +66,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
---- !u!114 &-2189909709750811782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Click Secundario_One Shot_UI_SFX
-  m_EditorClassIdentifier: 
-  Path: event:/Click Secundario_One Shot_UI_SFX
-  Guid:
-    Data1: -70548570
-    Data2: 1283399300
-    Data3: 685179802
-    Data4: -1916307729
-  Banks:
-  - {fileID: -7254047634992679510}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
+  Length: 800
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,18 +84,18 @@ MonoBehaviour:
   - {fileID: 2192455697315407721}
   - {fileID: -7254047634992679510}
   EditorEvents:
-  - {fileID: 8429634414879926489}
-  - {fileID: -4372792713307474953}
-  - {fileID: 1861626377417931581}
-  - {fileID: -2189909709750811782}
+  - {fileID: 6887365844448045233}
+  - {fileID: 1572739256189315841}
+  - {fileID: -5658177283137098030}
+  - {fileID: 2406511737315500117}
   EditorParameters: []
   MasterBanks:
   - {fileID: 2192455697315407721}
   StringsBanks:
   - {fileID: -6526969954652263911}
-  cacheTime: 638206290724704508
+  cacheTime: 638206402623587572
   cacheVersion: 131603
---- !u!114 &1861626377417931581
+--- !u!114 &1572739256189315841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,14 +105,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Click General_One Shot_UI_SFX
+  m_Name: event:/UI/Click General_One Shot_UI_SFX
   m_EditorClassIdentifier: 
-  Path: event:/Click General_One Shot_UI_SFX
+  Path: event:/UI/Click General_One Shot_UI_SFX
   Guid:
-    Data1: -2005552493
-    Data2: 1265089228
-    Data3: -1399929208
-    Data4: -509206129
+    Data1: -1594777925
+    Data2: 1304096852
+    Data3: 264736678
+    Data4: 1072734171
   Banks:
   - {fileID: -7254047634992679510}
   IsStream: 0
@@ -148,7 +121,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 1000
 --- !u!114 &2192455697315407721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,12 +137,12 @@ MonoBehaviour:
   Path: ../DioSounds/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638206290724485096
+  lastModified: 638206401486154738
   FileSizes:
   - Name: Desktop
     Value: 2216
   Exists: 1
---- !u!114 &8429634414879926489
+--- !u!114 &2406511737315500117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,14 +152,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Click Aceptar_One Shot_UI_SFX
+  m_Name: event:/UI/Click Secundario_One Shot_UI_SFX
   m_EditorClassIdentifier: 
-  Path: event:/Click Aceptar_One Shot_UI_SFX
+  Path: event:/UI/Click Secundario_One Shot_UI_SFX
   Guid:
-    Data1: -538204410
-    Data2: 1258614891
-    Data3: 1808170386
-    Data4: -692399105
+    Data1: -857176355
+    Data2: 1217716382
+    Data3: 246361232
+    Data4: -24629449
   Banks:
   - {fileID: -7254047634992679510}
   IsStream: 0
@@ -195,4 +168,31 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 800
+--- !u!114 &6887365844448045233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Click Regresar_One Shot_UI_SFX
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Click Regresar_One Shot_UI_SFX
+  Guid:
+    Data1: 1552636581
+    Data2: 1094415728
+    Data3: 786791328
+    Data4: -579057180
+  Banks:
+  - {fileID: -7254047634992679510}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
