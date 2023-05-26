@@ -643,6 +643,15 @@
                     "processors": "",
                     "interactions": "Tap",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GoToMatch",
+                    "type": "Button",
+                    "id": "d615dbc5-3acd-4ec0-b6ba-a5b8ce5ba2ff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -665,6 +674,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "StartGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b939a7ad-b6d7-4d79-be49-436744e4365a",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoToMatch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
