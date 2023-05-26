@@ -38,6 +38,7 @@ public class PlayerLobbyCar : NetworkBehaviour
     public void SendPlayerDataClientRpc(PlayerLobbyData playerLobbyData, int playerCar)
     {
         Debug.Log("SendPlayerDataClientRpc");
+        Debug.Log(playerLobbyData.PlayerName.Value + playerCar);
         _playerNameText.text = playerLobbyData.PlayerName.Value;
         cars[playerCar].SetActive(true);
     }
