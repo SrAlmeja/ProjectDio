@@ -3,25 +3,26 @@ using UnityEngine.InputSystem;
 
 namespace com.LazyGames.Dio
 {
-    public class StarGameInput : MonoBehaviour
+    public class GoToMatchInput : MonoBehaviour
     {
         [SerializeField] private InputActionAsset inputActions;
         InputActionMap gameplayActionMap;
         InputAction startGameInputAction;
 
-        private void OnEnable()
+        
+        void OnGoToMatch(InputAction.CallbackContext context)
+        {
+            SceneController.Instance.LoadSceneNetwork(SceneKeys.GAME_SCENE);
+        }
+
+        public void PrepareInputs()
         {
             gameplayActionMap = inputActions.FindActionMap("Start");
             startGameInputAction = gameplayActionMap.FindAction("GoToMatch");
             startGameInputAction.Enable();
 
-            startGameInputAction.performed += OnStarGame;
-            startGameInputAction.canceled += OnStarGame;
-        }
-
-        void OnStarGame(InputAction.CallbackContext context)
-        {
-            //Start Event
+            startGameInputAction.performed += OnGoToMatch;
+            startGameInputAction.canceled += OnGoToMatch;
         }
     }
 }
