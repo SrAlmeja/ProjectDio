@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using com.LazyGames.Dio;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -17,9 +18,8 @@ namespace com.LazyGames.Dio
 
         [SerializeField] private Text lobbyCodeText;
         [SerializeField] private Text playerCountText;
-        [SerializeField] private GameObject lobbyLayoutParent;
         [SerializeField] private GameObject playerUIPrefab;
-        [SerializeField] private List<Sprite> playerImages;
+        [SerializeField] private List<GameObject> spawnPoints;
 
         [SerializeField] private Button startGameButton;
 
@@ -115,7 +115,7 @@ namespace com.LazyGames.Dio
         {
             foreach (var player in _playersLobbyDatas)
             {
-                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerImageIndex + " " + player.PlayerId + " " + player.ClientId);
+                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerCarIndex + " " + player.PlayerId + " " + player.ClientId);
             }
             UploadLobbyCode();
             UpdatePlayerCount();
@@ -126,7 +126,7 @@ namespace com.LazyGames.Dio
         {
             foreach (var player in _playersLobbyDatas)
             {
-                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerImageIndex + " " + player.PlayerId + " " + player.ClientId);
+                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerCarIndex + " " + player.PlayerId + " " + player.ClientId);
             }
             JoinPlayer();
         }
@@ -134,13 +134,13 @@ namespace com.LazyGames.Dio
 
         void SpawnPlayerUI(PlayerLobbyData playerLobbyData)
         {
-            // Debug.Log("SpawnPlayerUI");
             GameObject playerLobby = Instantiate(playerUIPrefab);
+            playerLobby.transform.position = spawnPoints[playerLobbyData.PlayerCarIndex].transform.position;
+            playerLobby.transform.rotation = spawnPoints[playerLobbyData.PlayerCarIndex].transform.rotation;
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
-            playerLobby.transform.SetParent(lobbyLayoutParent.transform);
             playerLobby.gameObject.name = playerLobbyData.ClientId.ToString();
-            playerLobby.GetComponent<PlayerLobbyUI>().SetPlayerData(playerLobbyData, SelectImagePlayer(playerLobbyData.PlayerImageIndex));
+            playerLobby.GetComponent<PlayerLobbyCar>().SetPlayerData(playerLobbyData, playerLobbyData.PlayerCarIndex);
             
         }
         
@@ -166,26 +166,19 @@ namespace com.LazyGames.Dio
         }
         
         
-       private int AssignRandomImagePlayer()
+       private int AssignRandomCarPlayer()
         {
-            int randomIndex = Random.Range(0, playerImages.Count);
+            int randomIndex = Random.Range(0, 3);
             return randomIndex;
         }
        
-       public Sprite SelectImagePlayer(int index)
-       {
-           Sprite selectedImage = playerImages[index];
-           return selectedImage;
-       }
-
-
        private void SaveLobbyPlayerData(PlayerLobbyData playerData)
        {
 
            PlayerLobbyData playerLobbyData = new PlayerLobbyData
            {
                PlayerName = playerData.PlayerName,
-               PlayerImageIndex = AssignRandomImagePlayer(),
+               PlayerCarIndex = AssignRandomCarPlayer(),
                PlayerId = playerData.PlayerId,
                ClientId = playerData.ClientId
            };
@@ -236,7 +229,7 @@ namespace com.LazyGames.Dio
                 
             foreach (var player in _playersLobbyDatas)
             {
-                Debug.Log("<color=#F5F378>Player Added</color>" + player.PlayerName + " " + player.PlayerImageIndex + " " + player.PlayerId + " " + player.ClientId);
+                Debug.Log("<color=#F5F378>Player Added</color>" + player.PlayerName + " " + player.PlayerCarIndex + " " + player.PlayerId + " " + player.ClientId);
             }
         }
         #endregion

@@ -124,7 +124,7 @@ namespace com.LazyGames.Dio
             OnFinishedCreateLobby?.Invoke( new PlayerLobbyData
             {
                 PlayerName = GetPlayer().Data["Player Name"].Value,
-                PlayerImageIndex = 0,
+                PlayerCarIndex = 0,
                 PlayerId = GetPlayer().Data["Player Id"].Value,
                 ClientId = NetworkManager.Singleton.LocalClientId
             });
@@ -134,7 +134,7 @@ namespace com.LazyGames.Dio
             OnClientEnterRoom?.Invoke( new PlayerLobbyData
             {
                 PlayerName = GetPlayer().Data["Player Name"].Value,
-                PlayerImageIndex = 0,
+                PlayerCarIndex = 0,
                 PlayerId = GetPlayer().Data["Player Id"].Value,
                 ClientId = NetworkManager.Singleton.LocalClientId
             });
@@ -327,7 +327,7 @@ namespace com.LazyGames.Dio
     public struct PlayerLobbyData : INetworkSerializable, IEquatable<PlayerLobbyData>
     {
         public FixedString128Bytes PlayerName;
-        public int PlayerImageIndex;
+        public int PlayerCarIndex;
         public FixedString128Bytes PlayerId;
         public ulong ClientId;
         
@@ -335,7 +335,7 @@ namespace com.LazyGames.Dio
         {
             
             serializer.SerializeValue(ref PlayerName);
-            serializer.SerializeValue(ref PlayerImageIndex);
+            serializer.SerializeValue(ref PlayerCarIndex);
             serializer.SerializeValue(ref PlayerId);
             serializer.SerializeValue(ref ClientId);
 
@@ -343,7 +343,7 @@ namespace com.LazyGames.Dio
 
         public bool Equals(PlayerLobbyData other)
         {
-            return PlayerName == other.PlayerName && PlayerImageIndex == other.PlayerImageIndex && PlayerId == other.PlayerId && ClientId == other.ClientId;
+            return PlayerName == other.PlayerName && PlayerCarIndex == other.PlayerCarIndex && PlayerId == other.PlayerId && ClientId == other.ClientId;
         }
     }
 }
