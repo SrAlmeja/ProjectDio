@@ -13,7 +13,7 @@ namespace com.LazyGames.Dio
         [SerializeField] protected FloatEventChannelSO _torqueEvent;
         [SerializeField] protected FloatEventChannelSO _rotateEvent;
         [SerializeField] protected VectorTwoEventChannelSO _vector2InputEvent;
-        [SerializeField] protected VoidEventChannelSO _impulseEvent;
+        [SerializeField] public VoidEventChannelSO _impulseEvent;
 
         protected void OnEnable()
         {

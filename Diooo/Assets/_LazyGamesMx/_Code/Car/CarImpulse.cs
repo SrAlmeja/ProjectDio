@@ -1,97 +1,123 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
-//
 
-using System.Collections;
 using UnityEngine;
 using CryoStorage;
-using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
     public class CarImpulse : MonoBehaviour
     {
-        [Header("Configurable Variables")]
-        [SerializeField]private float impulseRadius = 4.5f;
-        [SerializeField]private float FighterRadius = 9f;
-        [SerializeField]private float impulseStrength = 5f;
-        [FormerlySerializedAs("yOffset")]
-        [Tooltip("vertical offset of the center of the sphere")]
-        [SerializeField] private float indicatorOffset = .1f;
-        [FormerlySerializedAs("FighterOffset")] [SerializeField] private float fighterOffset = .5f;
-        
-        [Header("Serialized References")]
-        [SerializeField] private GameObject indicator;
-        [SerializeField] private GameObject fighter;
-        [SerializeField] private GameObject DriverSeat;
+        [Header("Configurable Variables")] [SerializeField]
+        private float impulseForce = 10f;
+        [SerializeField] private float angleLerpSpeed = 1f;
 
-        private Vector3 offsetVector;
-        private Rigidbody rb;
-        private float impulseAngle;
-        private Vector3 impulseCenter;
-        private Vector3 _fighterCenter;
-        private Vector3 fighterPos;
-        private Vector3 impulseDir;
+        [Header("Indicator Variables")] [SerializeField]
+        private float indicatorOffset = .3f;
+
+        [SerializeField] private float indicatorRadius = 3f;
+
+        [Header("Indicator Variables")] [SerializeField]
+        private float fighterOffset = .5f;
+
+        [SerializeField] private float fighterRadius = 3f;
+
+        [Header("Serialized References")] [SerializeField]
+        private GameObject indicator;
+
+        [SerializeField] private GameObject fighter;
+        [SerializeField] private GameObject driverSeat;
+
+        private Rigidbody _rb;
         private DebugSteeringEventsListener _listener;
+        private VoidEventChannelSO _impulseEvent;
+        private Vector3 _indicatorCenter;
+        private Vector3 _fighterCenter;
+        private Vector3 _indicatorOffsetVector;
+        private Vector3 _fighterOffsetVector;
         private bool doStasis;
 
-        // Start is called before the first frame update
-        void Start()
+        private float _currentFighterAngle;
+        private float _targetFighterAngle;
+        private float _currentIndicatorAngle;
+        private float _targetIndicatorAngle;
+
+        private void Start()
         {
             Prepare();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             Visualize();
+            AngleSmoothing();
             doStasis = _listener.stopTime;
+            
+
         }
 
-        private void Visualize()
+        void Visualize()
         {
-            indicator.SetActive(doStasis);
-            if(!doStasis)return;
-            MoveFighter();
-            MoveIndicator();
-            impulseCenter = transform.position + new Vector3(0, indicatorOffset, 0);
-            _fighterCenter = transform.position + new Vector3(0, fighterOffset, 0);
+            ManageFighter();
+            ManageIndicator();
         }
 
-        private void MoveIndicator()
-        {
-            Vector2 dir = new Vector2(rb.velocity.x, rb.velocity.z).normalized;
-            var dirAngle = CryoMath.AngleFromOffset(dir);
-           indicator.transform.position = CryoMath.PointOnRadius(impulseCenter, impulseRadius , dirAngle);
-           indicator.transform.rotation = CryoMath.AimAtDirection(impulseCenter, indicator.transform.position);
-
-        }
-
-        private void MoveFighter()
+        private void ManageFighter()
         {
             if (!doStasis)
             {
-                fighter.transform.position = DriverSeat.transform.position;
+                _fighterCenter = transform.position + _fighterOffsetVector;
+                fighter.transform.position = driverSeat.transform.position;
+                fighter.transform.rotation = driverSeat.transform.rotation;
             }
             else
             {
-                fighter.transform.position = CryoMath.PointOnRadius(_fighterCenter, FighterRadius , _listener.angle);
-                indicator.transform.rotation = CryoMath.AimAtDirection(_fighterCenter, fighter.transform.position);
+                _fighterCenter = transform.position + _fighterOffsetVector;
+                _targetFighterAngle = CryoMath.AngleFromOffset(_listener.Vec2Input);
+                Vector3 pos = fighter.transform.position;
+                pos = CryoMath.PointOnRadiusRelative(transform, fighterRadius, _currentFighterAngle);
+                fighter.transform.position = pos;
+                fighter.transform.rotation = CryoMath.AimAtDirection(fighter.transform.position, transform.position);
             }
         }
 
-        public void ApplyImpulse()
+        private void ManageIndicator()
         {
-            if(!_listener.stopTime)return;
-            impulseDir = fighter.transform.position - transform.position;
-            rb.AddForce(impulseDir.normalized * impulseStrength);
+            indicator.SetActive(doStasis);
+            if(!doStasis) return;
+            _indicatorCenter = transform.position + _indicatorOffsetVector;
+            Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
+            var dirAngle = CryoMath.AngleFromOffset(dir);
+            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, indicatorRadius, dirAngle);
+            indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
         }
 
+        private void ApplyImpulse()
+        {
+            Vector3 dir = (transform.position - fighter.transform.position).normalized;
+            _rb.AddForce(dir * impulseForce, ForceMode.VelocityChange);
+        }
+
+        void AngleSmoothing()
+        {
+            LerpAngle(ref _currentFighterAngle, _targetFighterAngle, angleLerpSpeed);
+            LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, angleLerpSpeed);
+        }
+
+        private void LerpAngle(ref float currentAngle, float targetAngle, float angleChangeSpeed)
+        {
+            currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, angleChangeSpeed * Time.deltaTime);
+        }
+        
         private void Prepare()
         {
-            rb = GetComponent<Rigidbody>();
-            impulseStrength = impulseStrength * rb.mass;
+            _rb = GetComponent<Rigidbody>();
             _listener = GetComponent<DebugSteeringEventsListener>();
             
+            //subscribes to impulse event
+            _listener._doImpulseEvent += ApplyImpulse;
+            
+            _fighterOffsetVector = new Vector3(0, fighterOffset, 0);
+            _indicatorOffsetVector = new Vector3(0, indicatorOffset, 0);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace com.LazyGames.Dio
 
         private void Update()
         {
-            Debug.Log(_stasisMeter);
+            // Debug.Log(_stasisMeter);
             Slow();
             Time.timeScale = currentTimeScale;
         }
