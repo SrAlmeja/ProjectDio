@@ -86,8 +86,8 @@ namespace com.LazyGames.Dio
             if(!doStasis) return;
             _indicatorCenter = transform.position + _indicatorOffsetVector;
             Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
-            var dirAngle = CryoMath.AngleFromOffset(dir);
-            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, indicatorRadius, dirAngle);
+            _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
+            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, indicatorRadius, _currentIndicatorAngle);
             indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
         }
 
