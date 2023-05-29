@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
@@ -9,14 +7,21 @@ public class CMDioCameraController : MonoBehaviour
     [SerializeField] private CinemachineFreeLook _cmVirtualCamera;
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private Rigidbody _playerRigidBody;
+    [SerializeField] private ParticleSystem _speedLinesPS;
 
     [Header("Settings")]
     [SerializeField] private float _maxSpeed = 1f;
+
+    [Range (0,1)]
+    [SerializeField] private float _speedLinesStartPercentage = 0.2f;
 
     [Header("Debug")]
     [SerializeField] private bool _debugValues = false;
 
     private CinemachineBasicMultiChannelPerlin[] _cmRigPerlinNoise = new CinemachineBasicMultiChannelPerlin[3];
+
+    private ParticleSystem.MainModule _mainPS;
+    private ParticleSystem.EmissionModule _emissionPS;
 
     private float _currentSpeed = 0;
     private float _currentFOV;
@@ -33,6 +38,9 @@ public class CMDioCameraController : MonoBehaviour
     private const float _minFreq = 0.1f;
     private const float _maxFreq = 5.0f;
 
+    private const float _maxParticlesSpeed = 15;
+    private const float _maxParticlesRate = 100;
+
     private void OnEnable()
     {
         CheckDependencies();
@@ -44,6 +52,7 @@ public class CMDioCameraController : MonoBehaviour
         _currentSpeed = SpeedPercentage(); //Always leave this on top. It calculates % of the max speed. 
         ChangeFOV();
         ChangeShake();
+        ChangeParticles();
         DebugValues();
     }
     
@@ -62,6 +71,23 @@ public class CMDioCameraController : MonoBehaviour
         {
             _cmRigPerlinNoise[i].m_AmplitudeGain = _currentAmp;
             _cmRigPerlinNoise[i].m_FrequencyGain = _currentFreq;
+        }
+    }
+
+    private void ChangeParticles()
+    {
+        if (_currentSpeed >= _speedLinesStartPercentage)
+        {
+            float startLerpValue = Mathf.Lerp(0, 1, _speedLinesStartPercentage);
+            float currentLerpValue = Mathf.Lerp(startLerpValue, 1, (_currentSpeed - _speedLinesStartPercentage) / (1 - _speedLinesStartPercentage));
+
+            _mainPS.startSpeed = currentLerpValue * _maxParticlesSpeed;
+            _emissionPS.rateOverTime = currentLerpValue * _maxParticlesRate;
+        }
+        else
+        {
+            _mainPS.startSpeed = 0f;
+            _emissionPS.rateOverTime = 0f;
         }
     }
 
@@ -84,6 +110,9 @@ public class CMDioCameraController : MonoBehaviour
         if (_playerRigidBody == null) Debug.LogError("No player rigidbody set in dependencies for CM Camera Controller");
         if (_cmVirtualCamera.LookAt == null) _cmVirtualCamera.LookAt = _playerTransform;
         if (_cmVirtualCamera.Follow == null) _cmVirtualCamera.Follow = _playerTransform;
+
+        _mainPS = _speedLinesPS.main;
+        _emissionPS = _speedLinesPS.emission;
     }
 
     private void GetRigs()
