@@ -6,29 +6,27 @@ namespace com.LazyGames.Dio
 {
     public class SinglePlayerGoal : MonoBehaviour
     {
-        private bool colisionTrasera = true;
+        public bool collidedWithFront = false;
 
         private void OnTriggerEnter(Collider other)
         {
-            Vector3 direccion = other.transform.position - transform.position;
-            float dotProduct = Vector3.Dot(direccion, transform.forward);
+            Vector3 relativePosition = other.transform.position - transform.position;
 
-            if (dotProduct < 0f)
+            if (Vector3.Dot(relativePosition, transform.forward) > 0)
             {
-                if (colisionTrasera)
+                if (!collidedWithFront)
                 {
-                    Debug.Log("Carrera completada");
+                    collidedWithFront = true;
+                    return;
                 }
-                colisionTrasera = true;
+                if (collidedWithFront)
+                {
+                    Debug.Log("Next Stage");
+                }
             }
             else
             {
-                if (!colisionTrasera)
-                {
-                    return; // Retorna sin ejecutar más código si colisiona con la cara frontal y el booleano es falso
-                }
-
-                colisionTrasera = false;
+                collidedWithFront = false;
             }
         }
     }
