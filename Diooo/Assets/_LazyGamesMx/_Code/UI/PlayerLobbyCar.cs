@@ -14,23 +14,24 @@ public class PlayerLobbyCar : NetworkBehaviour
 
     [SerializeField] private TMP_Text _playerNameText;
     [SerializeField] private GameObject[] cars;
+    public PlayerLobbyData PlayerLobbyData;
     #endregion
 
-    #region Unity Methods
-
-    private void Start()
-    {
-    }
     
-    #endregion
-
     public void SetPlayerData(PlayerLobbyData playerLobbyData, int playerCar)
     {
-        _playerNameText.text = playerLobbyData.PlayerName + " " + NetworkManager.Singleton.LocalClientId;
+        PlayerLobbyData = playerLobbyData;
+        _playerNameText.text = playerLobbyData.PlayerName.Value;
         cars[playerCar].SetActive(true);
+        SendPlayerDataClientRpc(playerLobbyData, playerCar);
         
     }
     
+    [ClientRpc]
+    public void SendPlayerDataClientRpc(PlayerLobbyData playerLobbyData, int playerCar)
+    {
+        _playerNameText.text = playerLobbyData.PlayerName.Value;
+        cars[playerCar].SetActive(true);
+    }
 
-   
 }
