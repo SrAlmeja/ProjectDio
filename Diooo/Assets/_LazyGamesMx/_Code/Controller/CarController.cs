@@ -3,7 +3,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CryoStorage;
-using UnityEditor.Scripting;
 
 namespace com.LazyGames.Dio
 {
