@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames.Dio;
+using Unity.Netcode;
 using UnityEngine;
 
 public class WaitingLobby : MonoBehaviour
@@ -16,10 +17,7 @@ public class WaitingLobby : MonoBehaviour
     
     private void UpdateWaitingLobby()
     {
-        if (DioGameMultiplayer.Instance.IsClient)
-        {
-            _waitingLobby.SetActive(true);
-        }
+        _waitingLobby.SetActive(true);
     }
     
     
