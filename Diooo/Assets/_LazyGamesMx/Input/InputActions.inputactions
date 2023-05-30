@@ -282,9 +282,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
+                    "name": "right",
                     "id": "fd1e57ca-c5bd-4457-9809-f1d06f4d9c43",
-                    "path": "<Joystick>/stick/x",
+                    "path": "<Gamepad>/leftStick/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -293,9 +293,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
+                    "name": "up",
                     "id": "9cee4e5c-f146-415c-9513-7c6ede453c93",
-                    "path": "<Joystick>/stick/y",
+                    "path": "<Gamepad>/leftStick/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

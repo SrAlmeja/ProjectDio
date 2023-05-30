@@ -16,9 +16,10 @@ namespace com.LazyGames.Dio
         private bool doSlow;
         private DebugSteeringEventsListener _listener;
         private float savedMagnitude;
-        private float _stasisMeter = 5f;
         private float currentTimeScale = 1;
         private readonly float normalizeFactor = .02f;
+        private float _stasisMeter = 0f;
+        [SerializeField]private float stasisDelta = .3f;
 
         private void Start()
         {
@@ -28,30 +29,27 @@ namespace com.LazyGames.Dio
         private void Update()
         {
             Slow();
+            doSlow = _listener.stopTime;
             Time.timeScale = currentTimeScale;
         }
 
         void Slow()
         {
-            doSlow = _listener.stopTime;
-            switch (doSlow)
+            switch (doSlow && _listener.stopTime)
             {
                 case true:
                     currentTimeScale = targetTimeScale.Evaluate(_stasisMeter);
-                    _stasisMeter -= Time.deltaTime;
                     NormalizeDeltaTime(normalizeFactor);
                     doSlow = false;
+                    _stasisMeter -= stasisDelta * Time.deltaTime;
                     break;
                 case false:
                     currentTimeScale = 1f;
-                    _stasisMeter += Time.deltaTime;
                     NormalizeDeltaTime(normalizeFactor);
                     doSlow = true;
+                    _stasisMeter += stasisDelta * Time.deltaTime;
                     break;
             }
-            // currentTimeScale = targetTimeScale;
-            // currentTimeScale = .33f> Mathf.Abs(targetTimeScale-.1f) ? 1 : .01f;
-            
         }
 
         private void NormalizeDeltaTime(float factor)
@@ -63,7 +61,6 @@ namespace com.LazyGames.Dio
         private void Prepare()
         {
             _listener = GetComponent<DebugSteeringEventsListener>();
-
         }
     }
 }

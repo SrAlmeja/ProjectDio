@@ -46,7 +46,7 @@ namespace com.LazyGames.Dio
         private void Awake()
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
 
         void Start()
