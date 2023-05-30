@@ -31,7 +31,6 @@ namespace com.LazyGames.Dio
         private DebugSteeringEventsListener _listener;
         private VoidEventChannelSO _impulseEvent;
         private Vector3 _indicatorCenter;
-        private Vector3 _fighterCenter;
         private Vector3 _indicatorOffsetVector;
         private Vector3 _fighterOffsetVector;
         private bool doStasis;
@@ -65,13 +64,11 @@ namespace com.LazyGames.Dio
         {
             if (!doStasis)
             {
-                _fighterCenter = transform.position + _fighterOffsetVector;
                 fighter.transform.position = driverSeat.transform.position;
                 fighter.transform.rotation = driverSeat.transform.rotation;
             }
             else
             {
-                _fighterCenter = transform.position + _fighterOffsetVector;
                 _targetFighterAngle = CryoMath.AngleFromOffset(_listener.Vec2Input);
                 Vector3 pos = fighter.transform.position;
                 pos = CryoMath.PointOnRadiusRelative(transform, fighterRadius, _currentFighterAngle);
@@ -93,12 +90,14 @@ namespace com.LazyGames.Dio
 
         private void ApplyImpulse()
         {
+            if (!doStasis) return;
             Vector3 dir = (transform.position - fighter.transform.position).normalized;
             _rb.AddForce(dir * impulseForce, ForceMode.VelocityChange);
         }
 
         void AngleSmoothing()
         {
+            if(!doStasis) return;
             LerpAngle(ref _currentFighterAngle, _targetFighterAngle, angleLerpSpeed);
             LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, angleLerpSpeed);
         }
