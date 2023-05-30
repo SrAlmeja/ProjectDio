@@ -78,12 +78,12 @@ namespace com.LazyGames.Dio
 
         void Update()
         {
-            _rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(_minNeedleRotation, _maxNeedleRotation, _RPM / (_redLine * 1.1f)));
-            _rpmText.text = _RPM.ToString("0,000") + "rpm";
+            // _rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(_minNeedleRotation, _maxNeedleRotation, _RPM / (_redLine * 1.1f)));
+            // _rpmText.text = _RPM.ToString("0,000") + "rpm";
 
-            if (_gearState == GearState.Neutral) _gearText.text = "N";
-            else if (_speed < 0) _gearText.text = "R";
-            else _gearText.text = (_currentGear + 1).ToString();
+            // if (_gearState == GearState.Neutral) _gearText.text = "N";
+            // else if (_speed < 0) _gearText.text = "R";
+            // else _gearText.text = (_currentGear + 1).ToString();
 
             switch (_freno)
             {
@@ -112,7 +112,7 @@ namespace com.LazyGames.Dio
             Vector3 velocity = _playerRB.velocity;
             float speedInKmPerHour = velocity.magnitude * 3.6f;
             int truncatedSpeed = Mathf.FloorToInt(speedInKmPerHour);
-            _kilometerPerHour.text = truncatedSpeed + "km/h";
+            // _kilometerPerHour.text = truncatedSpeed + "km/h";
         }
 
         void CheckInput()
@@ -163,19 +163,19 @@ namespace com.LazyGames.Dio
 
         void Angle(float f)
         {
-            if(_gasInput > 0) 
-            {
-                _steeringInput = f * 150;
-            }
-            if(_gasInput == 0)
-            {
-                _steeringInput = f * 50;
-            }
-            else if (_gasInput < 0)
-            {
-                _steeringInput = -f * 50;
-            }
-            
+            // if(_gasInput > 0) 
+            // {
+            //     _steeringInput = f * 150;
+            // }
+            // if(_gasInput == 0)
+            // {
+            //     _steeringInput = f * 50;
+            // }
+            // else if (_gasInput < 0)
+            // {
+            //     _steeringInput = -f * 50;
+            // }
+
         }
 
         void Torque(float f)
@@ -235,7 +235,6 @@ namespace com.LazyGames.Dio
 
         void ApplySteering()
         {
-
             float steeringAngle = _steeringInput * _steeringCurve.Evaluate(_speed);
             if (_slipAngle < 120f)
             {
