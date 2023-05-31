@@ -3575,6 +3575,8 @@ GameObject:
   - component: {fileID: 5269130520952584426}
   - component: {fileID: 5269130520952584427}
   - component: {fileID: 5269130520952584428}
+  - component: {fileID: 5269130520952584430}
+  - component: {fileID: 5269130520952584429}
   m_Layer: 0
   m_Name: TestC
   m_TagString: Player
@@ -3717,6 +3719,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571c6413aea57ba44815fafe01f3e51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5269130520952584429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269130520952584425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b7c37377a4a254a8080800fd92acc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraMoveInputActions: {fileID: -944628639613478452, guid: 195f0cbb6f06ff44bb3d19a9c25ed31f, type: 3}
+  _vector2Camera: {fileID: 11400000, guid: 2de8c7a7ddb60b542abfb48d67360935, type: 2}
+--- !u!114 &5269130520952584430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269130520952584425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e7f465d1a829a47abe93dbe7b088a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vector2Camera: {fileID: 11400000, guid: 2de8c7a7ddb60b542abfb48d67360935, type: 2}
 --- !u!23 &5281196150746012343
 MeshRenderer:
   m_ObjectHideFlags: 0
