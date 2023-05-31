@@ -6,7 +6,7 @@ using CryoStorage;
 
 namespace com.LazyGames.Dio
 {
-    public class CarController : MonoBehaviour
+    public class CarInputsWrapper : MonoBehaviour
     {
         [SerializeField] private InputActionAsset inputActions;
         InputActionMap gameplayActionMap;
