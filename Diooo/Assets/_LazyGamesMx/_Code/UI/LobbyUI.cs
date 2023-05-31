@@ -1,8 +1,11 @@
 //Dino 05/04/2023 Creation of the script
 //This script control the number of players that are in the lobby and their behavior
+// Script already works with the new lobby system
 
 using System.Collections.Generic;
 using com.LazyGames.Dio;
+using Mono.CSharp;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,67 +19,45 @@ namespace com.LazyGames.Dio
     {
         #region private Variables
 
-        [SerializeField] private Text lobbyCodeText;
-        [SerializeField] private Text playerCountText;
+        [SerializeField] private TMP_Text lobbyCodeText;
+        [SerializeField] private TMP_Text playerCountText;
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private List<GameObject> spawnPoints;
+        [SerializeField] private GameObject startGameTxt;
+        [SerializeField] private GoToMatchInput goToMatchInput;
 
-        [SerializeField] private Button startGameButton;
-
-        private NetworkList<PlayerLobbyData> _playersLobbyDatas;
-        
-        PlayerLobbyData _clientPlayerLobbyData;
-
-
+    private int _spawnPointIndex;
+        private bool _canStartMatch;
         #endregion
 
         #region public variables
 
-        
+        public bool CanStartMatch => _canStartMatch;
         #endregion
         
         #region Unity Methods
 
-        private void Awake()
-        {
-            _playersLobbyDatas = new NetworkList<PlayerLobbyData>();
-
-        }
 
         void Start()
         {
-            startGameButton.gameObject.SetActive(false);
-            // LobbyController.Instance.OnFinishedCreateLobby += SaveLobbyPlayerData;
-            // LobbyController.Instance.OnClientEnterRoom += SaveLobbyPlayerData;
-
-           
-            
+            startGameTxt.gameObject.SetActive(false);
         }
 
         void OnDestroy()
         {
             LobbyController.Instance.OnFinishedCreateLobby -= SaveLobbyPlayerData;
-            LobbyController.Instance.OnClientEnterRoom -= SaveLobbyPlayerData;
-            
-
+            NetworkManager.Singleton.OnClientConnectedCallback -= JoinClientUpdate;
         }
-        void Update()
-        {
-
-        }
-
+        
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
             LobbyController.Instance.OnFinishedCreateLobby += SaveLobbyPlayerData;
-            LobbyController.Instance.OnClientEnterRoom += SaveLobbyPlayerData;
-            
-            
+
             if (IsServer)
             {
                NetworkManager.Singleton.OnClientConnectedCallback += JoinClientUpdate;
-                startGameButton.gameObject.SetActive(true);
             }
                 
         }
@@ -85,11 +66,10 @@ namespace com.LazyGames.Dio
 
         #region public methods
 
-        public void GoToMatch()
-        {
-            SceneController.Instance.LoadSceneNetwork(SceneKeys.GAME_SCENE);
-        }
-
+        // public void GoToMatch()
+        // {
+        //     SceneController.Instance.LoadSceneNetwork(SceneKeys.GAME_SCENE);
+        // }
 
         #endregion
 
@@ -109,14 +89,8 @@ namespace com.LazyGames.Dio
         }
 
         
-        
-        
         void JoinPlayer()
         {
-            foreach (var player in _playersLobbyDatas)
-            {
-                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerCarIndex + " " + player.PlayerId + " " + player.ClientId);
-            }
             UploadLobbyCode();
             UpdatePlayerCount();
             SpawnPlayersInRoom();
@@ -124,114 +98,85 @@ namespace com.LazyGames.Dio
 
         void JoinClientUpdate(ulong clientId)
         {
-            foreach (var player in _playersLobbyDatas)
-            {
-                Debug.Log("<color=#F5F378>Player Added </color>" + player.PlayerName + " " + player.PlayerCarIndex + " " + player.PlayerId + " " + player.ClientId);
-            }
+            UpdatePlayersSpawned();
             JoinPlayer();
+            if (NetworkManager.Singleton.ConnectedClientsIds.Count >= 2)
+            {
+                startGameTxt.gameObject.SetActive(true);
+                _canStartMatch = true;
+                if(IsServer)
+                    goToMatchInput.PrepareInputs();
+            }
         }
             
-
+        
         void SpawnPlayerUI(PlayerLobbyData playerLobbyData)
         {
+            _spawnPointIndex++;
+            if (_spawnPointIndex > NetworkManager.Singleton.ConnectedClientsIds.Count)
+            {
+                Debug.Log("<color=#FE4A3B>Not enough spawn points</color>");
+                return; 
+            }
             GameObject playerLobby = Instantiate(playerUIPrefab);
-            playerLobby.transform.position = spawnPoints[playerLobbyData.PlayerCarIndex].transform.position;
-            playerLobby.transform.rotation = spawnPoints[playerLobbyData.PlayerCarIndex].transform.rotation;
+            playerLobby.transform.position = spawnPoints[_spawnPointIndex - 1].transform.position;
+            playerLobby.transform.rotation = spawnPoints[_spawnPointIndex - 1].transform.rotation;
             NetworkObject networkObject = playerLobby.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
             playerLobby.gameObject.name = playerLobbyData.ClientId.ToString();
             playerLobby.GetComponent<PlayerLobbyCar>().SetPlayerData(playerLobbyData, playerLobbyData.PlayerCarIndex);
             
         }
-        
+
+        private void UpdatePlayersSpawned()
+        {
+            PlayerLobbyCar[] playerLobbyCars = FindObjectsOfType<PlayerLobbyCar>();
+            foreach (PlayerLobbyCar playerLobbyCar in playerLobbyCars)
+            {
+                playerLobbyCar.SendPlayerDataClientRpc(playerLobbyCar.PlayerLobbyData,
+                    playerLobbyCar.PlayerLobbyData.PlayerCarIndex);
+            }
+        }
         void SpawnPlayersInRoom()
         {
-            
-            foreach (PlayerLobbyData playerLobbyData in _playersLobbyDatas)
-            {
-                ulong clientID = playerLobbyData.ClientId; 
-                if (clientID == NetworkManager.Singleton.LocalClientId) 
-                { 
-                    if (NetworkManager.Singleton.IsHost) 
-                    { 
-                        SpawnPlayerUI(_playersLobbyDatas[0]);
-                    } 
-                    return;
-                } 
-                Debug.Log("Player to spawn" + clientID); 
-                SpawnPlayerUI(playerLobbyData); 
+            Debug.Log(NetworkManager.Singleton.ConnectedClientsIds.Count + " Clients Connected");
+            if (IsServer)
+            { 
+                SpawnPlayerUI(GenerateRandomPlayerData());
             }
-           
-
         }
         
         
-       private int AssignRandomCarPlayer()
+        private int AssignRandomCarPlayer()
         {
             int randomIndex = Random.Range(0, 3);
             return randomIndex;
         }
+
+        private string AssignRandomNamePlayer()
+        {
+            int randomIndex = Random.Range(0, 4);
+            string[] names = {"Erduado", "Nico", "Banyo", "Kat", "Mircha"};
+            return names[randomIndex];
+        }
        
        private void SaveLobbyPlayerData(PlayerLobbyData playerData)
        {
-
-           PlayerLobbyData playerLobbyData = new PlayerLobbyData
-           {
-               PlayerName = playerData.PlayerName,
-               PlayerCarIndex = AssignRandomCarPlayer(),
-               PlayerId = playerData.PlayerId,
-               ClientId = playerData.ClientId
-           };
-           if (IsServer)
-           {
-               _playersLobbyDatas.Add(playerLobbyData);
-
-           }
-           else
-           {
-               if (IsOwner)
-               {
-                   AddPlayerDataToServerRpc(playerLobbyData);
-               }
-           }
-           Debug.Log("<color=#CDFF7A>Players DatasList</color>" + _playersLobbyDatas.Count);
            JoinPlayer();
        }
+
+       private PlayerLobbyData GenerateRandomPlayerData()
+       {
+           PlayerLobbyData playerLobbyData = new PlayerLobbyData
+           {
+               PlayerName = AssignRandomNamePlayer(),
+               PlayerCarIndex = AssignRandomCarPlayer(),
+               PlayerId = "",
+               ClientId = 0
+           };
+           return playerLobbyData;
+       }
        
-       //  private void RemoveRepeatedPlayers()
-       // {
-       //     bool isRepeated = false;
-       //        for (int i = 0; i < _playersLobbyDatas.Count; i++)
-       //        {
-       //          for (int j = 0; j < _playersLobbyDatas.Count; j++)
-       //          {
-       //               if (i == j) continue;
-       //               if (_playersLobbyDatas[i].ClientId == _playersLobbyDatas[j].ClientId)
-       //               {
-       //                    isRepeated = true;
-       //                    break;
-       //               }
-       //          }
-       //
-       //          if (isRepeated)
-       //          {
-       //               Debug.Log("<color=#FF907A>Repeated Player</color>");
-       //               _playersLobbyDatas.RemoveAt(i);
-       //               isRepeated = false;
-       //          }
-       //        }
-       // }
-        [ServerRpc]
-        void AddPlayerDataToServerRpc(PlayerLobbyData playerData)
-        {
-            Debug.Log("AddPlayerDataToServerRPC");
-            _playersLobbyDatas.Add(playerData);
-                
-            foreach (var player in _playersLobbyDatas)
-            {
-                Debug.Log("<color=#F5F378>Player Added</color>" + player.PlayerName + " " + player.PlayerCarIndex + " " + player.PlayerId + " " + player.ClientId);
-            }
-        }
         #endregion
 
         

@@ -3320,7 +3320,7 @@ MonoBehaviour:
   Banks:
   - UI
   CollisionTag: 
-  PreloadSamples: 0
+  PreloadSamples: 1
 --- !u!4 &1673468529
 Transform:
   m_ObjectHideFlags: 0
