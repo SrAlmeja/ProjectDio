@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace com.LazyGames.Dio
 {
-    public class DebugSteeringEventsWrapper : CarController
+    public class DebugSteeringEventsWrapper : CarInputsWrapper
     {
         // inherits from CarController
     }
