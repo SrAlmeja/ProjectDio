@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6ae83ae3-a620-4d2a-9d5c-3c18cf5fa6ed}">
+		<property name="assetPath">
+			<value>Music/3_Main_Pop_Idea.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>60</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{13be97d7-9ba1-4291-b49b-91756197b2e0}</destination>
+		</relationship>
+	</object>
+</objects>
