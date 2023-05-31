@@ -13,6 +13,8 @@ namespace com.LazyGames.Dio
         [HideInInspector]public float rotate;
         [HideInInspector]public Vector2 Vec2Input;
         
+        public event System.Action _doImpulseEvent;
+        
         private CarImpulse _carImpulse;
 
         private void Start()
@@ -50,14 +52,14 @@ namespace com.LazyGames.Dio
             Vec2Input = v2;
         }
 
-        protected override void Impulse()
-        {
-            _carImpulse.ApplyImpulse();
-        }
-
         private void Prepare()
         {
             _carImpulse = GetComponent<CarImpulse>();
+        }
+
+        protected override void Impulse()
+        {
+            _doImpulseEvent?.Invoke();
         }
     }
 }

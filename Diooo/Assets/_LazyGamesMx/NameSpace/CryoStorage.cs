@@ -4,14 +4,24 @@ namespace CryoStorage
 {
     public static class CryoMath
     {
+        //this hard coded value aligns the angle to the forward vector
+        private static float angleOffset = 1.5555555f;
         public static Vector3 PointOnRadius(Vector3 center, float radius, float angle)
         {
             float rad = angle * Mathf.Deg2Rad;
-            float xOffset = radius * Mathf.Cos(-rad + 90f);
-            float zOffset = radius * Mathf.Sin(-rad + 90f);
+            float xOffset = radius * Mathf.Cos(-rad + angleOffset);
+            float zOffset = radius * Mathf.Sin(-rad + angleOffset);
             Vector3 result = new Vector3(center.x + xOffset, center.y, center.z + zOffset);
             return result;
-            
+        }
+        
+        public static Vector3 PointOnRadiusRelative(Transform center, float radius, float angle)
+        {
+            float rad = (angle + center.eulerAngles.y) * Mathf.Deg2Rad;
+            float xOffset = radius * Mathf.Cos(-rad + angleOffset);
+            float zOffset = radius * Mathf.Sin(-rad + angleOffset);
+            Vector3 result = center.position + new Vector3(xOffset, 0f, zOffset);
+            return result;
         }
 
         public static Quaternion AimAtDirection(Vector3 center, Vector3 position)
@@ -45,7 +55,5 @@ namespace CryoStorage
             }
             return angle;
         }
-    
-  
     }
 }

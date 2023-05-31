@@ -15,12 +15,23 @@ namespace com.LazyGames.Dio
         #endregion
         
         #region private variables
-        private NetworkVariable<bool> _isHostInitialized = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+        private NetworkVariable<bool> _isHostInitialized = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Owner, NetworkVariableWritePermission.Server);
 
         public NetworkVariable <bool> IsHostInitialized
         {
             get => _isHostInitialized;
         }
+        public bool IsHost
+        {
+            get => _isHost;
+        }
+        private bool _isHost;
+        
+        public bool IsClient
+        {
+            get => _isClient;
+        }
+        private bool _isClient;
         #endregion
         
         #region Unity Methods
@@ -50,6 +61,7 @@ namespace com.LazyGames.Dio
             Debug.Log("Start Host");
             OnStartHost?.Invoke();
             _isHostInitialized.Value = true;
+            _isHost = true;
             
         }
         public void StartClient()
@@ -57,6 +69,7 @@ namespace com.LazyGames.Dio
             NetworkManager.Singleton.StartClient();
             Debug.Log("Start Client");
             OnStartClient?.Invoke();
+            _isClient = true;
         }
         #endregion
         

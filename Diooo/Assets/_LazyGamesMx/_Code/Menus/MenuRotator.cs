@@ -3,7 +3,6 @@
 /// This script handles all movement requiered by the main menu. 
 /// </summary>
 
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
