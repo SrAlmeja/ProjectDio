@@ -3,12 +3,14 @@
 using System;
 using com.LazyGames.Dio;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DioGameManagerSingleplayer : MonoBehaviour
 {
     #region Serialized Fields
 
-    [SerializeField] private VoidEventChannelSO onFinishedCinematicEvent;
+    [SerializeField] private VoidEventChannelSO OnSinglePlayerReady;
+    [SerializeField] private SinglePlayerGoal singlePlayerGoal;
     #endregion    
     
     #region private variables
@@ -74,7 +76,8 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     void Start()
     {
         MyGameState = GameStatesSingleplayer.WaitingToCinematic;
-        onFinishedCinematicEvent.VoidEvent += HandleOnFinishedCinematic;
+        OnSinglePlayerReady.VoidEvent += HandleOnFinishedCinematic;
+        singlePlayerGoal.OnPlayerCrossedGoal += HandleOnFinishedCinematic;
     }
 
     void Update()

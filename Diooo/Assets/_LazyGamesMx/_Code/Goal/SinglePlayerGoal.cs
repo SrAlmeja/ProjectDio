@@ -12,6 +12,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private SceneLoader sceneLoader;
         [SerializeField] SceneKeySO sceneKeySo;
 
+        public event Action OnPlayerCrossedGoal;
         private void Start()
         {
             collidedWithFront = true;
@@ -33,6 +34,7 @@ namespace com.LazyGames.Dio
                     Debug.Log("Next Stage");
                     
                     // sceneLoader.LoadScene(sceneKeySo);
+                    OnPlayerCrossedGoal?.Invoke();
                 }
             }
             else
