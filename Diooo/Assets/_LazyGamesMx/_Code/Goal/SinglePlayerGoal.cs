@@ -9,9 +9,6 @@ namespace com.LazyGames.Dio
     public class SinglePlayerGoal : MonoBehaviour
     {
         public bool collidedWithFront = false;
-        [SerializeField] private SceneLoader sceneLoader;
-        [SerializeField] SceneKeySO sceneKeySo;
-
         public event Action OnPlayerCrossedGoal;
         private void Start()
         {
@@ -31,9 +28,7 @@ namespace com.LazyGames.Dio
                 }
                 if (collidedWithFront)
                 {
-                    Debug.Log("Next Stage");
-                    
-                    // sceneLoader.LoadScene(sceneKeySo);
+                    DioGameManagerSingleplayer.Instance.OnPlayerCrossedGoal(this);
                     OnPlayerCrossedGoal?.Invoke();
                 }
             }

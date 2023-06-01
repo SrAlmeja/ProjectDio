@@ -10,7 +10,6 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField] private ReadyPlayerInput playerInputReady;
-    [SerializeField] private SinglePlayerGoal singlePlayerGoal;
     #endregion    
     
     #region private variables
@@ -78,10 +77,6 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         MyGameState = GameStatesSingleplayer.WaitingToPlayer;
         playerInputReady.OnPlayerReadyInput += HandleOnPlayerReady;
         
-        if(singlePlayerGoal == null)
-            singlePlayerGoal = FindObjectOfType<SinglePlayerGoal>();
-        
-        singlePlayerGoal.OnPlayerCrossedGoal += HandleOnPlayerReady;
     }
 
     void Update()
@@ -91,9 +86,13 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     #endregion
 
     #region public Methods
-    
-    
-    #endregion
+
+    public void OnPlayerCrossedGoal(SinglePlayerGoal singlePlayerGoal)
+    {
+        singlePlayerGoal.OnPlayerCrossedGoal += HandleOnPlayerCrossedGoal;
+    }
+
+        #endregion
 
     #region private Methods
 
@@ -103,5 +102,15 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         OnGameStateChange?.Invoke(MyGameState);
     }
 
+    private void HandleOnPlayerCrossedGoal()
+    {
+        MyGameState = GameStatesSingleplayer.GameOver;
+        OnGameStateChange?.Invoke(MyGameState);
+    }
+    
+    
+    
+    
+    
     #endregion
 }

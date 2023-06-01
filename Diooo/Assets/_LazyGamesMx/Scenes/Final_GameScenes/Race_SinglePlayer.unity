@@ -332,7 +332,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524232603}
-  m_LocalRotation: {x: 0.03120436, y: 0.000000034396006, z: -0.0000000010738282, w: 0.99951303}
+  m_LocalRotation: {x: 0.031204319, y: -0.000000034396006, z: 0.0000000010738269, w: 0.99951303}
   m_LocalPosition: {x: 26.3444, y: 2.9081285, z: -51.414253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -540,8 +540,8 @@ Transform:
   m_Children:
   - {fileID: 150088458}
   - {fileID: 1614822354}
-  - {fileID: 677579273}
   - {fileID: 1100057393}
+  - {fileID: 677579273}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -719,15 +719,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144311484853, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.031204348
+      value: 0.031204328
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144311484853, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017198003
+      value: -0.000000017198003
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144311484853, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.36914e-10
+      value: 5.369136e-10
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144340379139, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -739,15 +739,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144340379139, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000004291548
+      value: 0.0000000042915484
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144340379139, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 2.9382696e-10
+      value: -2.93827e-10
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144412500492, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_Name
       value: CM FreeLook Dio Cam
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122072144412500492, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1122072144412500530, guid: ff238686c20f1564db112f124b80a8fb, type: 3}
       propertyPath: m_Follow
@@ -872,7 +876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1640789352296464831, guid: 1d4d5df6c8571194ca6414320dfca231, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1640789352296464831, guid: 1d4d5df6c8571194ca6414320dfca231, type: 3}
       propertyPath: m_LocalPosition.y
