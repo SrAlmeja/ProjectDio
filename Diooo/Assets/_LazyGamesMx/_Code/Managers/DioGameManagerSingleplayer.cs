@@ -9,7 +9,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 {
     #region Serialized Fields
 
-    [SerializeField] private VoidEventChannelSO OnSinglePlayerReady;
+    [SerializeField] private ReadyPlayerInput playerInputReady;
     [SerializeField] private SinglePlayerGoal singlePlayerGoal;
     #endregion    
     
@@ -48,7 +48,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     public enum GameStatesSingleplayer
     {
         None,
-        WaitingToCinematic,
+        WaitingToPlayer,
         Countdown,
         GamePlaying,
         GameOver
@@ -75,9 +75,13 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 
     void Start()
     {
-        MyGameState = GameStatesSingleplayer.WaitingToCinematic;
-        OnSinglePlayerReady.VoidEvent += HandleOnFinishedCinematic;
-        singlePlayerGoal.OnPlayerCrossedGoal += HandleOnFinishedCinematic;
+        MyGameState = GameStatesSingleplayer.WaitingToPlayer;
+        playerInputReady.OnPlayerReadyInput += HandleOnPlayerReady;
+        
+        if(singlePlayerGoal == null)
+            singlePlayerGoal = FindObjectOfType<SinglePlayerGoal>();
+        
+        singlePlayerGoal.OnPlayerCrossedGoal += HandleOnPlayerReady;
     }
 
     void Update()
@@ -93,7 +97,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 
     #region private Methods
 
-    private void HandleOnFinishedCinematic()
+    private void HandleOnPlayerReady()
     {
         MyGameState = GameStatesSingleplayer.Countdown;
         OnGameStateChange?.Invoke(MyGameState);
