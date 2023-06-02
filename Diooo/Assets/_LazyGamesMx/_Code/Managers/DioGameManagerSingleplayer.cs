@@ -10,6 +10,8 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField] private ReadyPlayerInput playerInputReady;
+    [SerializeField] private BoolEventChannelSO _racePaused;
+
     #endregion    
     
     #region private variables
@@ -76,6 +78,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     {
         MyGameState = GameStatesSingleplayer.WaitingToPlayer;
         playerInputReady.OnPlayerReadyInput += HandleOnPlayerReady;
+        CountDownController_Singleplayer.Instance.OnCountdownFinished += HandleOnCountDownFinished;
         
     }
 
@@ -107,9 +110,20 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         MyGameState = GameStatesSingleplayer.GameOver;
         OnGameStateChange?.Invoke(MyGameState);
     }
+
+    private void HandleOnCountDownFinished()
+    {
+        MyGameState = GameStatesSingleplayer.GamePlaying;
+        StartTimer();
+        OnGameStateChange?.Invoke(MyGameState);
+
+    }
     
-    
-    
+    private void StartTimer()
+    {
+        _racePaused.BoolEvent.Invoke(true);
+        Debug.Log("Timer Started");
+    }
     
     
     #endregion
