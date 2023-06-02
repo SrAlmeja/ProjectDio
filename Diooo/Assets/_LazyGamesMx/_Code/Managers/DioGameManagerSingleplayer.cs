@@ -121,7 +121,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     
     private void StartTimer()
     {
-        _racePaused.BoolEvent.Invoke(true);
+        _racePaused.BoolEvent.Invoke(false);
         Debug.Log("Timer Started");
     }
     
