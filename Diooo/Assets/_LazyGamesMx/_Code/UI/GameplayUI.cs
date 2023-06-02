@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames.Dio;
@@ -27,7 +28,9 @@ public class GameplayUI : MonoBehaviour
         if (DioGameManagerSingleplayer.Instance.MyGameState != DioGameManagerSingleplayer.GameStatesSingleplayer.GamePlaying) return;
             
         _timer = StopWatchManager.Instance.CurrentTime;
-        timerTxt.text = _timer.ToString("F2");
+        TimeSpan timeSpan = TimeSpan.FromSeconds(_timer);
+        timerTxt.text = string.Format("{0:00}:{1:00}:{2:000}", timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds);
+
         Debug.Log(_timer);
     }
     

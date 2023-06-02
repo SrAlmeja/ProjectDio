@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace com.LazyGames.Dio
 {
-    public class WaitingPlayersUI : MonoBehaviour
+    public class WaitingMultiplayersUI : MonoBehaviour
     {
 
         #region Serialized fields
