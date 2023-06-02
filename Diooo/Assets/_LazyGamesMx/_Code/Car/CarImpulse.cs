@@ -5,25 +5,24 @@ using CryoStorage;
 
 namespace com.LazyGames.Dio
 {
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Car_TimeControl))]
+    
     public class CarImpulse : MonoBehaviour
     {
-        [Header("Configurable Variables")] [SerializeField]
-        private float impulseForce = 10f;
+        [Header("Configurable Variables")] 
+        [SerializeField] private float impulseForce = 10f;
         [SerializeField] private float angleLerpSpeed = 1f;
 
-        [Header("Indicator Variables")] [SerializeField]
-        private float indicatorOffset = .3f;
-
+        [Header("Indicator Variables")] 
+        [SerializeField] private float indicatorOffset = .3f;
         [SerializeField] private float indicatorRadius = 3f;
 
-        [Header("Indicator Variables")] [SerializeField]
-        private float fighterOffset = .5f;
-
+        [Header("Indicator Variables")]
         [SerializeField] private float fighterRadius = 3f;
 
-        [Header("Serialized References")] [SerializeField]
-        private GameObject indicator;
-
+        [Header("Serialized References")] 
+        [SerializeField] private GameObject indicator;
         [SerializeField] private GameObject fighter;
         [SerializeField] private GameObject driverSeat;
 
@@ -32,13 +31,13 @@ namespace com.LazyGames.Dio
         private VoidEventChannelSO _impulseEvent;
         private Vector3 _indicatorCenter;
         private Vector3 _indicatorOffsetVector;
-        private Vector3 _fighterOffsetVector;
-        private bool doStasis;
 
         private float _currentFighterAngle;
         private float _targetFighterAngle;
         private float _currentIndicatorAngle;
         private float _targetIndicatorAngle;
+        
+        private Car_TimeControl _timeControl;
 
         private void Start()
         {
@@ -49,9 +48,6 @@ namespace com.LazyGames.Dio
         {
             Visualize();
             AngleSmoothing();
-            doStasis = _listener.stopTime;
-            
-
         }
 
         void Visualize()
@@ -62,14 +58,14 @@ namespace com.LazyGames.Dio
 
         private void ManageFighter()
         {
-            if (!doStasis)
+            if (!_timeControl.isSlow)
             {
                 fighter.transform.position = driverSeat.transform.position;
                 fighter.transform.rotation = driverSeat.transform.rotation;
             }
             else
             {
-                _targetFighterAngle = CryoMath.AngleFromOffset(_listener.Vec2Input);
+                _targetFighterAngle = CryoMath.AngleFromOffset(_listener.vec2Input);
                 Vector3 pos = fighter.transform.position;
                 pos = CryoMath.PointOnRadiusRelative(transform, fighterRadius, _currentFighterAngle);
                 fighter.transform.position = pos;
@@ -79,8 +75,8 @@ namespace com.LazyGames.Dio
 
         private void ManageIndicator()
         {
-            indicator.SetActive(doStasis);
-            if(!doStasis) return;
+            indicator.SetActive(_timeControl.isSlow);
+            if(!_timeControl.isSlow) return;
             _indicatorCenter = transform.position + _indicatorOffsetVector;
             Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
             _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
@@ -90,32 +86,32 @@ namespace com.LazyGames.Dio
 
         private void ApplyImpulse()
         {
-            if (!doStasis) return;
+            if (!_timeControl.isSlow) return;
             Vector3 dir = (transform.position - fighter.transform.position).normalized;
             _rb.AddForce(dir * impulseForce, ForceMode.VelocityChange);
         }
 
         void AngleSmoothing()
         {
-            if(!doStasis) return;
+            if(!_timeControl.isSlow) return;
             LerpAngle(ref _currentFighterAngle, _targetFighterAngle, angleLerpSpeed);
             LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, angleLerpSpeed);
         }
 
         private void LerpAngle(ref float currentAngle, float targetAngle, float angleChangeSpeed)
         {
-            currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, angleChangeSpeed * Time.deltaTime);
+            currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, angleChangeSpeed * Time.fixedUnscaledDeltaTime);
         }
         
         private void Prepare()
         {
             _rb = GetComponent<Rigidbody>();
+            _timeControl = GetComponent<Car_TimeControl>();
             _listener = GetComponent<DebugSteeringEventsListener>();
             
             //subscribes to impulse event
-            _listener._doImpulseEvent += ApplyImpulse;
+            _listener.DoImpulseEvent += ApplyImpulse;
             
-            _fighterOffsetVector = new Vector3(0, fighterOffset, 0);
             _indicatorOffsetVector = new Vector3(0, indicatorOffset, 0);
         }
     }

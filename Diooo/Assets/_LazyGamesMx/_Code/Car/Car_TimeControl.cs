@@ -1,26 +1,38 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
 //
-using System;
-using Unity.Netcode;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
+using System;
+using QFSW.QC;
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 namespace com.LazyGames.Dio
 {
     public class Car_TimeControl : MonoBehaviour
     {
         [Header("Time Control")] 
         [SerializeField] private AnimationCurve targetTimeScale;
-        
-        private bool doSlow;
+        [SerializeField] private float fillDuration = 10f;
+        [SerializeField] private float emptyDuration = 5f;
+
         private DebugSteeringEventsListener _listener;
+        
         private float savedMagnitude;
         private float currentTimeScale = 1;
         private readonly float normalizeFactor = .02f;
-        private float _stasisMeter = 0f;
-        [SerializeField]private float stasisDelta = .3f;
-
+        private float _stasisFillDelta;
+        private float _stasisEmptyDelta;
+        private float _stasisMeter;
+        private bool _doSlow;
+        [HideInInspector]public bool isSlow;
+        private float StasisMeterClamped
+        {
+            get => _stasisMeter;
+            set => _stasisMeter = Mathf.Clamp01(value);
+        }
+        
+        [SerializeField]Slider slider;
+        
         private void Start()
         {
             Prepare();
@@ -28,27 +40,62 @@ namespace com.LazyGames.Dio
 
         private void Update()
         {
-            Slow();
-            doSlow = _listener.stopTime;
+            ManageTimeScale();
+            ManageMeter();
             Time.timeScale = currentTimeScale;
+            slider.value = StasisMeterClamped;
+        }
+        
+        private void DoSlow()
+        {
+            if (!CheckStasis())
+            {
+                _doSlow = false;
+                return;
+            }
+            _doSlow = true;
         }
 
-        void Slow()
+        void ManageTimeScale()
         {
-            switch (doSlow && _listener.stopTime)
+            switch (_doSlow)
             {
                 case true:
-                    currentTimeScale = targetTimeScale.Evaluate(_stasisMeter);
+                    isSlow = true;
+                    currentTimeScale = targetTimeScale.Evaluate(StasisMeterClamped);
                     NormalizeDeltaTime(normalizeFactor);
-                    doSlow = false;
-                    _stasisMeter -= stasisDelta * Time.deltaTime;
                     break;
                 case false:
+                    isSlow = false;
                     currentTimeScale = 1f;
                     NormalizeDeltaTime(normalizeFactor);
-                    doSlow = true;
-                    _stasisMeter += stasisDelta * Time.deltaTime;
                     break;
+            }
+        }
+        
+        bool CheckStasis()
+        {
+            if (StasisMeterClamped >= .99f)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ManageMeter()
+        {
+            switch (isSlow)
+            {
+                case true:
+                    StasisMeterClamped -= _stasisEmptyDelta * Time.fixedUnscaledDeltaTime;
+                    break;
+                case false:
+                    StasisMeterClamped += _stasisFillDelta * Time.fixedUnscaledDeltaTime;
+                    break;
+            }
+            if(StasisMeterClamped <= 0)
+            {
+                _doSlow = false;
             }
         }
 
@@ -56,11 +103,26 @@ namespace com.LazyGames.Dio
         {
             Time.timeScale = currentTimeScale;
             Time.fixedDeltaTime = Time.timeScale * factor;
-        
         }
+
+        private float GetIncrement(float duration)
+        {
+           float result = (1 - 0 + Mathf.Epsilon) / duration;
+           return result;
+        }
+
         private void Prepare()
         {
-            _listener = GetComponent<DebugSteeringEventsListener>();
+            //subscribes to stopTime event
+
+            try
+            {
+                _listener = GetComponent<DebugSteeringEventsListener>();
+            }catch { Debug.LogError("error getting DebugSteeringEventsListener"); }
+            
+            _listener.DoStopTimeEvent += DoSlow;
+            _stasisFillDelta = GetIncrement((fillDuration + 3)*2);
+            _stasisEmptyDelta = GetIncrement((emptyDuration + 3) * 2);
         }
     }
 }

@@ -1,35 +1,29 @@
 // Creado Raymundo "CryoStorage" Mosqueda 24/04/2023
 //
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
     public class DebugSteeringEventsListener : Listener
     {
         [HideInInspector]public bool handBrake;
-        [HideInInspector]public bool stopTime;
         [HideInInspector]public float angle;
-        [HideInInspector]public float torque;
-        [HideInInspector]public float rotate;
-        [HideInInspector]public Vector2 Vec2Input;
+        [HideInInspector]public float torque; 
+        [HideInInspector]public Vector2 vec2Input;
         
-        public event System.Action _doImpulseEvent;
+        public event System.Action DoImpulseEvent;
+        public event System.Action DoStopTimeEvent;
         
-        private CarImpulse _carImpulse;
-
-        private void Start()
-        {
-            Prepare();
-        }
 
         protected override void HandBrake(bool b)
         {
             handBrake = b;
         }
 
-        protected override void StopTime(bool b)
+        protected override void StopTime()
         {
-            stopTime = b;
+            DoStopTimeEvent?.Invoke();
         }
 
         protected override void Angle(float f)
@@ -41,25 +35,15 @@ namespace com.LazyGames.Dio
         {
             torque = f;
         }
-
-        protected override void Rotate(float f)
-        {
-            rotate = f;
-        }
-
+        
         protected override void VecTwoInput(Vector2 v2)
         {
-            Vec2Input = v2;
+            vec2Input = v2;
         }
-
-        private void Prepare()
-        {
-            _carImpulse = GetComponent<CarImpulse>();
-        }
-
+        
         protected override void Impulse()
         {
-            _doImpulseEvent?.Invoke();
+            DoImpulseEvent?.Invoke();
         }
     }
 }
