@@ -3,12 +3,13 @@
 using System;
 using com.LazyGames.Dio;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DioGameManagerSingleplayer : MonoBehaviour
 {
     #region Serialized Fields
 
-    [SerializeField] private VoidEventChannelSO onFinishedCinematicEvent;
+    [SerializeField] private ReadyPlayerInput playerInputReady;
     #endregion    
     
     #region private variables
@@ -46,7 +47,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     public enum GameStatesSingleplayer
     {
         None,
-        WaitingToCinematic,
+        WaitingToPlayer,
         Countdown,
         GamePlaying,
         GameOver
@@ -73,8 +74,9 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 
     void Start()
     {
-        MyGameState = GameStatesSingleplayer.WaitingToCinematic;
-        onFinishedCinematicEvent.VoidEvent += HandleOnFinishedCinematic;
+        MyGameState = GameStatesSingleplayer.WaitingToPlayer;
+        playerInputReady.OnPlayerReadyInput += HandleOnPlayerReady;
+        
     }
 
     void Update()
@@ -84,17 +86,31 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     #endregion
 
     #region public Methods
-    
-    
-    #endregion
+
+    public void OnPlayerCrossedGoal(SinglePlayerGoal singlePlayerGoal)
+    {
+        singlePlayerGoal.OnPlayerCrossedGoal += HandleOnPlayerCrossedGoal;
+    }
+
+        #endregion
 
     #region private Methods
 
-    private void HandleOnFinishedCinematic()
+    private void HandleOnPlayerReady()
     {
         MyGameState = GameStatesSingleplayer.Countdown;
         OnGameStateChange?.Invoke(MyGameState);
     }
 
+    private void HandleOnPlayerCrossedGoal()
+    {
+        MyGameState = GameStatesSingleplayer.GameOver;
+        OnGameStateChange?.Invoke(MyGameState);
+    }
+    
+    
+    
+    
+    
     #endregion
 }
