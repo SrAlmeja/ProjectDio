@@ -65,6 +65,7 @@ namespace com.LazyGames.Dio
         private void OnAllAutosCompleted()
         {
             Debug.Log("¡Todos los autos han completado las vueltas requeridas!");
+            DioGameManagerMultiplayer.Instance.OnPlayersCompleteRace?.Invoke();
         }
     }
 }

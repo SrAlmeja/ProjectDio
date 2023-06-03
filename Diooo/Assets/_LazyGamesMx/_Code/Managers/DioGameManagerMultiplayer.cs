@@ -36,8 +36,7 @@ namespace com.LazyGames.Dio
 
         public Action<bool> OnPlayerReady;
         public Action<GameStates> OnGameStateChange;
-        public Action<ClientRpcParams> OnFinishedSpawnPlayers;
-
+        public Action OnPlayersCompleteRace;
         #endregion
 
         #region Serialized variables
@@ -143,6 +142,7 @@ namespace com.LazyGames.Dio
             
             //Handle Countdown
             CountdownControllerMultiplayer.Instance.OnCountdownFinished += OnCountdownFinished;
+            OnPlayersCompleteRace += HandleOnPlayersCompleteRace;
 
         }
 
@@ -160,6 +160,7 @@ namespace com.LazyGames.Dio
         {
             return MyGameState;
         }
+        
         #endregion
 
         #region private methods
@@ -231,6 +232,12 @@ namespace com.LazyGames.Dio
         {
             if (!IsServer) return;
             MyGameState = GameStates.GamePlaying;
+        }
+        
+        private void HandleOnPlayersCompleteRace()
+        {
+            MyGameState = GameStates.GameOver;
+            Debug.Log("<color=#7AEFFF>Game Over</color>");
         }
         
         #endregion
