@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4466743, g: 0.49157304, b: 0.54824847, a: 1}
+  m_IndirectSpecularColor: {r: 0.4466744, g: 0.49157327, b: 0.54824895, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1958,6 +1958,63 @@ Transform:
   m_Father: {fileID: 1222035526629278146}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &520662911367201725
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8170248887264860132, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_Name
+      value: Pista CalamardoLV_LP
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
 --- !u!1 &524329480400659647
 GameObject:
   m_ObjectHideFlags: 0
@@ -14321,6 +14378,11 @@ Transform:
   m_Father: {fileID: 7023145115210703040}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8528491940850734169 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8170248887264860132, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+  m_PrefabInstance: {fileID: 520662911367201725}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8548177097429522976
 Transform:
   m_ObjectHideFlags: 0
@@ -14957,6 +15019,20 @@ Transform:
   m_Father: {fileID: 7948246294801933617}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &9011872829418819300
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528491940850734169}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7321236896899300629, guid: 20c99bcad68534e44bae2129b586df80, type: 3}
 --- !u!1 &9034906434108713157
 GameObject:
   m_ObjectHideFlags: 0
