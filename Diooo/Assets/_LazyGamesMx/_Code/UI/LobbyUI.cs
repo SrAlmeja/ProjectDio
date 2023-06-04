@@ -94,6 +94,8 @@ namespace com.LazyGames.Dio
             UploadLobbyCode();
             UpdatePlayerCount();
             SpawnPlayersInRoom();
+            goToMatchInput.PrepareInputs();
+
             
         }
 

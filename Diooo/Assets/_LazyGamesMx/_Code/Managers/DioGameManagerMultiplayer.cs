@@ -185,19 +185,27 @@ namespace com.LazyGames.Dio
                     return;
                 }
                 
-                Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex - 1].name);
+                Transform spawnPoint = placesToSpawnCars[_spawnIndex - 1];
+                // Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + spawnPoint.name);
                 
-                Transform playerTransform = Instantiate(playerCarPrefab);
-                playerTransform.name = "CAR CLIENT = "+ clientID;
-                playerTransform.position = placesToSpawnCars[_spawnIndex - 1].position;
-                
-                NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
-                networkCarObject.SpawnAsPlayerObject(clientID, true);
-                
-                Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+                if(spawnPoint != null)
+                {
+                    SpawnPlayer(clientID, spawnPoint);
+                }
             }
         }
-        
+
+        private void SpawnPlayer(ulong clientID, Transform spawnPoint)
+        {
+            Transform playerTransform = Instantiate(playerCarPrefab);
+            playerTransform.name = "CAR CLIENT = "+ clientID;
+            playerTransform.position = spawnPoint.position;
+                
+            NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
+            networkCarObject.SpawnAsPlayerObject(clientID, true);
+                
+            Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+        }
         
         private void OnGameInput_SetReady()
         {
