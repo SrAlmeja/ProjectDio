@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -388,57 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &82090023
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 82090025}
-  - component: {fileID: 82090024}
-  m_Layer: 0
-  m_Name: CMDIOCAMCONTROLLERTEST (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &82090024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82090023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 946803cfd023d054ebea59c4d3242e15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cmVirtualCamera: {fileID: 1410791200}
-  _playerTransform: {fileID: 754094264502414651}
-  _playerRigidBody: {fileID: 747746975060384799}
-  _speedLinesPS: {fileID: 976389072}
-  _maxSpeed: 40
-  _speedLinesStartPercentage: 0.2
-  _debugValues: 0
---- !u!4 &82090025
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82090023}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &111688558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5728,7 +5677,9 @@ MonoBehaviour:
   _playerRigidBody: {fileID: 747746975060384799}
   _speedLinesPS: {fileID: 976389072}
   _maxSpeed: 40
-  _speedLinesStartPercentage: 0.2
+  _lockCamera: 1
+  _speedToLockCamera: 0.3
+  _speedLinesStartPercentage: 0.3
   _debugValues: 0
 --- !u!1 &1186143183
 GameObject:
@@ -6253,7 +6204,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380361615}
-  m_LocalRotation: {x: 0.049813755, y: -3.5527137e-15, z: 1.2490009e-16, w: 0.99875855}
+  m_LocalRotation: {x: 0.049813725, y: 0.00000002999696, z: -0.0000000014961178, w: 0.99875855}
   m_LocalPosition: {x: -126.54653, y: 27.76975, z: 99.726074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6356,6 +6307,7 @@ GameObject:
   - component: {fileID: 1410791201}
   - component: {fileID: 1410791200}
   - component: {fileID: 1410791199}
+  - component: {fileID: 1410791202}
   m_Layer: 0
   m_Name: CM FreeLook Dio Cam
   m_TagString: Untagged
@@ -6515,6 +6467,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1410791202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410791198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: 2047745079105783807, guid: 195f0cbb6f06ff44bb3d19a9c25ed31f, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1577817253
 GameObject:
   m_ObjectHideFlags: 3
@@ -6584,7 +6552,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577817253}
-  m_LocalRotation: {x: 0.049813755, y: -3.3962243e-15, z: 1.1847951e-16, w: 0.99875855}
+  m_LocalRotation: {x: 0.049813725, y: 0.00000002999696, z: -0.0000000014961178, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6662,7 +6630,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606644495}
-  m_LocalRotation: {x: 0.048537165, y: -0.000000004296526, z: 2.0878725e-10, w: 0.9988214}
+  m_LocalRotation: {x: 0.048537165, y: 0.000000004296525, z: -2.0878721e-10, w: 0.9988214}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
