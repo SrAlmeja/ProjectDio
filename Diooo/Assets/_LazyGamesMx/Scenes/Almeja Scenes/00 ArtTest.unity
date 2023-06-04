@@ -1969,6 +1969,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pista CalamardoLV_LP
       objectReference: {fileID: 0}
+    - target: {fileID: 8170248887264860132, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8802671123809668446, guid: 33b591d44e1010e4fb07827810faa098, type: 3}
       propertyPath: m_RootOrder
       value: 11

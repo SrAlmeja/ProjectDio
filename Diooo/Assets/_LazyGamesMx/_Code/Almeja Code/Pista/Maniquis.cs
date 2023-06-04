@@ -14,7 +14,7 @@ public class Maniquis : MonoBehaviour
 
     [Header("Activador")] 
     [SerializeField] private Collider triggerColider;
-    [SerializeField] private bool isInRange;
+    public bool isInRange;
 
     void Start()
     {
@@ -55,7 +55,6 @@ public class Maniquis : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other = triggerColider;
         if (other.CompareTag("Player"))
         {
             isInRange = true;
