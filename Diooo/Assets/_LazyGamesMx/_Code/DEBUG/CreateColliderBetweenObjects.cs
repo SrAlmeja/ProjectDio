@@ -3,68 +3,102 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
-[InitializeOnLoad]
-#endif
 public class CreateColliderBetweenObjects : MonoBehaviour
 {
-#if UNITY_EDITOR
-    private static GameObject firstSelectedObject;
-    private static GameObject secondSelectedObject;
+    [SerializeField]
+    private GameObject[] objectsToConnect;
 
-    static CreateColliderBetweenObjects()
+    [SerializeField]
+    private float _height;
+
+    private bool ignoreHeightDifference;
+
+    private void OnEnable()
     {
-        EditorApplication.hierarchyChanged += OnHierarchyChanged;
+        ignoreHeightDifference = EditorPrefs.GetBool("IgnoreHeightDifference", true);
     }
 
-    private static void OnHierarchyChanged()
+    private void OnDisable()
     {
-        GameObject[] selectedObjects = Selection.gameObjects;
-
-        if (selectedObjects.Length == 2 && firstSelectedObject == null && secondSelectedObject == null)
-        {
-            firstSelectedObject = selectedObjects[0];
-            secondSelectedObject = selectedObjects[1];
-            CreateCollider();
-        }
-        else if (selectedObjects.Length != 2)
-        {
-            firstSelectedObject = null;
-            secondSelectedObject = null;
-        }
+        EditorPrefs.SetBool("IgnoreHeightDifference", ignoreHeightDifference);
     }
 
-    private static void CreateCollider()
+    private void CreateCollider()
     {
-        if (firstSelectedObject != null && secondSelectedObject != null)
+        int objectCount = objectsToConnect.Length;
+        if (objectCount < 2)
         {
-            GameObject colliderObject = new GameObject("WorldBorderBarrier");
-            colliderObject.transform.SetParent(firstSelectedObject.transform);
+            Debug.LogWarning("Insufficient objects to connect. At least 2 objects are required.");
+            return;
+        }
 
-            Vector3 center = (firstSelectedObject.transform.position + secondSelectedObject.transform.position) / 2f;
-            Vector3 direction = secondSelectedObject.transform.position - firstSelectedObject.transform.position;
-            float distance = direction.magnitude;
+        for (int i = 0; i < objectCount - 1; i++)
+        {
+            GameObject firstObject = objectsToConnect[i];
+            GameObject secondObject = objectsToConnect[i + 1];
 
-            colliderObject.transform.position = center;
-
-            Quaternion rotation = Quaternion.LookRotation(direction, firstSelectedObject.transform.up);
-            colliderObject.transform.rotation = rotation;
-
-            BoxCollider boxCollider = colliderObject.AddComponent<BoxCollider>();
-            boxCollider.size = new Vector3(1f, distance, distance);
-
-            UnityEditor.EditorApplication.delayCall += () =>
+            if (firstObject != null && secondObject != null)
             {
-                DestroyImmediate(colliderObject.GetComponent<CreateColliderBetweenObjects>());
-            };
+                GameObject colliderObject = new GameObject("WorldBorderBarrier (" + i + ")");
+                colliderObject.transform.SetParent(transform);
+
+                Vector3 center = (firstObject.transform.position + secondObject.transform.position) / 2f;
+                Vector3 direction = secondObject.transform.position - firstObject.transform.position;
+                float distance = direction.magnitude;
+
+                colliderObject.transform.position = center;
+
+                Quaternion rotation;
+                if (ignoreHeightDifference)
+                {
+                    rotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
+                    rotation.eulerAngles = new Vector3(0f, rotation.eulerAngles.y, 0f);
+                }
+                else
+                {
+                    rotation = Quaternion.LookRotation(direction, transform.up);
+                }
+                colliderObject.transform.rotation = rotation;
+
+                BoxCollider boxCollider = colliderObject.AddComponent<BoxCollider>();
+                boxCollider.size = new Vector3(1f, _height, distance);
+            }
         }
     }
 
-    private void OnDestroy()
+#if UNITY_EDITOR
+    [CustomEditor(typeof(CreateColliderBetweenObjects))]
+    public class CreateColliderBetweenObjectsEditor : Editor
     {
-        UnityEditor.EditorApplication.delayCall -= () =>
+        private SerializedProperty objectsToConnectProp;
+        private SerializedProperty heightProp;
+
+        private void OnEnable()
         {
-            DestroyImmediate(this);
-        };
+            objectsToConnectProp = serializedObject.FindProperty("objectsToConnect");
+            heightProp = serializedObject.FindProperty("_height");
+        }
+
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(objectsToConnectProp, true);
+            EditorGUILayout.PropertyField(heightProp);
+
+            CreateColliderBetweenObjects script = (CreateColliderBetweenObjects)target;
+            if (GUILayout.Button("Create Collider"))
+            {
+                script.CreateCollider();
+            }
+
+            EditorGUILayout.Space();
+
+            script.ignoreHeightDifference = EditorGUILayout.Toggle("Ignore Height Difference", script.ignoreHeightDifference);
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 #endif
 }
+#endif
