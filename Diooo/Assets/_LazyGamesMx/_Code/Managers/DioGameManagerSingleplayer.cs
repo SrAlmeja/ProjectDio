@@ -3,12 +3,15 @@
 using System;
 using com.LazyGames.Dio;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DioGameManagerSingleplayer : MonoBehaviour
 {
     #region Serialized Fields
 
-    [SerializeField] private VoidEventChannelSO onFinishedCinematicEvent;
+    [SerializeField] private ReadyPlayerInput playerInputReady;
+    [SerializeField] private BoolEventChannelSO _racePaused;
+
     #endregion    
     
     #region private variables
@@ -46,7 +49,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     public enum GameStatesSingleplayer
     {
         None,
-        WaitingToCinematic,
+        WaitingToPlayer,
         Countdown,
         GamePlaying,
         GameOver
@@ -60,21 +63,23 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
+        if (_instance != null && _instance != this)
         {
-            _instance = this;
+            Destroy(gameObject);
         }
         else
         {
-            DestroyImmediate(this);
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        
     }
 
     void Start()
     {
-        MyGameState = GameStatesSingleplayer.WaitingToCinematic;
-        onFinishedCinematicEvent.VoidEvent += HandleOnFinishedCinematic;
+        MyGameState = GameStatesSingleplayer.WaitingToPlayer;
+        playerInputReady.OnPlayerReadyInput += HandleOnPlayerReady;
+        CountDownController_Singleplayer.Instance.OnCountdownFinished += HandleOnCountDownFinished;
+        
     }
 
     void Update()
@@ -84,17 +89,42 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     #endregion
 
     #region public Methods
-    
-    
-    #endregion
+
+    public void OnPlayerCrossedGoal(SinglePlayerGoal singlePlayerGoal)
+    {
+        singlePlayerGoal.OnPlayerCrossedGoal += HandleOnPlayerCrossedGoal;
+    }
+
+        #endregion
 
     #region private Methods
 
-    private void HandleOnFinishedCinematic()
+    private void HandleOnPlayerReady()
     {
         MyGameState = GameStatesSingleplayer.Countdown;
         OnGameStateChange?.Invoke(MyGameState);
     }
 
+    private void HandleOnPlayerCrossedGoal()
+    {
+        MyGameState = GameStatesSingleplayer.GameOver;
+        OnGameStateChange?.Invoke(MyGameState);
+    }
+
+    private void HandleOnCountDownFinished()
+    {
+        MyGameState = GameStatesSingleplayer.GamePlaying;
+        StartTimer();
+        OnGameStateChange?.Invoke(MyGameState);
+
+    }
+    
+    private void StartTimer()
+    {
+        _racePaused.BoolEvent.Invoke(false);
+        Debug.Log("Timer Started");
+    }
+    
+    
     #endregion
 }
