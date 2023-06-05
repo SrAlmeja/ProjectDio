@@ -8,7 +8,7 @@ namespace com.LazyGames.Dio
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Car_TimeControl))]
     
-    public class CarImpulse : MonoBehaviour
+    public class Car_Impulse : MonoBehaviour
     {
         [Header("Car Parameters Scriptable Object")]
         [SerializeField] private CarParametersSo carParametersSo;
@@ -36,7 +36,8 @@ namespace com.LazyGames.Dio
         private float _targetIndicatorAngle;
         
         private Car_TimeControl _timeControl;
-
+        public event System.Action DoPunchEvent;
+        
         private void Start()
         {
             Prepare();
@@ -87,6 +88,7 @@ namespace com.LazyGames.Dio
             if (!_timeControl.isSlow) return;
             Vector3 dir = (transform.position - fighter.transform.position).normalized;
             _rb.AddForce(dir * _impulseForce, ForceMode.VelocityChange);
+            DoPunchEvent?.Invoke();
         }
 
         void AngleSmoothing()

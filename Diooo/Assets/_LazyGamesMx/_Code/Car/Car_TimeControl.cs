@@ -30,7 +30,7 @@ namespace com.LazyGames.Dio
         [HideInInspector]public bool isSlow;
 
         [SerializeField] private GameObject fillIndicator;
-        private Renderer _fillIndicatorRenderer;
+        private Renderer _stasisIndicatorRenderer;
 
         private float StasisMeterClamped
         {
@@ -48,7 +48,7 @@ namespace com.LazyGames.Dio
             ManageTimeScale();
             ManageMeter();
             Time.timeScale = currentTimeScale;
-            _fillIndicatorRenderer.material.SetFloat("_FillValue", StasisMeterClamped);
+            _stasisIndicatorRenderer.material.SetFloat("_FillValue", StasisMeterClamped);
         }
 
         private void DoSlow()
@@ -130,7 +130,7 @@ namespace com.LazyGames.Dio
             _stasisFillDelta = GetIncrement((_fillDuration + 3)*2);
             _stasisEmptyDelta = GetIncrement((_emptyDuration + 3) * 2);
 
-            _fillIndicatorRenderer = fillIndicator.GetComponent<MeshRenderer>();
+            _stasisIndicatorRenderer = fillIndicator.GetComponent<MeshRenderer>();
         }
     }
 }

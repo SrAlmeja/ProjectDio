@@ -1,4 +1,4 @@
-// Creado Raymundo "CryoStorage" Mosqueda 01/06/2023
+// Creado Raymundo "CryoStorage" Mosqueda 05/06/2023
 
 using UnityEngine;
 
@@ -24,5 +24,13 @@ namespace com.LazyGames.Dio
         public float MaxAngle = 1f;
         public float YOffset = 1f;
         public float RaycastDistance = 1f;
+        
+        [Header("Car_Respawn Variables")]
+        public float MaxHealth = 100f;
+        public float RespawnTime = 5f;
+        public float PunchDamage = 5f;
+        public float DamageCooldown = .3f;
+        public float MinDamage = 5f;
+        public float MaxDamage = 50f;
     }
 }

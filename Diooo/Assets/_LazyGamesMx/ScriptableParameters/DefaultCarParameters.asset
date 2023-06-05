@@ -61,7 +61,13 @@ MonoBehaviour:
     m_RotationOrder: 4
   FillDuration: 15
   EmptyDuration: 5
-  TorqueForce: 0.01
+  TorqueForce: 0.02
   MaxAngle: 30
   YOffset: 1
   RaycastDistance: 1
+  MaxHealth: 100
+  RespawnTime: 2.5
+  PunchDamage: 5
+  DamageCooldown: 0.3
+  MinDamage: 7.77
+  MaxDamage: 50

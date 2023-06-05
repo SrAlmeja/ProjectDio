@@ -1,4 +1,4 @@
-// Creado Raymundo "CryoStorage" Mosqueda 01/06/2023
+// Creado Raymundo "CryoStorage" Mosqueda 04/06/2023
 
 using UnityEngine;
 using CryoStorage;
@@ -7,11 +7,8 @@ namespace com.LazyGames.Dio
 {
     public class Car_AirControl : MonoBehaviour
     {
-        
         [Header("Car Parameters Scriptable Object")]
         [SerializeField] private CarParametersSo carParametersSo;
-        [Header("Serialized References")]
-        [SerializeField]DebugSteeringEventsListener listener;
         
         private float _torqueForce;
         private float _maxAngle;
@@ -20,6 +17,8 @@ namespace com.LazyGames.Dio
         private Rigidbody _rb;
         private Vector3 _yOffSetVector;
         private bool grounded;
+        
+        private DebugSteeringEventsListener listener;
         
         // Start is called before the first frame update
         void Start()
