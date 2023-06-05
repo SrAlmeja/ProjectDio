@@ -863,6 +863,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1640789352042403177, guid: 1d4d5df6c8571194ca6414320dfca231, type: 3}
+      propertyPath: databaseManager
+      value: 
+      objectReference: {fileID: 1640789350220783289}
+    - target: {fileID: 1640789352042403177, guid: 1d4d5df6c8571194ca6414320dfca231, type: 3}
       propertyPath: singlePlayerGoal
       value: 
       objectReference: {fileID: 4111745785118869957}
@@ -920,6 +924,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d4d5df6c8571194ca6414320dfca231, type: 3}
+--- !u!114 &1640789350220783289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6352586321579649942, guid: 1d4d5df6c8571194ca6414320dfca231, type: 3}
+  m_PrefabInstance: {fileID: 1640789350220783288}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a619efb93d691e45b988eaa79d1c1ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3944160380964478646
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,6 +1216,10 @@ PrefabInstance:
     - target: {fileID: 4111745785592497888, guid: 5143856dd325b4142b50401cc8b12be6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111745785592497890, guid: 5143856dd325b4142b50401cc8b12be6, type: 3}
+      propertyPath: ID_RACE
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4111745785592497895, guid: 5143856dd325b4142b50401cc8b12be6, type: 3}
       propertyPath: m_Name

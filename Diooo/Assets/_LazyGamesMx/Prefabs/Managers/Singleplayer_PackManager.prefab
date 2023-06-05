@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInputReady: {fileID: 11400000, guid: 5a303bd2ea541e544a1a84b907968d33, type: 2}
   _racePaused: {fileID: 11400000, guid: 1bd84d54c8615fc488f01baa82663b2c, type: 2}
+  databaseManager: {fileID: 6352586321579649942}
 --- !u!1 &1640789352296464830
 GameObject:
   m_ObjectHideFlags: 0

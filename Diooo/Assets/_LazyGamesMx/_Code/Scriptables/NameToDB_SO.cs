@@ -10,12 +10,10 @@ namespace com.LazyGames.Dio
         private NameDB nameDB;
         public NameDB NameDB { get => nameDB; set => nameDB = value; }
 
-        public DatabaseManager databaseManager;
-
         public void SetNameDB(string name)
         {
             nameDB.name = name;
-            //databaseManager.InsertName(GetName());
+            DioGameManagerSingleplayer.Instance.databaseManager.InsertName(GetName());
         }
 
         public string GetName()
