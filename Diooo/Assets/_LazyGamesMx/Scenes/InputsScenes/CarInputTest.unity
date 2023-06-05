@@ -2021,6 +2021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a619efb93d691e45b988eaa79d1c1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intValue: {fileID: 11400000, guid: b4e7ab45b0acc1c418fa9449e4a21d9a, type: 2}
 --- !u!114 &1422281633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2034,7 +2035,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   databaseManager: {fileID: 1422281632}
-  nombre: 
+  nombre: Leinad DH
+  carreraId: 0
+  tiempo: 0
 --- !u!1 &1558927241
 GameObject:
   m_ObjectHideFlags: 0
