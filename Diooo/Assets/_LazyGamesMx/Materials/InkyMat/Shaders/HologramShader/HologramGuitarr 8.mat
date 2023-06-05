@@ -42,13 +42,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Fresnel_Powe: 6.89
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 2.4
     m_Colors:
     - _Color: {r: 0.5660378, g: 0.050729785, b: 0.061602317, a: 1}
     - _ColorHolograma: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_1: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 0}
+    - _Color_1: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
+    - _HDR_LineColor: {r: 342.10315, g: 2.7328453, b: 0, a: 0}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5365779553528848767
