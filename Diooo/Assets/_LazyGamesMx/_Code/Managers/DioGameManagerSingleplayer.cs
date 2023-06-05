@@ -11,11 +11,12 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 
     [SerializeField] private ReadyPlayerInput playerInputReady;
     [SerializeField] private BoolEventChannelSO _racePaused;
+    public DatabaseManager databaseManager;
 
-    #endregion    
-    
+    #endregion
+
     #region private variables
-    
+
     private static DioGameManagerSingleplayer _instance;
 
     private GameStatesSingleplayer _gameStatesSingleplayer;
@@ -29,7 +30,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     #endregion
 
     #region public variables
-    
+
     public static DioGameManagerSingleplayer Instance
     {
         get
@@ -140,7 +141,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     {
         float time = StopWatchManager.Instance.CurrentTime;
         int id = _currentGoal.ID_RACE;
-        //Send timer here
+        databaseManager.InsertTime(id, time);
 
     }
     

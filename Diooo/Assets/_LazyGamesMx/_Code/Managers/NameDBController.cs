@@ -24,7 +24,6 @@ namespace com.LazyGames.Dio
             playerName = inputField.text;
             nameToDbSo.SetNameDB(playerName);
             nameDBPrefab.SetActive(false);
-            
         }
         
         
