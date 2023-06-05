@@ -10,8 +10,19 @@ public class CMDioCameraController : MonoBehaviour
     [SerializeField] private ParticleSystem _speedLinesPS;
 
     [Header("Settings")]
+    [Header("Maximum theoretical speed")]
+    [Tooltip("Everything is calculated interpolated between speed 0 and this maximum speed.")]
     [SerializeField] private float _maxSpeed = 1f;
 
+    [Header("Camera Locks")]
+    [SerializeField] private bool _lockCamera = true;
+    [Range(0f,1f)]
+    [SerializeField] private float _speedToStartLockCamera = 0.2f;
+    [Range(0f, 1f)]
+    [Tooltip("At this speed % the camera reaches maximum restrictions, be sure to set it higher than SpeedToLockCamera")]
+    [SerializeField] private float _speedToTotalLock = 0.8f;
+
+    [Header("Particles")]
     [Range (0,1)]
     [SerializeField] private float _speedLinesStartPercentage = 0.2f;
 
@@ -53,6 +64,7 @@ public class CMDioCameraController : MonoBehaviour
         ChangeFOV();
         ChangeShake();
         ChangeParticles();
+        CheckCameraLock();
         DebugValues();
     }
     
@@ -95,6 +107,45 @@ public class CMDioCameraController : MonoBehaviour
     {
         float speedPercentage = Mathf.Clamp01(_playerRigidBody.velocity.magnitude / _maxSpeed);
         return speedPercentage;
+    }
+
+    private void CheckCameraLock()
+    {
+        if (!_lockCamera || _currentSpeed < _speedToStartLockCamera)
+        {
+            UnlockCamera();
+            return;
+        } else if(_currentSpeed >= _speedToStartLockCamera)    
+        {
+          LockCamera();
+        }
+    }
+
+    private void LockCamera()
+    {
+        float cameraLockInterpolation = Mathf.InverseLerp(_speedToStartLockCamera, _speedToTotalLock, _currentSpeed);
+        _cmVirtualCamera.m_RecenterToTargetHeading.m_enabled = true;
+        _cmVirtualCamera.m_RecenterToTargetHeading.m_WaitTime = LerpValue(15f,0.1f, cameraLockInterpolation);
+        _cmVirtualCamera.m_RecenterToTargetHeading.m_RecenteringTime = LerpValue(3f, 0.1f, cameraLockInterpolation);
+        _cmVirtualCamera.m_XAxis.m_MinValue = LerpValue(-180f, -0.1f, cameraLockInterpolation);
+        _cmVirtualCamera.m_XAxis.m_MaxValue = LerpValue(180f, 0.1f, cameraLockInterpolation);
+        _cmVirtualCamera.m_XAxis.m_Wrap = false;
+        _cmVirtualCamera.m_YAxisRecentering.m_enabled = true;
+        _cmVirtualCamera.m_YAxisRecentering.m_WaitTime = LerpValue(15f, 0.1f, cameraLockInterpolation);
+        _cmVirtualCamera.m_YAxisRecentering.m_RecenteringTime = LerpValue(3f, 0.1f, cameraLockInterpolation);
+    }
+
+    private void UnlockCamera()
+    {
+        _cmVirtualCamera.m_RecenterToTargetHeading.m_enabled = false;
+        _cmVirtualCamera.m_RecenterToTargetHeading.m_WaitTime = 15f;
+        _cmVirtualCamera.m_RecenterToTargetHeading.m_RecenteringTime = 3f;
+        _cmVirtualCamera.m_XAxis.m_MinValue = -180f;
+        _cmVirtualCamera.m_XAxis.m_MaxValue = 180f;
+        _cmVirtualCamera.m_XAxis.m_Wrap = true;
+        _cmVirtualCamera.m_YAxisRecentering.m_enabled = false;
+        _cmVirtualCamera.m_YAxisRecentering.m_WaitTime = 15f;
+        _cmVirtualCamera.m_YAxisRecentering.m_RecenteringTime = 3f;
     }
 
     private float LerpValue(float min, float max, float lerpTo)

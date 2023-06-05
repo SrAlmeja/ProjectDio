@@ -1,12 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
 {
+    
     public class SinglePlayerGoal : MonoBehaviour
     {
         public bool collidedWithFront = false;
+        public event Action OnPlayerCrossedGoal;
+        private void Start()
+        {
+            collidedWithFront = true;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -21,7 +28,8 @@ namespace com.LazyGames.Dio
                 }
                 if (collidedWithFront)
                 {
-                    Debug.Log("Next Stage");
+                    DioGameManagerSingleplayer.Instance.OnPlayerCrossedGoal(this);
+                    OnPlayerCrossedGoal?.Invoke();
                 }
             }
             else

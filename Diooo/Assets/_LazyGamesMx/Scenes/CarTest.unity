@@ -13790,6 +13790,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1909290372783803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4624876082237225}
+  - component: {fileID: 33109519241320991}
+  - component: {fileID: 23447390956367057}
+  - component: {fileID: 64507265517694439}
+  m_Layer: 0
+  m_Name: SM_Veh_Muscle_01_Front_Bumper_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1909458913018112
 GameObject:
   m_ObjectHideFlags: 0

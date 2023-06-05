@@ -1,6 +1,7 @@
 // Dino 11/04/2023 Creation of the script
 //Control the scenes and the network scenes
 
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,8 +12,23 @@ namespace com.LazyGames.Dio
     {
         #region public variables
 
-        public static SceneController Instance;
+        private static SceneController _instance;
+        public static SceneController Instance
+        {
+            get
+            {
+                if (FindObjectOfType<SceneController>() == null)
+                {
+                    GameObject sceneControllerGO = new GameObject("SceneController");
+                    sceneControllerGO.SetActive(false);
+                    _instance = sceneControllerGO.AddComponent<SceneController>();
+                    sceneControllerGO.SetActive(true);
+                    DontDestroyOnLoad(sceneControllerGO);
+                }
 
+                return _instance;
+            }
+        }
 
 
         #endregion
@@ -26,13 +42,19 @@ namespace com.LazyGames.Dio
 
         #region unity methods
 
-        void Start()
+        private void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
-
+        
         void Update()
         {
 

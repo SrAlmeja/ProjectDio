@@ -666,6 +666,7 @@ GameObject:
   - component: {fileID: 4735771677213841881}
   - component: {fileID: 4735771677213841880}
   - component: {fileID: 8961599167827948623}
+  - component: {fileID: 5594205852313404301}
   m_Layer: 0
   m_Name: NetworkCar
   m_TagString: Untagged
@@ -885,6 +886,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkCameraFollow: {fileID: 0}
+--- !u!114 &5594205852313404301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733076956674025725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571c6413aea57ba44815fafe01f3e51c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4733277597485678685
 GameObject:
   m_ObjectHideFlags: 0

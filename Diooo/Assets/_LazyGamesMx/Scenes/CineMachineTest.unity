@@ -5728,7 +5728,9 @@ MonoBehaviour:
   _playerRigidBody: {fileID: 747746975060384799}
   _speedLinesPS: {fileID: 976389072}
   _maxSpeed: 40
-  _speedLinesStartPercentage: 0.2
+  _lockCamera: 1
+  _speedToLockCamera: 0.3
+  _speedLinesStartPercentage: 0.3
   _debugValues: 0
 --- !u!1 &1186143183
 GameObject:
@@ -6356,6 +6358,7 @@ GameObject:
   - component: {fileID: 1410791201}
   - component: {fileID: 1410791200}
   - component: {fileID: 1410791199}
+  - component: {fileID: 1410791202}
   m_Layer: 0
   m_Name: CM FreeLook Dio Cam
   m_TagString: Untagged
@@ -6515,6 +6518,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1410791202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410791198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: 2047745079105783807, guid: 195f0cbb6f06ff44bb3d19a9c25ed31f, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1577817253
 GameObject:
   m_ObjectHideFlags: 3
