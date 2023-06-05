@@ -34,7 +34,7 @@ namespace com.LazyGames.Dio
             Prepare();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             HandleMotor();
             HandleSteering();

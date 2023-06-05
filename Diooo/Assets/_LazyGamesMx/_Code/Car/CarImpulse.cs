@@ -10,22 +10,20 @@ namespace com.LazyGames.Dio
     
     public class CarImpulse : MonoBehaviour
     {
-        [Header("Configurable Variables")] 
-        [SerializeField] private float impulseForce = 10f;
-        [SerializeField] private float angleLerpSpeed = 1f;
-
-        [Header("Indicator Variables")] 
-        [SerializeField] private float indicatorOffset = .3f;
-        [SerializeField] private float indicatorRadius = 3f;
-
-        [Header("Indicator Variables")]
-        [SerializeField] private float fighterRadius = 3f;
+        [Header("Car Parameters Scriptable Object")]
+        [SerializeField] private CarParametersSo carParametersSo;
 
         [Header("Serialized References")] 
         [SerializeField] private GameObject indicator;
         [SerializeField] private GameObject fighter;
         [SerializeField] private GameObject driverSeat;
 
+        private float _impulseForce;
+        private float _angleLerpSpeed;
+        private float _indicatorOffset;
+        private float _indicatorRadius;
+        private float _fighterRadius;
+        
         private Rigidbody _rb;
         private DebugSteeringEventsListener _listener;
         private VoidEventChannelSO _impulseEvent;
@@ -67,7 +65,7 @@ namespace com.LazyGames.Dio
             {
                 _targetFighterAngle = CryoMath.AngleFromOffset(_listener.vec2Input);
                 Vector3 pos = fighter.transform.position;
-                pos = CryoMath.PointOnRadiusRelative(transform, fighterRadius, _currentFighterAngle);
+                pos = CryoMath.PointOnRadiusRelative(transform, _fighterRadius, _currentFighterAngle);
                 fighter.transform.position = pos;
                 fighter.transform.rotation = CryoMath.AimAtDirection(fighter.transform.position, transform.position);
             }
@@ -80,7 +78,7 @@ namespace com.LazyGames.Dio
             _indicatorCenter = transform.position + _indicatorOffsetVector;
             Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
             _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
-            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, indicatorRadius, _currentIndicatorAngle);
+            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
             indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
         }
 
@@ -88,14 +86,14 @@ namespace com.LazyGames.Dio
         {
             if (!_timeControl.isSlow) return;
             Vector3 dir = (transform.position - fighter.transform.position).normalized;
-            _rb.AddForce(dir * impulseForce, ForceMode.VelocityChange);
+            _rb.AddForce(dir * _impulseForce, ForceMode.VelocityChange);
         }
 
         void AngleSmoothing()
         {
             if(!_timeControl.isSlow) return;
-            LerpAngle(ref _currentFighterAngle, _targetFighterAngle, angleLerpSpeed);
-            LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, angleLerpSpeed);
+            LerpAngle(ref _currentFighterAngle, _targetFighterAngle, _angleLerpSpeed);
+            LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, _angleLerpSpeed);
         }
 
         private void LerpAngle(ref float currentAngle, float targetAngle, float angleChangeSpeed)
@@ -105,6 +103,13 @@ namespace com.LazyGames.Dio
         
         private void Prepare()
         {
+            // Load configurable values from Scriptable Object
+            _impulseForce = carParametersSo.ImpulseForce;
+            _angleLerpSpeed = carParametersSo.AngleLerpSpeed;
+            _indicatorOffset = carParametersSo.IndicatorOffset;
+            _indicatorRadius = carParametersSo.IndicatorRadius;
+            _fighterRadius = carParametersSo.FighterRadius;
+            
             _rb = GetComponent<Rigidbody>();
             _timeControl = GetComponent<Car_TimeControl>();
             _listener = GetComponent<DebugSteeringEventsListener>();
@@ -112,7 +117,7 @@ namespace com.LazyGames.Dio
             //subscribes to impulse event
             _listener.DoImpulseEvent += ApplyImpulse;
             
-            _indicatorOffsetVector = new Vector3(0, indicatorOffset, 0);
+            _indicatorOffsetVector = new Vector3(0, _indicatorOffset, 0);
         }
     }
 }

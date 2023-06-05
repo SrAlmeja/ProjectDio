@@ -10,10 +10,12 @@ namespace com.LazyGames.Dio
 {
     public class Car_TimeControl : MonoBehaviour
     {
-        [Header("Time Control")] 
-        [SerializeField] private AnimationCurve targetTimeScale;
-        [SerializeField] private float fillDuration = 10f;
-        [SerializeField] private float emptyDuration = 5f;
+        [Header("Car Parameters Scriptable Object")]
+        [SerializeField] private CarParametersSo carParametersSo;
+        
+       private AnimationCurve _targetTimeScale;
+       private float _fillDuration;
+       private float _emptyDuration;
 
         private DebugSteeringEventsListener _listener;
         
@@ -24,14 +26,17 @@ namespace com.LazyGames.Dio
         private float _stasisEmptyDelta;
         private float _stasisMeter;
         private bool _doSlow;
+        
         [HideInInspector]public bool isSlow;
+
+        [SerializeField] private GameObject fillIndicator;
+        private Renderer _fillIndicatorRenderer;
+
         private float StasisMeterClamped
         {
             get => _stasisMeter;
             set => _stasisMeter = Mathf.Clamp01(value);
         }
-        
-        [SerializeField]Slider slider;
         
         private void Start()
         {
@@ -43,9 +48,9 @@ namespace com.LazyGames.Dio
             ManageTimeScale();
             ManageMeter();
             Time.timeScale = currentTimeScale;
-            slider.value = StasisMeterClamped;
+            _fillIndicatorRenderer.material.SetFloat("_FillValue", StasisMeterClamped);
         }
-        
+
         private void DoSlow()
         {
             if (!CheckStasis())
@@ -62,7 +67,7 @@ namespace com.LazyGames.Dio
             {
                 case true:
                     isSlow = true;
-                    currentTimeScale = targetTimeScale.Evaluate(StasisMeterClamped);
+                    currentTimeScale = _targetTimeScale.Evaluate(StasisMeterClamped);
                     NormalizeDeltaTime(normalizeFactor);
                     break;
                 case false:
@@ -113,16 +118,19 @@ namespace com.LazyGames.Dio
 
         private void Prepare()
         {
-            //subscribes to stopTime event
-
-            try
-            {
-                _listener = GetComponent<DebugSteeringEventsListener>();
-            }catch { Debug.LogError("error getting DebugSteeringEventsListener"); }
+            // Load configurable values from Scriptable Object
+            _targetTimeScale = carParametersSo.TargetTimeScale;
+            _fillDuration = carParametersSo.FillDuration;
+            _emptyDuration = carParametersSo.EmptyDuration;
             
+            _listener = GetComponent<DebugSteeringEventsListener>();
+            
+            //subscribes to stopTime event
             _listener.DoStopTimeEvent += DoSlow;
-            _stasisFillDelta = GetIncrement((fillDuration + 3)*2);
-            _stasisEmptyDelta = GetIncrement((emptyDuration + 3) * 2);
+            _stasisFillDelta = GetIncrement((_fillDuration + 3)*2);
+            _stasisEmptyDelta = GetIncrement((_emptyDuration + 3) * 2);
+
+            _fillIndicatorRenderer = fillIndicator.GetComponent<MeshRenderer>();
         }
     }
 }
