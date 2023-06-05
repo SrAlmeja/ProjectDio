@@ -56,6 +56,12 @@ namespace com.LazyGames.Dio
         {
             _timeResponse.DoubleEvent.Invoke(_stopWatch);
         }
+        public void ResetTime()
+        {
+            _stopWatch = 0;
+        }
+        
+        
         
     }
 }

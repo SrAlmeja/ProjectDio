@@ -6,6 +6,7 @@ namespace com.LazyGames.Dio
     public class SinglePlayerGoal : MonoBehaviour
     {
         public bool collidedWithFront = false;
+        public int ID_RACE = 1;
         public event Action OnPlayerCrossedGoal;
         private void Start()
         {

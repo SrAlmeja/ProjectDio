@@ -12,6 +12,8 @@ namespace com.LazyGames.Dio
         
         void OnGoToMatch(InputAction.CallbackContext context)
         {
+            startGameInputAction.performed -= OnGoToMatch;
+            startGameInputAction.canceled -= OnGoToMatch;
             SceneController.Instance.LoadSceneNetwork(SceneKeys.GAME_SCENE);
         }
 
