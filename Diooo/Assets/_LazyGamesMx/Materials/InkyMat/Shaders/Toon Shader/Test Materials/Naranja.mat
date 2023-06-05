@@ -116,7 +116,7 @@ Material:
     - _Blue_Value: 1
     - _BumpScale: 1
     - _CelShading: 255
-    - _CellShader: 1.5
+    - _CellShader: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -129,16 +129,18 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Green_Value: 0.529
+    - _Green_Value: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutlineThickness: 0.1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ShadowStept: 0.6
-    - _Shadow_Step: 0
+    - _Shadow_Step: 0.12
+    - _Shine: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -150,15 +152,16 @@ Material:
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _treshold: 0
+    - _treshold: -3
     m_Colors:
     - _BaseColor: {r: 1, g: 0.33750936, b: 0.012718037, a: 1}
     - _Color: {r: 1, g: 0.33750936, b: 0.012718037, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 1, g: 0.40677965, b: 0, a: 0}
-    - _PathernShadowColor: {r: 1, g: 1, b: 1, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _PathernShadowColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
     - _PatternShadowColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowColor: {r: 0.010576068, g: 0, b: 0.1509434, a: 0}
+    - _ShadowColor: {r: 1.6139647, g: 0, b: 29.320358, a: 1}
     - _ShadowTilling: {r: 50, g: 50, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TextureTilling: {r: 100, g: 100, b: 0, a: 0}
