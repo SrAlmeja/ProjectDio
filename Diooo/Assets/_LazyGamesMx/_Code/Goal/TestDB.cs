@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 namespace com.LazyGames.Dio
 {
@@ -8,6 +9,8 @@ namespace com.LazyGames.Dio
         public string nombre;
         public int carreraId;
         public float tiempo;
+        public TMP_Text textMeshPro;
+        
 
         // Update is called once per frame
         void Update()
@@ -19,6 +22,10 @@ namespace com.LazyGames.Dio
             if (Input.GetKeyDown(KeyCode.P))
             {
                 databaseManager.InsertTime(carreraId, tiempo);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                databaseManager.GetTop10();
             }
         }
     }

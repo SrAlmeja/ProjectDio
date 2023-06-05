@@ -126,5 +126,44 @@ namespace com.LazyGames.Dio
                 }
             }
         }
+
+        public string GetTop10()
+        {
+            string query = "SELECT nombre_jugador, nombre_carrera, tiempo FROM vista_tiempos ORDER BY tiempo ASC LIMIT 10";
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            string top10Text = "High Scores:\n\n";
+                            top10Text += "Player / Race / Time\n\n";
+
+                            while (reader.Read())
+                            {
+                                string nombreJugador = reader.GetString("nombre_jugador");
+                                string nombreCarrera = reader.GetString("nombre_carrera");
+                                float tiempo = reader.GetFloat("tiempo");
+
+                                top10Text += nombreJugador + " / " + nombreCarrera + " / " + tiempo + "\n";
+                            }
+
+                            return top10Text;
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    Debug.LogError("Error al obtener los mejores tiempos: " + ex.Message);
+                    string DBError = "Database Error";
+                    return DBError;
+                }
+            }
+        }
     }
 }
