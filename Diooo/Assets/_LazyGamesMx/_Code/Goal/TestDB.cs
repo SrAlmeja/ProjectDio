@@ -1,16 +1,25 @@
 using UnityEngine;
 
-public class TestDB : MonoBehaviour
+namespace com.LazyGames.Dio
 {
-    public DatabaseManager databaseManager;
-    public string nombre;
-
-    // Update is called once per frame
-    void Update()
+    public class TestDB : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        public DatabaseManager databaseManager;
+        public string nombre;
+        public int carreraId;
+        public float tiempo;
+
+        // Update is called once per frame
+        void Update()
         {
-            databaseManager.SubirNombre(nombre);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                databaseManager.InsertName(nombre);
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                databaseManager.InsertTime(carreraId, tiempo);
+            }
         }
     }
 }
