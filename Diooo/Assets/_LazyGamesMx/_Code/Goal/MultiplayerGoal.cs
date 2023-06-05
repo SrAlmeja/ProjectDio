@@ -72,7 +72,7 @@ namespace com.LazyGames.Dio
             
                 if (vueltasPorAuto[auto] == vueltasNecesarias)
                 {
-                    Debug.Log("¡El auto " + auto.name + " ha completado todas las vueltas requeridas!");
+                    Debug.Log("El auto " + auto.name + " ha completado todas las vueltas requeridas");
                     autosCompletados++;
             
                     if (autosCompletados == vueltasPorAuto.Count)
@@ -86,7 +86,7 @@ namespace com.LazyGames.Dio
 
         private void OnAllAutosCompleted()
         {
-            Debug.Log("¡Todos los autos han completado las vueltas requeridas!");
+            Debug.Log("Todos los autos han completado las vueltas requeridas");
             DioGameManagerMultiplayer.Instance.OnPlayersCompleteRace?.Invoke();
         }
         
