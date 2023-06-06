@@ -657,19 +657,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "e1636e5d-6043-410b-a66d-dcc2e540385b",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StartGame",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "674f2f26-6e42-420a-93b3-cf722ab7dddb",
-                    "path": "<Keyboard>/space",
+                    "id": "c8ebc281-a7c8-4df4-ba90-ab2716c0740f",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
