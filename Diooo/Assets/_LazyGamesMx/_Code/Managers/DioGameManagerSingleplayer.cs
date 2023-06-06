@@ -27,6 +27,8 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     }
     SinglePlayerGoal _currentGoal;
 
+    private bool iscalled = false;
+
     #endregion
 
     #region public variables
@@ -81,7 +83,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         MyGameState = GameStatesSingleplayer.WaitingToPlayer;
         playerInputReady.OnPlayerReadyInput += HandleOnPlayerReady;
         CountDownController_Singleplayer.Instance.OnCountdownFinished += HandleOnCountDownFinished;
-        
+        iscalled = false;
     }
 
     void Update()
@@ -139,10 +141,14 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 
     private void SendTimerToDB()
     {
+        
         float time = StopWatchManager.Instance.CurrentTime;
         int id = _currentGoal.ID_RACE;
-        databaseManager.InsertTime(id, time);
-
+        if(!iscalled)
+        {
+            databaseManager.InsertTime(id, time);
+            iscalled = true;
+        }
     }
     
     #endregion
