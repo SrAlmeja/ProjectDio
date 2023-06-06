@@ -657,8 +657,6 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "c8ebc281-a7c8-4df4-ba90-ab2716c0740f",
-                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
