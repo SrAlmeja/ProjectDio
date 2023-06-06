@@ -657,6 +657,19 @@
             "bindings": [
                 {
                     "name": "",
+                    "id": "f4f1dbb7-bf04-450f-9f18-8ffda70abc7f",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0391e33-ee41-4b3a-9e6a-2b818270c210",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -668,6 +681,17 @@
                     "name": "",
                     "id": "b939a7ad-b6d7-4d79-be49-436744e4365a",
                     "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoToMatch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5330699d-b76e-44cb-87c3-0cffcc89785c",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
