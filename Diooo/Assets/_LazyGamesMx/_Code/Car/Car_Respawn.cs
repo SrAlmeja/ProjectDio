@@ -15,10 +15,12 @@ namespace com.LazyGames.Dio
         [Header("Serialized References")]
         [SerializeField] private GameObject healthIndicator;
         [SerializeField]private GameObject visuals;
-        private Renderer _healthIndicatorRenderer;
-
         
-        private float _health;
+        [HideInInspector]public bool isDead;
+
+        private float _healthLerpSpeed = 3f;
+        private float _currentHealth;
+        private float _targetHealth;
         private float _maxHealth;
         private float _respawnTime;
         private float _elapsedTime;
@@ -27,29 +29,34 @@ namespace com.LazyGames.Dio
         private float _maxDamage;
         private Vector3 _respawnPosition;
         private Quaternion _respawnRotation;
+        
         private Car_Impulse _carImpulse;
         private Rigidbody _rb;
+        private Renderer _healthIndicatorRenderer;
+        private CarParticlesManager _carParticlesManager;
         
-        [HideInInspector]public bool isDead;
+        public event System.Action OnDie;
+        public event System.Action OnRespawn;
+
 
         private void Start()
         {
             Prepare();
-            _health = _maxHealth;
+            _targetHealth = _maxHealth;
         }
 
         private void Update()
         {
             CheckHealth();
-            
+            _currentHealth = LerpHealth();
             _elapsedTime += Time.fixedDeltaTime;
             _rb. isKinematic = isDead;
-            _healthIndicatorRenderer.material.SetFloat("_FillValue", Remap(_health));
+            _healthIndicatorRenderer.material.SetFloat("_FillValue", Remap(_currentHealth));
         }
 
         private void CheckHealth()
         {
-            if (_health > 0) return;
+            if (_targetHealth > 0) return;
             Explode();
         }
 
@@ -66,9 +73,16 @@ namespace com.LazyGames.Dio
             _respawnRotation = rot;
             // Debug.Log($"updated checkpoint to {pos}");
         }
+        
+        private float LerpHealth()
+        {
+            float result = Mathf.LerpAngle(_currentHealth, _targetHealth, _healthLerpSpeed * Time.fixedUnscaledDeltaTime);
+            return result;
+        }
 
         private void OnCollisionEnter(Collision other)
         {
+            _carParticlesManager.PlaySparksParticle(other.contacts[0].point);
             if (_elapsedTime < _damageCooldown) return;
             float mag  = other.relativeVelocity.magnitude;
             TakeDamage(CalculateDamage(mag));
@@ -92,7 +106,7 @@ namespace com.LazyGames.Dio
 
         private void TakeDamage(float damage)
         {
-            _health -= damage;
+            _targetHealth -= damage;
             // Debug.Log($"took {damage} dmg");
         }
 
@@ -104,10 +118,11 @@ namespace com.LazyGames.Dio
         
         private void Respawn()
         {
+            OnRespawn?.Invoke();
             isDead = false;
             transform.position = _respawnPosition;
             transform.rotation = _respawnRotation;
-            _health = _maxHealth;
+            _targetHealth = _maxHealth;
             visuals.SetActive(true);
             _rb.velocity = Vector3.zero;
             StopCoroutine(CorWaitToRespawn());
@@ -115,11 +130,13 @@ namespace com.LazyGames.Dio
 
         private void Punched()
         {
+            _carParticlesManager.PlaySparksParticle(transform.position);
             TakeDamage(carParametersSo.PunchDamage);
         }
 
         private IEnumerator CorWaitToRespawn()
         {
+            OnDie?.Invoke();
             yield return new WaitForSeconds(_respawnTime);
             Respawn();
         }
@@ -128,7 +145,6 @@ namespace com.LazyGames.Dio
         {
             isDead = true;
             visuals.SetActive(false);
-            // play particle systems
             // play sound
             StartCoroutine(CorWaitToRespawn());
         }
@@ -137,19 +153,20 @@ namespace com.LazyGames.Dio
         {
             // Load configurable values from Scriptable Object
             _maxHealth = carParametersSo.MaxHealth;
+            _healthLerpSpeed = carParametersSo.HealthLerpSpeed;
             _respawnTime = carParametersSo.RespawnTime;
             _respawnPosition = transform.position;
             _damageCooldown = carParametersSo.DamageCooldown;
             _minDamage = carParametersSo.MinDamage;
             _maxDamage = carParametersSo.MaxDamage;
-            
-            
+
             _rb = GetComponent<Rigidbody>();
-            
             _carImpulse = GetComponent<Car_Impulse>();
+            _healthIndicatorRenderer = healthIndicator.GetComponent<MeshRenderer>();
+            _carParticlesManager = GetComponent<CarParticlesManager>();
+            
             // Subscribe to punch event
             _carImpulse.DoPunchEvent += Punched;
-            _healthIndicatorRenderer = healthIndicator.GetComponent<MeshRenderer>();
         }
     }
 }
