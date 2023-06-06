@@ -7,6 +7,10 @@ namespace com.LazyGames.Dio
     [CreateAssetMenu(menuName = "ScriptableObject/CarParameters")]
     public class CarParametersSo : ScriptableObject
     {
+        [Header("Wheel Collider Variables")] 
+        [SerializeField] private float _dampingRate;
+        [SerializeField] private float _suspensionDistance = 0.2f;
+        
         [Header("CarSteering Variables")]
         public AnimationCurve EnginePower;
         public float BrakeForce = 1000f;
