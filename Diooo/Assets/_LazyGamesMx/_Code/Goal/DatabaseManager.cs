@@ -126,5 +126,111 @@ namespace com.LazyGames.Dio
                 }
             }
         }
+
+        public string GetTop10Names()
+        {
+            string query = "SELECT nombre_jugador, nombre_carrera, tiempo FROM vista_tiempos ORDER BY tiempo ASC LIMIT 10";
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            string top10Name = "Player\n\n";
+
+                            while (reader.Read())
+                            {
+                                string nombreJugador = reader.GetString("nombre_jugador");
+
+                                top10Name += nombreJugador + "\n";
+                            }
+
+                            return top10Name;
+                        }
+                    }
+                }
+                catch
+                {
+                    string DBError = "Database Error";
+                    return DBError;
+                }
+            }
+        }
+
+        public string GetTop10Race()
+        {
+            string query = "SELECT nombre_jugador, nombre_carrera, tiempo FROM vista_tiempos ORDER BY tiempo ASC LIMIT 10";
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            string top10Race = "Race\n\n";
+
+
+                            while (reader.Read())
+                            {
+                                string nombreCarrera = reader.GetString("nombre_carrera");
+
+                                top10Race += nombreCarrera + "\n";
+                            }
+
+                            return top10Race;
+                        }
+                    }
+                }
+                catch
+                {
+                    string DBError = "Database Error";
+                    return DBError;
+                }
+            }
+        }
+
+        public string GetTop10Time()
+        {
+            string query = "SELECT nombre_jugador, nombre_carrera, tiempo FROM vista_tiempos ORDER BY tiempo ASC LIMIT 10";
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            string top10Time = "Time\n\n";
+
+                            while (reader.Read())
+                            {
+                                float tiempo = reader.GetFloat("tiempo");
+
+                                top10Time += tiempo + "\n";
+                            }
+
+                            return top10Time;
+                        }
+                    }
+                }
+                catch
+                {
+                    string DBError = "Database Error";
+                    return DBError;
+                }
+            }
+        }
     }
 }
