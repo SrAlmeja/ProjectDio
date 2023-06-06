@@ -9,7 +9,6 @@ namespace com.LazyGames.Dio
         public string nombre;
         public int carreraId;
         public float tiempo;
-        public TMP_Text textMeshPro;
         
 
         // Update is called once per frame
@@ -22,10 +21,6 @@ namespace com.LazyGames.Dio
             if (Input.GetKeyDown(KeyCode.P))
             {
                 databaseManager.InsertTime(carreraId, tiempo);
-            }
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                databaseManager.GetTop10();
             }
         }
     }

@@ -30,8 +30,6 @@ public class GameplayUI : MonoBehaviour
         _timer = StopWatchManager.Instance.CurrentTime;
         TimeSpan timeSpan = TimeSpan.FromSeconds(_timer);
         timerTxt.text = string.Format("{0:00}:{1:00}:{2:000}", timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds);
-
-        Debug.Log(_timer);
     }
     
 }
