@@ -8,7 +8,7 @@ namespace com.LazyGames.Dio
     public class Listener : MonoBehaviour
     {
         [SerializeField] protected BoolEventChannelSO _handBrakeEvent;
-        [SerializeField] protected BoolEventChannelSO _stopTimeEvent;
+        [SerializeField] protected VoidEventChannelSO _stopTimeEvent;
         [SerializeField] protected FloatEventChannelSO _angleEvent;
         [SerializeField] protected FloatEventChannelSO _torqueEvent;
         [SerializeField] protected FloatEventChannelSO _rotateEvent;
@@ -18,7 +18,7 @@ namespace com.LazyGames.Dio
         protected void OnEnable()
         {
             _handBrakeEvent.BoolEvent += HandBrake;
-            _stopTimeEvent.BoolEvent += StopTime;
+            _stopTimeEvent.VoidEvent += StopTime;
             _angleEvent.FloatEvent += Angle;
             _torqueEvent.FloatEvent += Torque;
             _rotateEvent.FloatEvent += Rotate;
@@ -29,7 +29,7 @@ namespace com.LazyGames.Dio
         protected void OnDisable()
         {
             _handBrakeEvent.BoolEvent -= HandBrake;
-            _stopTimeEvent.BoolEvent -= StopTime;
+            _stopTimeEvent.VoidEvent -= StopTime;
             _angleEvent.FloatEvent -= Angle;
             _torqueEvent.FloatEvent -= Torque;
             _rotateEvent.FloatEvent -= Rotate;
@@ -42,7 +42,7 @@ namespace com.LazyGames.Dio
             //Debug.Log("Booleano de freno: " + b);
         }
 
-        protected virtual void StopTime(bool b)
+        protected virtual void StopTime()
         {
             //Debug.Log("Booleano de parar el tiempo: " + b);
         }
