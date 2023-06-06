@@ -1146,7 +1146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _number: 3
-  _forwardTo: {fileID: 843487273}
+  _forwardTo: {fileID: 0}
   _backTo: {fileID: 2016422488}
   ForwardAction:
     m_PersistentCalls:
@@ -1481,9 +1481,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  BackAction:
-    m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 11400000, guid: 39099a51b5e5b7b42a62490c86b04798, type: 2}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
@@ -1496,6 +1493,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  BackAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &909792972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,7 +2228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _number: 1
-  _forwardTo: {fileID: 2016422488}
+  _forwardTo: {fileID: 0}
   _backTo: {fileID: 406600414}
   ForwardAction:
     m_PersistentCalls:
@@ -4250,7 +4250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _number: 2
-  _forwardTo: {fileID: 437540229}
+  _forwardTo: {fileID: 0}
   _backTo: {fileID: 1488228753}
   ForwardAction:
     m_PersistentCalls:
