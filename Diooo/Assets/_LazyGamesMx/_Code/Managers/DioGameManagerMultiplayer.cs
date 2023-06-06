@@ -249,10 +249,10 @@ namespace com.LazyGames.Dio
             Debug.Log("<color=#7AEFFF>Game Over</color>");
         }
         
-        private void OnPlayerFinishRaceServerRPC(ulong clientID)
-        {
+        // private void OnPlayerFinishRaceServerRPC(ulong clientID)
+        // {
             // OnPlayerFinishRace?.Invoke(clientID);
-        }
+        // }
         
         #endregion
     }
