@@ -3,25 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - DragParent
-  - Building
-  - Tree
-  - Nature
-  - Vehicles
-  - Misc
-  - VFX
-  - NPC
-  - Terrain
-  - Roads
-  - Lights
-  - Focal Points
-  - CheckPoint
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - IgnoreColl
+  - 
   - Water
   - UI
   - 

@@ -25,9 +25,7 @@ namespace com.LazyGames.Dio
         public event System.Action DoStopTimeEvent;
 
         public override void OnNetworkSpawn()
-        {            
-            if (!IsOwner) return;
-
+        {
             handBrakeEvent.BoolEvent += HandBrake;
             stopTimeEvent.VoidEvent += StopTime;
             angleEvent.FloatEvent += Angle;
@@ -40,8 +38,6 @@ namespace com.LazyGames.Dio
         
         public override void OnNetworkDespawn()
         {
-            if (!IsOwner) return;
-
             handBrakeEvent.BoolEvent -= HandBrake;
             stopTimeEvent.VoidEvent -= StopTime;
             angleEvent.FloatEvent -= Angle;

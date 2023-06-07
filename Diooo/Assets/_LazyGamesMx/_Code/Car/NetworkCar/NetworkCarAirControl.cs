@@ -28,22 +28,17 @@ public class NetworkCarAirControl : NetworkBehaviour
         }
         
         private void Update()
-        {           
-            if (!IsOwner) return;
+        {
             grounded = CheckGrounded();
         }
         private void FixedUpdate()
         {
-            if (!IsOwner) return;
-
             if(grounded) return;
             AirControl();
         }
 
         private void AirControl()
         {
-            if (!IsOwner) return;
-
             Vector3 torque = new Vector3(GetDesiredPitch() * _torqueForce, 0f, -GetDesiredRoll() * _torqueForce);
             _rb.AddTorque(torque, ForceMode.Acceleration);
 
@@ -69,8 +64,6 @@ public class NetworkCarAirControl : NetworkBehaviour
 
         private void OnDrawGizmos()
         {
-            if (!IsOwner) return;
-
             Transform t = transform;
             Vector3 tPos = t.position;
             Debug.DrawRay(tPos + _yOffSetVector, (-t.up).normalized * _raycastDistance, Color.magenta);
@@ -78,8 +71,6 @@ public class NetworkCarAirControl : NetworkBehaviour
 
         private void Prepare()
         {
-            if (!IsOwner) return;
-
             // Load configurable values from Scriptable Object
             _torqueForce = carParametersSo.TorqueForce;
             _maxAngle = carParametersSo.MaxAngle;

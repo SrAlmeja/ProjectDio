@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{6a7465e5-72ee-4909-b12d-aa0e7d68e5d6}">
+		<property name="name">
+			<value>Derrape</value>
+		</property>
+		<relationship name="folder">
+			<destination>{dec483f8-202b-4464-86d9-a8d28804cc34}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{64a27c50-1526-4615-8465-e559d3c11aba}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{64a27c50-1526-4615-8465-e559d3c11aba}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

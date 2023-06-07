@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using Cinemachine;
-using com.LazyGames.Dio;
 
 public class CMDioCameraController : MonoBehaviour
 {
@@ -59,27 +57,14 @@ public class CMDioCameraController : MonoBehaviour
         CheckDependencies();
         GetRigs();
     }
-    
 
-    private void PrepareNetworkCamera()
+    public void SetTarget(Transform target)
     {
-        Debug.Log("PrepareNetworkCamera");  
-        CheckDependencies();
-    }
-    
-    public void SetTargetNetwork(Transform target)
-    {
-        Debug.Log("SetTargetNetwork");
         _playerTransform = target;
         _playerRigidBody = target.GetComponent<Rigidbody>();
-        PrepareNetworkCamera();
-        
     }
     private void Update()
     {
-        if (_playerRigidBody == null || _playerTransform == null)
-            return;
-        
         _currentSpeed = SpeedPercentage(); //Always leave this on top. It calculates % of the max speed. 
         ChangeFOV();
         ChangeShake();

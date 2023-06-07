@@ -37,7 +37,6 @@ namespace com.LazyGames.Dio
         public Action<bool> OnPlayerReady;
         public Action<GameStates> OnGameStateChange;
         public Action<bool> OnPlayerCompletedRace;
-        
         #endregion
 
         #region Serialized variables
@@ -132,6 +131,8 @@ namespace com.LazyGames.Dio
                HandleConnectedClients();
             }
             
+            MyGameState = GameStates.WaitingToStart;
+            
             //Handle Ready Players Input
             readyPlayerInput.OnPlayerReadyInput += OnGameInput_SetReady;
             
@@ -142,12 +143,10 @@ namespace com.LazyGames.Dio
 
             };
             
-            MyGameState = GameStates.WaitingToStart;
-            
             //Handle Countdown
             CountdownControllerMultiplayer.Instance.OnCountdownFinished += OnCountdownFinished;
             OnPlayerCompletedRace += OnPlayerFinishedRace;
-            
+
         }
 
         public bool IsInCountDownState()
@@ -249,7 +248,6 @@ namespace com.LazyGames.Dio
         private void HandleOnPlayersCompleteRace()
         {
             MyGameState = GameStates.GameOver;
-            SceneController.Instance.LoadSceneNetwork(SceneKeys.MAIN_MENU_SCENE);
         }
         
         private void OnPlayerFinishedRace(bool isLocalPlayer)
