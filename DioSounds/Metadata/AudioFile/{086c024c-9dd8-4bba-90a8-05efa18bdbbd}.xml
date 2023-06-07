@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{086c024c-9dd8-4bba-90a8-05efa18bdbbd}">
+		<property name="assetPath">
+			<value>SFX/Derrapes/SonidoDeDerrape_Loop_Car_SFX (1).wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.3749791666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{13be97d7-9ba1-4291-b49b-91756197b2e0}</destination>
+		</relationship>
+	</object>
+</objects>

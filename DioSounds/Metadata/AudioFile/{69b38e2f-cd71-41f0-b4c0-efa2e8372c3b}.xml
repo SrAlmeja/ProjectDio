@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{66ead234-7a5c-46df-b83e-52c27d8032fe}">
+	<object class="AudioFile" id="{69b38e2f-cd71-41f0-b4c0-efa2e8372c3b}">
 		<property name="assetPath">
-			<value>SFX/Derrapes/SonidoDeDerrape_Loop_Car_SFX (1).wav</value>
+			<value>SFX/Golpes/Luchador Golpeando Carro_One Shot_Gameplay_SFX.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>3.3749791666666669</value>
+			<value>6</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{13be97d7-9ba1-4291-b49b-91756197b2e0}</destination>

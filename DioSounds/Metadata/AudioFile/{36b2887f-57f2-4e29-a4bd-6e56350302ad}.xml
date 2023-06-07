@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{36b2887f-57f2-4e29-a4bd-6e56350302ad}">
+		<property name="assetPath">
+			<value>SFX/Golpes/Luchador Golpeando Carro_One Shot_Gameplay_SFX.wav.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>6.0208124999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{13be97d7-9ba1-4291-b49b-91756197b2e0}</destination>
+		</relationship>
+	</object>
+</objects>
