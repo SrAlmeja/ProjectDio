@@ -8,84 +8,116 @@ namespace com.LazyGames.Dio
 {
     public class NetworkCarImpulse : NetworkBehaviour
     {
-        [Header("Configurable Variables")]
+       [Header("Car Parameters Scriptable Object")]
+        [SerializeField] private CarParametersSo carParametersSo;
+
+        [Header("Serialized References")] 
         [SerializeField] private GameObject indicator;
-        [SerializeField]private float impulseRadius = 4.5f;
-        [SerializeField]private float impulseStrength = 5f;
-        // [SerializeField] private float impulseSens = .1f;
-        [Tooltip("vertical offset of the center of the sphere")]
-        [SerializeField] private float yOffset = .1f;
+        [SerializeField] private GameObject fighter;
+        [SerializeField] private GameObject driverSeat;
 
-        private Vector3 offsetVector;
-        private Rigidbody rb;
-        private float impulseAngle;
-        private Vector3 impulseCenter;
-        private Vector3 impulsePos;
-        private Vector3 impulseDir;
-        private NetworkSteeringEventsListener _listener;
+        private float _impulseForce;
+        private float _angleLerpSpeed;
+        private float _indicatorOffset;
+        private float _indicatorRadius;
+        private float _fighterRadius;
+        
+        private Rigidbody _rb;
+        private DebugSteeringEventsListener _listener;
+        private VoidEventChannelSO _impulseEvent;
+        private Vector3 _indicatorCenter;
+        private Vector3 _indicatorOffsetVector;
 
-        // Start is called before the first frame update
-        public override void OnNetworkSpawn()
+        private float _currentFighterAngle;
+        private float _targetFighterAngle;
+        private float _currentIndicatorAngle;
+        private float _targetIndicatorAngle;
+        
+        private Car_TimeControl _timeControl;
+        public event System.Action DoPunchEvent;
+        
+        private void Start()
         {
-            if(!IsOwner) return;
             Prepare();
-            base.OnNetworkSpawn();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            if(!IsOwner) return;
-            GetDirection(); 
             Visualize();
-            impulseCenter = transform.position + new Vector3(0, yOffset, 0);
+            AngleSmoothing();
         }
 
-        private void Visualize()
+        void Visualize()
         {
-            if(!IsOwner) return;
-            if(!IsOwner) return;
-            indicator.SetActive(_listener.stopTime);
-            if(!_listener.stopTime)return;
-            impulseAngle = _listener.rotate;
-            indicator.transform.position = impulsePos;
-            indicator.transform.rotation = CryoMath.AimAtDirection(impulseCenter, impulsePos);
+            ManageFighter();
+            ManageIndicator();
         }
 
-        private void GetDirection()
+        private void ManageFighter()
         {
-            if(!IsOwner) return;
-            //need to express current car velocity using indicator and its scale
-            // Vector2 vel = new Vector2(rb.velocity.x, rb.velocity.z);
-            // var angle = CryoMath.AngleFromOffset(vel);
-           impulsePos = CryoMath.PointOnRadius(impulseCenter, impulseRadius , impulseAngle);
-           
+            if (!_timeControl.isSlow)
+            {
+                fighter.transform.position = driverSeat.transform.position;
+                fighter.transform.rotation = driverSeat.transform.rotation;
+            }
+            else
+            {
+                _targetFighterAngle = CryoMath.AngleFromOffset(_listener.vec2Input);
+                Vector3 pos = fighter.transform.position;
+                pos = CryoMath.PointOnRadiusRelative(transform, _fighterRadius, _currentFighterAngle);
+                fighter.transform.position = pos;
+                fighter.transform.rotation = CryoMath.AimAtDirection(fighter.transform.position, transform.position);
+            }
         }
 
-        public void ApplyImpulse()
+        private void ManageIndicator()
         {
-            if(!IsOwner) return;
-            if(!_listener.stopTime)return;
-            impulseDir = impulsePos - transform.position;
-            rb.AddForce(impulseDir.normalized * impulseStrength);
+            indicator.SetActive(_timeControl.isSlow);
+            if(!_timeControl.isSlow) return;
+            _indicatorCenter = transform.position + _indicatorOffsetVector;
+            Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
+            _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
+            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
+            indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
         }
 
-        private void OnDrawGizmos()
+        private void ApplyImpulse()
         {
-            if(!IsOwner) return;
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(impulseCenter, impulseRadius);
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(impulsePos,.3f);
+            if (!_timeControl.isSlow) return;
+            Vector3 dir = (transform.position - fighter.transform.position).normalized;
+            _rb.AddForce(dir * _impulseForce, ForceMode.VelocityChange);
+            DoPunchEvent?.Invoke();
         }
 
+        void AngleSmoothing()
+        {
+            if(!_timeControl.isSlow) return;
+            LerpAngle(ref _currentFighterAngle, _targetFighterAngle, _angleLerpSpeed);
+            LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, _angleLerpSpeed);
+        }
+
+        private void LerpAngle(ref float currentAngle, float targetAngle, float angleChangeSpeed)
+        {
+            currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, angleChangeSpeed * Time.fixedUnscaledDeltaTime);
+        }
+        
         private void Prepare()
         {
-            if(!IsOwner) return;
-            rb = GetComponent<Rigidbody>();
-            impulseStrength = impulseStrength * rb.mass;
-            _listener = GetComponent<NetworkSteeringEventsListener>();
+            // Load configurable values from Scriptable Object
+            _impulseForce = carParametersSo.ImpulseForce;
+            _angleLerpSpeed = carParametersSo.AngleLerpSpeed;
+            _indicatorOffset = carParametersSo.IndicatorOffset;
+            _indicatorRadius = carParametersSo.IndicatorRadius;
+            _fighterRadius = carParametersSo.FighterRadius;
             
+            _rb = GetComponent<Rigidbody>();
+            _timeControl = GetComponent<Car_TimeControl>();
+            _listener = GetComponent<DebugSteeringEventsListener>();
+            
+            //subscribes to impulse event
+            _listener.DoImpulseEvent += ApplyImpulse;
+            
+            _indicatorOffsetVector = new Vector3(0, _indicatorOffset, 0);
         }
     }
 }

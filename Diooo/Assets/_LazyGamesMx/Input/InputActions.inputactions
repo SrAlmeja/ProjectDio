@@ -622,8 +622,8 @@
                 },
                 {
                     "name": "",
-                    "id": "b939a7ad-b6d7-4d79-be49-436744e4365a",
-                    "path": "<Gamepad>/start",
+                    "id": "b9df215b-b377-4fa4-adc5-23475d1e7985",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

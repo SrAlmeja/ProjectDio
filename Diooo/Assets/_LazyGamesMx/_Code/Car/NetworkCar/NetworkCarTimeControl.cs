@@ -31,7 +31,7 @@ namespace com.LazyGames.Dio
         void Slow()
         {
             if(!IsOwner) return;
-            doSlow = _listener.stopTime;
+            // doSlow = _listener.stopTime;
             switch (doSlow)
             {
                 case true:
