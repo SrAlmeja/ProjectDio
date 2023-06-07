@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace com.LazyGames.Dio
@@ -18,11 +19,10 @@ namespace com.LazyGames.Dio
             Vector3 relativePosition = other.transform.position - transform.position;
 
             if (Vector3.Dot(relativePosition, transform.forward) > 0)
-            {
+            {       
                 if (!collidedWithFront)
                 {
-                    collidedWithFront = true;
-                    return;
+                    StartCoroutine(CollisionDelay());
                 }
                 if (collidedWithFront)
                 {
@@ -34,6 +34,12 @@ namespace com.LazyGames.Dio
             {
                 collidedWithFront = false;
             }
+        }
+
+        IEnumerator CollisionDelay()
+        {
+            yield return new WaitForSeconds(15);
+            collidedWithFront = true;
         }
     }
 }
