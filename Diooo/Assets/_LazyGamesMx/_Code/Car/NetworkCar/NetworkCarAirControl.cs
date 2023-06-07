@@ -28,11 +28,14 @@ public class NetworkCarAirControl : NetworkBehaviour
         }
         
         private void Update()
-        {
+        {           
+            if (!IsOwner) return;
             grounded = CheckGrounded();
         }
         private void FixedUpdate()
         {
+            if (!IsOwner) return;
+
             if(grounded) return;
             AirControl();
         }

@@ -47,6 +47,8 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void Update()
         {
+            if (!IsOwner) return;
+
             CheckHealth();
             _currentHealth = LerpHealth();
             _elapsedTime += Time.fixedDeltaTime;
@@ -62,6 +64,8 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void OnTriggerEnter(Collider other)
         {
+            if(!IsOwner) return;
+
             if (!other.CompareTag("CheckPoint")) return;
             Transform t = other.transform;
             UpdateCheckPoint(t.position, t.rotation);
@@ -82,6 +86,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void OnCollisionEnter(Collision other)
         {
+            if(!IsOwner) return;
             _carParticlesManager.PlaySparksParticle(other.contacts[0].point);
             if (_elapsedTime < _damageCooldown) return;
             float mag  = other.relativeVelocity.magnitude;
@@ -118,6 +123,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
         
         private void Respawn()
         {
+            if (!IsOwner) return;
             OnRespawn?.Invoke();
             isDead = false;
             transform.position = _respawnPosition;
@@ -167,4 +173,6 @@ public class NetworkCar_Respawn : NetworkBehaviour
             
             // Subscribe to punch event
             _carImpulse.DoPunchEvent += Punched;
-        } }
+        }
+        
+}

@@ -41,7 +41,8 @@ public class NetworkSteeringControls : NetworkBehaviour
 
         void Update()
         {
-        
+            if (!IsOwner) return;
+
             UpdateWheels();
             ApplySteering();
             AirResist();

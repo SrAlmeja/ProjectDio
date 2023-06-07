@@ -18,6 +18,7 @@ public class NetworkCarParticles : NetworkBehaviour
 
         public override void OnNetworkSpawn()
         {
+            if (!IsOwner) return;
             Prepare();
         }
         
