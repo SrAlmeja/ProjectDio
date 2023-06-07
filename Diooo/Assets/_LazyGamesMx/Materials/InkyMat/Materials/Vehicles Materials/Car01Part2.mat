@@ -106,6 +106,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Emision: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -113,10 +114,13 @@ Material:
     - _Green_Value: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _OutlineThickness: 0.1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Shadow_Step: 0
+    - _Shine: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -130,10 +134,12 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.34242612, g: 0.37173107, b: 0.5377358, a: 1}
-    - _PathernShadowColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _PathernShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0.12941514, g: 0, b: 0.5660378, a: 1}
     - _ShadowTilling: {r: 100, g: 100, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _TextureTilling: {r: 1, g: 1, b: 0, a: 0}
     - _TextureTillingX: {r: 0, g: 0, b: 0, a: 0}
     - _TextureTillingY: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

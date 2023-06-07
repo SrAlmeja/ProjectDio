@@ -40,6 +40,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -102,6 +106,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Emision: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -113,6 +118,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Shadow_Step: 0.3
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -126,10 +132,11 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.3018868, g: 0.18036729, b: 0.064079754, a: 1}
-    - _PathernShadowColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowColor: {r: 0.122641504, g: 0.037854478, b: 0, a: 1}
+    - _PathernShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0.12941514, g: 0, b: 0.5660378, a: 1}
     - _ShadowTilling: {r: 100, g: 100, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _TextureTilling: {r: 1, g: 1, b: 0, a: 0}
     - _TextureTillingX: {r: 0, g: 0, b: 0, a: 0}
     - _TextureTillingY: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
