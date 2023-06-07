@@ -10,7 +10,7 @@ namespace com.LazyGames.Dio
         [SerializeField] private IntValue intValue;
 
         private MySqlConnection _connection;
-        private string _connectionString = "Server=sql9.freemysqlhosting.net;Database=sql9622584;Uid=sql9622584;Pwd=SjSaWxf3nE;";
+        private string _connectionString = "Server=sql9.freemysqlhosting.net;Database=sql9624309;Uid=sql9624309;Pwd=NByWdhK7Vk;";
 
         private void Start()
         {
