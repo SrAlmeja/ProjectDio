@@ -65,6 +65,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
         private void OnTriggerEnter(Collider other)
         {
             if(!IsOwner) return;
+            Debug.Log("collided" + other.gameObject.name);
             if (!other.CompareTag("CheckPoint")) return;
             Transform t = other.transform;
             UpdateCheckPoint(t.position, t.rotation);
@@ -87,6 +88,8 @@ public class NetworkCar_Respawn : NetworkBehaviour
         private void OnCollisionEnter(Collision other)
         {
             if(!IsOwner) return;
+            
+            Debug.Log("collided" + other.gameObject.name);
             _carParticlesManager.PlaySparksParticle(other.contacts[0].point);
             if (_elapsedTime < _damageCooldown) return;
             float mag  = other.relativeVelocity.magnitude;

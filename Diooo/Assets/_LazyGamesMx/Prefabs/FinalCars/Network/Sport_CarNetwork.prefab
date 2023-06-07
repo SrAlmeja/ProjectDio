@@ -1865,10 +1865,9 @@ GameObject:
   - component: {fileID: 339885046089500886}
   - component: {fileID: 404040822789571907}
   - component: {fileID: 339885046089500921}
-  - component: {fileID: 339885046089500908}
   - component: {fileID: 339885046089500885}
   - component: {fileID: 339885046089500906}
-  - component: {fileID: 339885046089500907}
+  - component: {fileID: 339885046089500908}
   - component: {fileID: 339885046089500904}
   - component: {fileID: 339885046089500905}
   - component: {fileID: 339885046089500910}
@@ -1988,22 +1987,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &339885046089500908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339885046089500913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700779e6f2554994880edd066d06cdc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carParametersSo: {fileID: 11400000, guid: 5409efb46b398874dacf40d597d488c9, type: 2}
-  indicator: {fileID: 339885047080340814}
-  fighter: {fileID: 339885046652900797}
-  driverSeat: {fileID: 339885047751352337}
 --- !u!114 &339885046089500885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2050,7 +2033,7 @@ MonoBehaviour:
   lT: 0
   rT: 0
   vec2Input: {x: 0, y: 0}
---- !u!114 &339885046089500907
+--- !u!114 &339885046089500908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2059,20 +2042,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 339885046089500913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06743ff4e4a4c34a92e3c3819c60be6, type: 3}
+  m_Script: {fileID: 11500000, guid: 700779e6f2554994880edd066d06cdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorForce: 2000
-  maxSteerAngle: 30
-  maxBreakForce: 8000
-  frontLeftWheelCollider: {fileID: 339885047428255418}
-  frontRightWheelCollider: {fileID: 339885046695253544}
-  rearLeftWheelCollider: {fileID: 339885047156093075}
-  rearRightWheelCollider: {fileID: 339885047005938286}
-  frontLeftWheelTransform: {fileID: 335383171906228746}
-  frontRightWheeTransform: {fileID: 340100412925901368}
-  rearLeftWheelTransform: {fileID: 335366097567814598}
-  rearRightWheelTransform: {fileID: 335452046259939294}
+  carParametersSo: {fileID: 11400000, guid: 5409efb46b398874dacf40d597d488c9, type: 2}
+  indicator: {fileID: 339885047080340814}
+  fighter: {fileID: 339885046652900797}
+  driverSeat: {fileID: 339885047751352337}
 --- !u!114 &339885046089500904
 MonoBehaviour:
   m_ObjectHideFlags: 0

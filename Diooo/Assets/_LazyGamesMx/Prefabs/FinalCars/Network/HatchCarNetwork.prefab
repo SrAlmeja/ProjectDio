@@ -1027,7 +1027,6 @@ GameObject:
   - component: {fileID: 2860502561306000319}
   - component: {fileID: 2860502561306000316}
   - component: {fileID: 2860502561306000317}
-  - component: {fileID: 2860502561306000314}
   - component: {fileID: 2860502561306000315}
   - component: {fileID: 2860502561306000312}
   - component: {fileID: 2860502561306000313}
@@ -1209,29 +1208,6 @@ MonoBehaviour:
   lT: 0
   rT: 0
   vec2Input: {x: 0, y: 0}
---- !u!114 &2860502561306000314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860502561306000325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06743ff4e4a4c34a92e3c3819c60be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motorForce: 2000
-  maxSteerAngle: 30
-  maxBreakForce: 8000
-  frontLeftWheelCollider: {fileID: 2860502561588921098}
-  frontRightWheelCollider: {fileID: 2860502563087133923}
-  rearLeftWheelCollider: {fileID: 2860502563304833978}
-  rearRightWheelCollider: {fileID: 2860502561567732082}
-  frontLeftWheelTransform: {fileID: 2856189660461523903}
-  frontRightWheeTransform: {fileID: 2863494771090957313}
-  rearLeftWheelTransform: {fileID: 2855916639376916449}
-  rearRightWheelTransform: {fileID: 2855983967418193441}
 --- !u!114 &2860502561306000315
 MonoBehaviour:
   m_ObjectHideFlags: 0
