@@ -95,7 +95,9 @@ public class NetworkCarInputsWrapper : NetworkBehaviour
     
     
     void GetHandBrakeInput(InputAction.CallbackContext context)
-    {
+    {        
+        if (!IsOwner) return;
+
         if(context.ReadValue<float>() == 0)
         {
             handbrakeEvent.RaiseEvent(false);
