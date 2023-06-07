@@ -36,8 +36,7 @@ namespace com.LazyGames.Dio
 
         public Action<bool> OnPlayerReady;
         public Action<GameStates> OnGameStateChange;
-        public Action<ClientRpcParams> OnFinishedSpawnPlayers;
-
+        public Action<bool> OnPlayerCompletedRace;
         #endregion
 
         #region Serialized variables
@@ -45,7 +44,7 @@ namespace com.LazyGames.Dio
         [Header("Player Spawn Points")]
         [SerializeField] private List<Transform> placesToSpawnCars;
         [Header("Player Prefab")]
-        [SerializeField] private Transform playerCarPrefab;
+        [SerializeField] private Transform[] playerCarsPrefab;
         // [SerializeField] private Transform networkCameraPrefab;
         [Header("Events Player")]
         [SerializeField] private ReadyPlayerInput readyPlayerInput;
@@ -63,8 +62,11 @@ namespace com.LazyGames.Dio
         private int _spawnIndex = 0;
         private int _playersConnected = 0;
         private bool _isLocalPlayerReady = false;
-        
+        private bool _isLocalPlayerFinishedRace = false;
+        private int _playersCrossedFinishLine = 0;
         private Dictionary<ulong,bool> playerReadyDictionary = new Dictionary<ulong, bool>();
+        private Dictionary<ulong,bool> _playersCompletedRace = new Dictionary<ulong, bool>();
+        
 
         private GameStates MyGameState
         {
@@ -143,6 +145,7 @@ namespace com.LazyGames.Dio
             
             //Handle Countdown
             CountdownControllerMultiplayer.Instance.OnCountdownFinished += OnCountdownFinished;
+            OnPlayerCompletedRace += OnPlayerFinishedRace;
 
         }
 
@@ -160,6 +163,7 @@ namespace com.LazyGames.Dio
         {
             return MyGameState;
         }
+        
         #endregion
 
         #region private methods
@@ -184,19 +188,27 @@ namespace com.LazyGames.Dio
                     return;
                 }
                 
-                Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex - 1].name);
+                Transform spawnPoint = placesToSpawnCars[_spawnIndex - 1];
+                // Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + spawnPoint.name);
                 
-                Transform playerTransform = Instantiate(playerCarPrefab);
-                playerTransform.name = "CAR CLIENT = "+ clientID;
-                playerTransform.position = placesToSpawnCars[_spawnIndex - 1].position;
-                
-                NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
-                networkCarObject.SpawnAsPlayerObject(clientID, true);
-                
-                Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+                if(spawnPoint != null)
+                {
+                    SpawnPlayer(clientID, spawnPoint);
+                }
             }
         }
-        
+
+        private void SpawnPlayer(ulong clientID, Transform spawnPoint)
+        {
+            Transform playerTransform = Instantiate(playerCarsPrefab[clientID]);
+            // playerTransform.name = "CAR CLIENT = "+ clientID;
+            playerTransform.position = spawnPoint.position;
+                
+            NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
+            networkCarObject.SpawnAsPlayerObject(clientID, true);
+                
+            // Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+        }
         
         private void OnGameInput_SetReady()
         {
@@ -233,7 +245,44 @@ namespace com.LazyGames.Dio
             MyGameState = GameStates.GamePlaying;
         }
         
-        #endregion
+        private void HandleOnPlayersCompleteRace()
+        {
+            MyGameState = GameStates.GameOver;
+        }
+        
+        private void OnPlayerFinishedRace(bool isLocalPlayer)
+        {
+            _isLocalPlayerFinishedRace = isLocalPlayer;
+            PlayerFinishRaceServerRpc();
+            
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void PlayerFinishRaceServerRpc(ServerRpcParams serverRpcParams = default)
+        {
+            //Check Other Players
+            _playersCompletedRace[serverRpcParams.Receive.SenderClientId] = true;
+            bool allClientsFinishedRace = true;
+            foreach (ulong clientID in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                if (!_playersCompletedRace.ContainsKey(clientID) || !_playersCompletedRace[clientID])
+                {
+                    allClientsFinishedRace = false;
+                    // Debug.Log("<color=#FA3929>Client has not pass the goal + : </color>" + clientID );
+                    break;
+                }
+            }
+            
+            if (allClientsFinishedRace)
+            {
+                HandleOnPlayersCompleteRace();
+            }
+        }
+
+       
+        
+
+    #endregion
     }
     
 }
