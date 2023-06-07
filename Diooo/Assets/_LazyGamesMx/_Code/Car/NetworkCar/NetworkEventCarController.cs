@@ -56,7 +56,6 @@ namespace com.LazyGames.Dio
         private void ApplyBreaking()
         {
             if (!IsOwner) return;
-            if (!IsOwner) return;
             frontRightWheelCollider.brakeTorque = breakForce;
             frontLeftWheelCollider.brakeTorque = breakForce;
             switch (_steeringEventsListener.handBrake)

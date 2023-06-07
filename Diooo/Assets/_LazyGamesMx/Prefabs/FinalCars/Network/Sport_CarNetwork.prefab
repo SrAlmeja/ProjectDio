@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 340420276981114660}
   - component: {fileID: 346714256181508148}
   - component: {fileID: 352702402227354232}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Attach_Number_Plate_02 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 340513521595338688}
   - component: {fileID: 343110039062220880}
   - component: {fileID: 353089717029715944}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Attach_Number_Plate_02 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1250,7 @@ GameObject:
   - component: {fileID: 342567636979894704}
   - component: {fileID: 352816085111858584}
   - component: {fileID: 311075442376273978}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Sports_01_Front_Bumper_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1764,7 +1764,7 @@ GameObject:
   - component: {fileID: 342757113375556398}
   - component: {fileID: 352671648929720588}
   - component: {fileID: 311765794856704682}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Sports_01_Rear_Bumper_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1970,8 +1970,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.22, z: 0.22}
-  m_Center: {x: 0, y: 0.84, z: 1.71}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 1.06, z: 1.77}
 --- !u!54 &339885046089500921
 Rigidbody:
   m_ObjectHideFlags: 0

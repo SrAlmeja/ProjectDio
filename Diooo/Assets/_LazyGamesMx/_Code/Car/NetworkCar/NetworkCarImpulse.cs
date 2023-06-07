@@ -61,6 +61,8 @@ namespace com.LazyGames.Dio
 
         private void ManageFighter()
         {
+            if (!IsOwner) return;
+
             if (!_timeControl.isSlow)
             {
                 fighter.transform.position = driverSeat.transform.position;
@@ -76,16 +78,30 @@ namespace com.LazyGames.Dio
             }
         }
 
+        // private void ManageIndicator()
+        // {
+        //     indicator.SetActive(_timeControl.isSlow);
+        //     if (!_timeControl.isSlow) return;
+        //     _indicatorCenter = transform.position + _indicatorOffsetVector;
+        //     Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
+        //     _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
+        //     indicator.transform.position =
+        //         CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
+        //     indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
+        // }
+        
         private void ManageIndicator()
         {
+            if (!IsOwner) return;
+
             indicator.SetActive(_timeControl.isSlow);
-            if (!_timeControl.isSlow) return;
+            if(!_timeControl.isSlow) return;
             _indicatorCenter = transform.position + _indicatorOffsetVector;
             Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
             _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
-            indicator.transform.position =
-                CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
+            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
             indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
+            indicator.transform.localScale *= (GetScale(_rb.velocity.magnitude));
         }
 
         private float GetScale(float mag)
@@ -106,6 +122,8 @@ namespace com.LazyGames.Dio
 
         private void ApplyImpulse()
         {
+            if (!IsOwner) return;
+
             if (!_timeControl.isSlow) return;
             Vector3 dir = (transform.position - fighter.transform.position).normalized;
             _rb.AddForce(dir * _impulseForce, ForceMode.VelocityChange);
@@ -114,6 +132,8 @@ namespace com.LazyGames.Dio
 
         void AngleSmoothing()
         {
+            if (!IsOwner) return;
+
             if (!_timeControl.isSlow) return;
             LerpAngle(ref _currentFighterAngle, _targetFighterAngle, _angleLerpSpeed);
             LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, _angleLerpSpeed);
@@ -121,6 +141,8 @@ namespace com.LazyGames.Dio
 
         private void LerpAngle(ref float currentAngle, float targetAngle, float angleChangeSpeed)
         {
+            if (!IsOwner) return;
+
             currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, angleChangeSpeed * Time.fixedUnscaledDeltaTime);
         }
 

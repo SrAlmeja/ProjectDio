@@ -924,7 +924,7 @@ GameObject:
   - component: {fileID: 2866333964951294945}
   - component: {fileID: 2875032839834135259}
   - component: {fileID: 2834708542285350383}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Hatch_01_Front_Bumper_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,8 +1129,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.22, z: 0.22}
-  m_Center: {x: 0, y: 1.06, z: 1.4}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 1.13, z: 1.77}
 --- !u!54 &2860502561306000381
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3446,7 +3446,7 @@ GameObject:
   - component: {fileID: 2863528621042308201}
   - component: {fileID: 2865831006413208061}
   - component: {fileID: 2875491034685860497}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Hatch_01_Rear_Bumper_03_Exhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4113,7 +4113,7 @@ GameObject:
   - component: {fileID: 2866314630058882951}
   - component: {fileID: 2874240026748162353}
   - component: {fileID: 2834714993789412215}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Hatch_01_Rear_Bumper_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

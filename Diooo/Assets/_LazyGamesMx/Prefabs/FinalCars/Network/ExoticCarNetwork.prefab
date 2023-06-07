@@ -17235,7 +17235,7 @@ GameObject:
   - component: {fileID: 8311691282191331747}
   - component: {fileID: 8295815171808469819}
   - component: {fileID: 8288132849879948755}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Exotic_01_Rear_Bumper_01_Exhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17485,7 +17485,7 @@ GameObject:
   - component: {fileID: 8299856094869219229}
   - component: {fileID: 8287593159560812357}
   - component: {fileID: 8336605569519867457}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Exotic_01_Rear_Bumper_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17835,7 +17835,7 @@ GameObject:
   - component: {fileID: 8295860212488619361}
   - component: {fileID: 8287762013728041937}
   - component: {fileID: 8337562908489126413}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Exotic_01_Front_Bumper_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23003,8 +23003,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.22, z: 0.22}
-  m_Center: {x: 0, y: 0.85, z: 1.77}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 1.06, z: 1.77}
 --- !u!114 &8728147907951075571
 MonoBehaviour:
   m_ObjectHideFlags: 0

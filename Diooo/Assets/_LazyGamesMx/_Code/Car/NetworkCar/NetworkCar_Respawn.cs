@@ -39,7 +39,6 @@ public class NetworkCar_Respawn : NetworkBehaviour
         public override void OnNetworkSpawn()
         {
             if (!IsOwner) return;
-            
             Prepare();
             _targetHealth = _maxHealth;
         }
@@ -58,6 +57,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void CheckHealth()
         {
+            if(!IsOwner) return;
             if (_targetHealth > 0) return;
             Explode();
         }
@@ -65,7 +65,6 @@ public class NetworkCar_Respawn : NetworkBehaviour
         private void OnTriggerEnter(Collider other)
         {
             if(!IsOwner) return;
-
             if (!other.CompareTag("CheckPoint")) return;
             Transform t = other.transform;
             UpdateCheckPoint(t.position, t.rotation);
@@ -73,6 +72,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void UpdateCheckPoint(Vector3 pos, Quaternion rot)
         {
+            if(!IsOwner) return;
             _respawnPosition = pos;
             _respawnRotation = rot;
             // Debug.Log($"updated checkpoint to {pos}");
@@ -111,6 +111,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void TakeDamage(float damage)
         {
+            if(!IsOwner) return;
             _targetHealth -= damage;
             // Debug.Log($"took {damage} dmg");
         }
@@ -136,6 +137,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void Punched()
         {
+            if(!IsOwner) return;
             _carParticlesManager.PlaySparksParticle(transform.position);
             TakeDamage(carParametersSo.PunchDamage);
         }
@@ -149,6 +151,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void Explode()
         {
+            if(!IsOwner) return;
             isDead = true;
             visuals.SetActive(false);
             // play sound
@@ -157,6 +160,8 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void Prepare()
         {
+            if(!IsOwner) return;
+
             // Load configurable values from Scriptable Object
             _maxHealth = carParametersSo.MaxHealth;
             _healthLerpSpeed = carParametersSo.HealthLerpSpeed;
