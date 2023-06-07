@@ -797,11 +797,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handBrake: 0
-  stopTime: 0
   angle: 0
   torque: 0
-  rotate: 0
-  Vec2Input: {x: 0, y: 0}
+  vec2Input: {x: 0, y: 0}
   _handBrakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
   _stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
   _angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
@@ -837,7 +835,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 195f0cbb6f06ff44bb3d19a9c25ed31f, type: 3}
   _hanbreakEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
-  _stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
   _angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
   _torqueEvent: {fileID: 11400000, guid: d126da3e8072e054da446099c167dba8, type: 2}
   _rotateEvent: {fileID: 11400000, guid: 8360420cbd3f99f45840eec26959f6a7, type: 2}
@@ -850,15 +847,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4733076956674025725}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 700779e6f2554994880edd066d06cdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carParametersSo: {fileID: 0}
   indicator: {fileID: 2934872202642037963}
-  impulseRadius: 4.5
-  impulseStrength: 250
-  yOffset: 0.1
+  fighter: {fileID: 0}
+  driverSeat: {fileID: 0}
 --- !u!114 &4735771677213841880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,7 +863,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4733076956674025725}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d0b8ad69de8a2b44a77e67d38f9b0a2, type: 3}
   m_Name: 

@@ -18,7 +18,7 @@ using UnityEngine.InputSystem;
             InputAction impulseInputAction;
 
             [SerializeField] private BoolEventChannelSO _hanbreakEvent;
-            [SerializeField] private BoolEventChannelSO _stopTimeEvent;
+            // [SerializeField] private BoolEventChannelSO _stopTimeEvent;
             [SerializeField] private FloatEventChannelSO _angleEvent;
             [SerializeField] private FloatEventChannelSO _torqueEvent;
             [SerializeField] private FloatEventChannelSO _rotateEvent;
@@ -115,13 +115,13 @@ using UnityEngine.InputSystem;
                 if (!IsOwner) return;
                 if(_tap == 0)
                 {
-                    _stopTimeEvent.RaiseEvent(true);
+                    // _stopTimeEvent.RaiseEvent(true);
                     _tap = 1;
                     return;
                 }
                 if(_tap == 1)
                 {
-                    _stopTimeEvent.RaiseEvent(false);
+                    // _stopTimeEvent.RaiseEvent(false);
                     _tap = 0;
                     return;
                 }
