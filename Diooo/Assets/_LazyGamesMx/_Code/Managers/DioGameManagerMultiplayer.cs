@@ -36,8 +36,8 @@ namespace com.LazyGames.Dio
 
         public Action<bool> OnPlayerReady;
         public Action<GameStates> OnGameStateChange;
-        public Action<ClientRpcParams> OnFinishedSpawnPlayers;
-
+        public Action OnAllPlayersCompleteRace;
+        public Action<ulong> OnPlayerFinishRace;
         #endregion
 
         #region Serialized variables
@@ -143,6 +143,7 @@ namespace com.LazyGames.Dio
             
             //Handle Countdown
             CountdownControllerMultiplayer.Instance.OnCountdownFinished += OnCountdownFinished;
+            OnAllPlayersCompleteRace += HandleOnPlayersCompleteRace;
 
         }
 
@@ -160,6 +161,7 @@ namespace com.LazyGames.Dio
         {
             return MyGameState;
         }
+        
         #endregion
 
         #region private methods
@@ -184,19 +186,27 @@ namespace com.LazyGames.Dio
                     return;
                 }
                 
-                Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + placesToSpawnCars[_spawnIndex - 1].name);
+                Transform spawnPoint = placesToSpawnCars[_spawnIndex - 1];
+                // Debug.Log("<color=#C9FE3B>Players spawned = </color>"+ _spawnIndex + " in object =  " + spawnPoint.name);
                 
-                Transform playerTransform = Instantiate(playerCarPrefab);
-                playerTransform.name = "CAR CLIENT = "+ clientID;
-                playerTransform.position = placesToSpawnCars[_spawnIndex - 1].position;
-                
-                NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
-                networkCarObject.SpawnAsPlayerObject(clientID, true);
-                
-                Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+                if(spawnPoint != null)
+                {
+                    SpawnPlayer(clientID, spawnPoint);
+                }
             }
         }
-        
+
+        private void SpawnPlayer(ulong clientID, Transform spawnPoint)
+        {
+            Transform playerTransform = Instantiate(playerCarPrefab);
+            playerTransform.name = "CAR CLIENT = "+ clientID;
+            playerTransform.position = spawnPoint.position;
+                
+            NetworkObject networkCarObject = playerTransform.GetComponent<NetworkObject>();
+            networkCarObject.SpawnAsPlayerObject(clientID, true);
+                
+            Debug.Log("<color=#7AEFFF>Spawned player for clientID: </color>" + clientID ); 
+        }
         
         private void OnGameInput_SetReady()
         {
@@ -232,6 +242,17 @@ namespace com.LazyGames.Dio
             if (!IsServer) return;
             MyGameState = GameStates.GamePlaying;
         }
+        
+        private void HandleOnPlayersCompleteRace()
+        {
+            MyGameState = GameStates.GameOver;
+            Debug.Log("<color=#7AEFFF>Game Over</color>");
+        }
+        
+        // private void OnPlayerFinishRaceServerRPC(ulong clientID)
+        // {
+            // OnPlayerFinishRace?.Invoke(clientID);
+        // }
         
         #endregion
     }

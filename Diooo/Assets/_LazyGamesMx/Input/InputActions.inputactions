@@ -11,13 +11,22 @@
                     "id": "2fdef36c-c990-45c5-9813-bc9f9f6be3cb",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold(duration=1.401298E-45)",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Acceleration",
+                    "name": "LeftTrigger",
                     "type": "Value",
-                    "id": "0f4ce953-0d70-4393-8d4b-436e0bb18396",
+                    "id": "3c248948-e6f6-4bf5-8dcf-1fa075a43c75",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RightTrigger",
+                    "type": "Value",
+                    "id": "64f2c641-766f-45a8-9c07-6a9f37414ceb",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
@@ -82,94 +91,6 @@
                     "action": "HandBrake",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ea6e17c1-3111-4153-b4ac-5cf68f632dfb",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee5a351d-fa9b-4128-959a-a34f4bde7dff",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "Invert",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Arrows",
-                    "id": "0b150777-d761-483d-9f13-58ed1ffe92f8",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "8f6a26b1-e047-4c97-b25c-8d54d7e4afe4",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "08ec7cf2-dca4-4c40-bf12-3cc5bd2294c5",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "WS",
-                    "id": "c72b5624-99e0-4ead-af9a-bf043064e84c",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "da094d14-22f6-4485-bbea-240f1f13ddc8",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "3429c90a-d09f-4899-bc4b-6af162cf644e",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Acceleration",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -322,6 +243,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Impulse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "693f6749-5f21-45a8-97aa-5cc1ea31545f",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d63b89b-325c-4a6b-a01c-22aa0e8586f6",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -657,8 +600,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "e1636e5d-6043-410b-a66d-dcc2e540385b",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "f4f1dbb7-bf04-450f-9f18-8ffda70abc7f",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -668,8 +611,8 @@
                 },
                 {
                     "name": "",
-                    "id": "674f2f26-6e42-420a-93b3-cf722ab7dddb",
-                    "path": "<Keyboard>/space",
+                    "id": "c0391e33-ee41-4b3a-9e6a-2b818270c210",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -687,6 +630,67 @@
                     "action": "GoToMatch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5330699d-b76e-44cb-87c3-0cffcc89785c",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoToMatch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "696fc3b2-5054-412f-beb9-457976048cd5",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "d6d89cd8-a812-47ea-a9c4-0d3cf6a291b2",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "d41243fe-276c-433b-9632-395769363a91",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "right",
+                    "id": "d4fd1722-1395-4ed3-80d2-d6a76fecc577",
+                    "path": "<Gamepad>/rightStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "b9cd5171-2693-4852-8b24-42bcbd1f8c54",
+                    "path": "<Gamepad>/rightStick/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

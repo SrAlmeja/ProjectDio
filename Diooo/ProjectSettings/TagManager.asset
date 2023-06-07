@@ -16,6 +16,7 @@ TagManager:
   - Roads
   - Lights
   - Focal Points
+  - CheckPoint
   layers:
   - Default
   - TransparentFX

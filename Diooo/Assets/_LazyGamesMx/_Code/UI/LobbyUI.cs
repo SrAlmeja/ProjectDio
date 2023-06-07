@@ -94,6 +94,9 @@ namespace com.LazyGames.Dio
             UploadLobbyCode();
             UpdatePlayerCount();
             SpawnPlayersInRoom();
+            goToMatchInput.PrepareInputs();
+
+            
         }
 
         void JoinClientUpdate(ulong clientId)
@@ -104,8 +107,7 @@ namespace com.LazyGames.Dio
             {
                 startGameTxt.gameObject.SetActive(true);
                 _canStartMatch = true;
-                if(IsServer)
-                    goToMatchInput.PrepareInputs();
+                goToMatchInput.PrepareInputs();
             }
         }
             
