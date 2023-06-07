@@ -1,11 +1,9 @@
 //Raymundo cryoStorage Mosqueda 07/03/2023
-//
 
-using System;
-using QFSW.QC;
+using CryoStorage;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+
 namespace com.LazyGames.Dio
 {
     public class Car_TimeControl : MonoBehaviour
@@ -18,6 +16,7 @@ namespace com.LazyGames.Dio
        private float _emptyDuration;
 
         private DebugSteeringEventsListener _listener;
+        private Car_Respawn _carRespawn;
         
         private float savedMagnitude;
         private float currentTimeScale = 1;
@@ -25,7 +24,11 @@ namespace com.LazyGames.Dio
         private float _stasisFillDelta;
         private float _stasisEmptyDelta;
         private float _stasisMeter;
+        private float _fadeSpeed;
+        private float targetOpacity;
+        private float _currentOpacity;
         private bool _doSlow;
+        private float _elapsedTime;
         
         [HideInInspector]public bool isSlow;
 
@@ -42,13 +45,15 @@ namespace com.LazyGames.Dio
         {
             Prepare();
         }
-
+        
         private void Update()
         {
             ManageTimeScale();
             ManageMeter();
+            
             Time.timeScale = currentTimeScale;
             _stasisIndicatorRenderer.material.SetFloat("_FillValue", StasisMeterClamped);
+            _stasisIndicatorRenderer.material.SetFloat("_Opacity", _currentOpacity);
         }
 
         private void DoSlow()
@@ -102,6 +107,16 @@ namespace com.LazyGames.Dio
             {
                 _doSlow = false;
             }
+            ManageOpacity();
+        }
+
+        private void ManageOpacity()
+        {
+            if (StasisMeterClamped >= 1f)
+            {
+                targetOpacity = 0;
+            } else{targetOpacity = 1;}
+            _currentOpacity = Mathf.Lerp(_currentOpacity,targetOpacity,_fadeSpeed * Time.fixedUnscaledDeltaTime);
         }
 
         private void NormalizeDeltaTime(float factor)
@@ -116,21 +131,31 @@ namespace com.LazyGames.Dio
            return result;
         }
 
+        private void OnOnDie()
+        {
+            _doSlow = false;
+        }
+
         private void Prepare()
         {
             // Load configurable values from Scriptable Object
             _targetTimeScale = carParametersSo.TargetTimeScale;
             _fillDuration = carParametersSo.FillDuration;
             _emptyDuration = carParametersSo.EmptyDuration;
+            _fadeSpeed = carParametersSo.FadeSpeed;
             
             _listener = GetComponent<DebugSteeringEventsListener>();
             
             //subscribes to stopTime event
             _listener.DoStopTimeEvent += DoSlow;
+            
             _stasisFillDelta = GetIncrement((_fillDuration + 3)*2);
             _stasisEmptyDelta = GetIncrement((_emptyDuration + 3) * 2);
 
             _stasisIndicatorRenderer = fillIndicator.GetComponent<MeshRenderer>();
+            _carRespawn = GetComponent<Car_Respawn>();
+            
+            _carRespawn.OnDie += OnOnDie;
         }
     }
 }
