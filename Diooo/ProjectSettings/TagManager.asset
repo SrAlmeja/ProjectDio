@@ -21,7 +21,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
+<<<<<<< HEAD
   - OutlineObjects
+=======
+  - IgnoreColl
+>>>>>>> f17fbb365f192ae5255a5bf3938cac3d54e91941
   - Water
   - UI
   - 

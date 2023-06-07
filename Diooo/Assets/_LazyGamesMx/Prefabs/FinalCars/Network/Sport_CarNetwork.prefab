@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 340420276981114660}
   - component: {fileID: 346714256181508148}
   - component: {fileID: 352702402227354232}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Attach_Number_Plate_02 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 340513521595338688}
   - component: {fileID: 343110039062220880}
   - component: {fileID: 353089717029715944}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Attach_Number_Plate_02 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1250,7 @@ GameObject:
   - component: {fileID: 342567636979894704}
   - component: {fileID: 352816085111858584}
   - component: {fileID: 311075442376273978}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Sports_01_Front_Bumper_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1764,7 +1764,7 @@ GameObject:
   - component: {fileID: 342757113375556398}
   - component: {fileID: 352671648929720588}
   - component: {fileID: 311765794856704682}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Sports_01_Rear_Bumper_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1865,16 +1865,16 @@ GameObject:
   - component: {fileID: 339885046089500886}
   - component: {fileID: 404040822789571907}
   - component: {fileID: 339885046089500921}
-  - component: {fileID: 339885046089500908}
   - component: {fileID: 339885046089500885}
   - component: {fileID: 339885046089500906}
-  - component: {fileID: 339885046089500907}
+  - component: {fileID: 339885046089500908}
   - component: {fileID: 339885046089500904}
   - component: {fileID: 339885046089500905}
   - component: {fileID: 339885046089500910}
   - component: {fileID: 339885046089500911}
   - component: {fileID: 339885046089500884}
   - component: {fileID: 339885046089500887}
+  - component: {fileID: -8952993323960930007}
   m_Layer: 2
   m_Name: Sport_CarNetwork
   m_TagString: Untagged
@@ -1889,7 +1889,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339885046089500913}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1969,8 +1969,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.22, z: 0.22}
-  m_Center: {x: 0, y: 0.84, z: 1.71}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 1.06, z: 1.77}
 --- !u!54 &339885046089500921
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1987,22 +1987,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &339885046089500908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339885046089500913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700779e6f2554994880edd066d06cdc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carParametersSo: {fileID: 11400000, guid: 5409efb46b398874dacf40d597d488c9, type: 2}
-  indicator: {fileID: 339885047080340814}
-  fighter: {fileID: 339885046652900797}
-  driverSeat: {fileID: 339885047751352337}
 --- !u!114 &339885046089500885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2015,7 +1999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bb4b0842e064e4d92bae9be37aac26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActions: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  inputActions: {fileID: -944628639613478452, guid: 195f0cbb6f06ff44bb3d19a9c25ed31f, type: 3}
   handbrakeEvent: {fileID: 11400000, guid: 6b7dd99ee598ac14b99974dd117157ae, type: 2}
   stopTimeEvent: {fileID: 11400000, guid: c7f39111f3c610441b3b0a177662b47a, type: 2}
   angleEvent: {fileID: 11400000, guid: 73629ccb59edc9d4fa32d2b3bccdd737, type: 2}
@@ -2049,7 +2033,7 @@ MonoBehaviour:
   lT: 0
   rT: 0
   vec2Input: {x: 0, y: 0}
---- !u!114 &339885046089500907
+--- !u!114 &339885046089500908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2058,20 +2042,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 339885046089500913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06743ff4e4a4c34a92e3c3819c60be6, type: 3}
+  m_Script: {fileID: 11500000, guid: 700779e6f2554994880edd066d06cdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorForce: 2000
-  maxSteerAngle: 30
-  maxBreakForce: 8000
-  frontLeftWheelCollider: {fileID: 339885047428255418}
-  frontRightWheelCollider: {fileID: 339885046695253544}
-  rearLeftWheelCollider: {fileID: 339885047156093075}
-  rearRightWheelCollider: {fileID: 339885047005938286}
-  frontLeftWheelTransform: {fileID: 335383171906228746}
-  frontRightWheeTransform: {fileID: 340100412925901368}
-  rearLeftWheelTransform: {fileID: 335366097567814598}
-  rearRightWheelTransform: {fileID: 335452046259939294}
+  carParametersSo: {fileID: 11400000, guid: 5409efb46b398874dacf40d597d488c9, type: 2}
+  indicator: {fileID: 339885047080340814}
+  fighter: {fileID: 339885046652900797}
+  driverSeat: {fileID: 339885047751352337}
 --- !u!114 &339885046089500904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2169,6 +2146,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571c6413aea57ba44815fafe01f3e51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8952993323960930007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339885046089500913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6649b06f1f16a840bf2250f1dabe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraController: {fileID: 0}
 --- !u!1 &339885046652900797
 GameObject:
   m_ObjectHideFlags: 0
@@ -7875,7 +7865,7 @@ GameObject:
   - component: {fileID: 951676399839708171}
   - component: {fileID: 951676399839708168}
   m_Layer: 0
-  m_Name: FX_Engine_Smoke_01
+  m_Name: ExplosionSmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
