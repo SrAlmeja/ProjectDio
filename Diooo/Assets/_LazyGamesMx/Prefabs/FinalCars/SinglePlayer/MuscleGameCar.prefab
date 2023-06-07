@@ -81,7 +81,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &324433186379305694
 Transform:
   m_ObjectHideFlags: 0
@@ -1218,7 +1218,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325198015316588881}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ad7c6778f6c3ce14eb77c3d745e14cb7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -1663,7 +1663,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325476255600850499}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ad7c6778f6c3ce14eb77c3d745e14cb7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -2461,7 +2461,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325710944979417379}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ad7c6778f6c3ce14eb77c3d745e14cb7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -3499,11 +3499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7779928571357986287, guid: b7941167178d2f84395cc683d8bb1d10, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017310974
+      value: -0.000000017310974
       objectReference: {fileID: 0}
     - target: {fileID: 7779928571357986287, guid: b7941167178d2f84395cc683d8bb1d10, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000010077886
+      value: 0.0000000010077886
       objectReference: {fileID: 0}
     - target: {fileID: 7779928571964956337, guid: b7941167178d2f84395cc683d8bb1d10, type: 3}
       propertyPath: m_RootOrder

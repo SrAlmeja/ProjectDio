@@ -22,8 +22,6 @@ namespace com.LazyGames.Dio
         private float _angleLerpSpeed;
         private float _indicatorOffset;
         private float _indicatorRadius;
-        private float _indicatorMinScale;
-        private float _indicatorMaxScale;
         private float _fighterRadius;
         
         private Rigidbody _rb;
@@ -83,21 +81,6 @@ namespace com.LazyGames.Dio
             _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
             indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
             indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
-            indicator.transform.localScale *= (GetScale(_rb.velocity.magnitude));
-        }
-
-        private float GetScale(float mag)
-        {
-            float result = indicator.transform.localScale.magnitude * mag;
-            if (result > _indicatorMaxScale)
-            {
-                return _indicatorMaxScale;
-            }
-            if (result < _indicatorMinScale)
-            {
-                return _indicatorMinScale;
-            }
-            return result;
         }
 
         private void ApplyImpulse()
@@ -128,9 +111,7 @@ namespace com.LazyGames.Dio
             _indicatorOffset = carParametersSo.IndicatorOffset;
             _indicatorRadius = carParametersSo.IndicatorRadius;
             _fighterRadius = carParametersSo.FighterRadius;
-            _indicatorMinScale = carParametersSo.IndicatorMinScale;
-            _indicatorMaxScale = carParametersSo.IndicatorMaxScale;
-            
+
             _rb = GetComponent<Rigidbody>();
             _timeControl = GetComponent<Car_TimeControl>();
             _listener = GetComponent<DebugSteeringEventsListener>();

@@ -43,16 +43,72 @@ namespace com.LazyGames.Dio
             UpdateWheels();
             ApplySteering();
             AirResist();
-            ApplyHandBrake(_brakeForce);
-            ApplyMotorTorque(_listener.rT);
-            ApplyBrakeTorque(_listener.lT);
+            GetTorques();
+            // ApplyHandBrake(_brakeForce);
             _speed = _rb.velocity.magnitude;
+        }
+        
+        private void GetTorques()
+        {
+            float slip = GetSlip();
+
+            if (_listener.rT > 0)
+            {
+                if (slip <= 60)
+                {
+                    // Moving forward, sideways, or not at all
+                    ApplyMotorTorque(_listener.rT * _enginePower.Evaluate(_speed));
+                }
+                else if (slip > 150)
+                {
+                    // Moving backward
+                    ApplyMotorTorque(0);
+                    ApplyBrakeTorque(_listener.rT * _brakeForce);
+                }
+            }
+            else if (_listener.lT > 0)
+            {
+                if (slip <= 150)
+                {
+                    // Moving forward or sideways
+                    ApplyMotorTorque(0);
+                    ApplyBrakeTorque(_listener.lT * _brakeForce);
+                }
+                else if (slip <= 180)
+                {
+                    // Stationary or very slow backward movement
+                    ApplyMotorTorque(-_listener.lT * _enginePower.Evaluate(_speed));
+                    ApplyBrakeTorque(0);
+                }
+            }
+            else
+            {
+                // No input
+                if (slip <= 180)
+                {
+                    // Stationary or very slow backward movement
+                    ApplyMotorTorque(0);
+                    ApplyBrakeTorque(0);
+                }
+                else
+                {
+                    // Moving backward
+                    ApplyMotorTorque(-_listener.lT * _enginePower.Evaluate(_speed));
+                    ApplyBrakeTorque(0);
+                }
+            }
+        }
+        
+        private float GetSlip()
+        {
+            float result = Vector3.Angle(_rb.velocity.normalized, transform.forward);
+            return result;
         }
 
         private void ApplyMotorTorque(float torque)
         {
-            wheelColliders.RLWheel.motorTorque = torque * _enginePower.Evaluate(_speed);
-            wheelColliders.RRWheel.motorTorque = torque * _enginePower.Evaluate(_speed);
+            wheelColliders.RLWheel.motorTorque = torque;
+            wheelColliders.RRWheel.motorTorque = torque;
         }
 
         private void ApplyBrakeTorque(float torque)
@@ -63,17 +119,17 @@ namespace com.LazyGames.Dio
             wheelColliders.RRWheel.brakeTorque = torque * .7f;
         }
 
-        private void ApplyHandBrake(float torque)
-        {
-            if (!_listener.handBrake)
-            {
-                wheelColliders.FLWheel.brakeTorque = torque * _brakeForce;
-                wheelColliders.FRWheel.brakeTorque = torque * _brakeForce;
-                return;
-            }
-            wheelColliders.FLWheel.brakeTorque = 0;
-            wheelColliders.FRWheel.brakeTorque = 0;
-        }
+        // private void ApplyHandBrake(float torque)
+        // {
+        //     if (!_listener.handBrake)
+        //     {
+        //         wheelColliders.FLWheel.brakeTorque = torque * _brakeForce;
+        //         wheelColliders.FRWheel.brakeTorque = torque * _brakeForce;
+        //         return;
+        //     }
+        //     wheelColliders.FLWheel.brakeTorque = 0;
+        //     wheelColliders.FRWheel.brakeTorque = 0;
+        // }
         
         private void ApplySteering()
         {
@@ -117,7 +173,8 @@ namespace com.LazyGames.Dio
             _enginePower = carParametersSo.EnginePower;
             _wheelTurnSpeed = carParametersSo.WheelTurnSpeed;
             _brakeForce = carParametersSo.BrakeForce;
-            
+
+
             _listener = GetComponent<DebugSteeringEventsListener>();
             _rb = GetComponent<Rigidbody>();
         }

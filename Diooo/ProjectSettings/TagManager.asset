@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - DragParent
+  - Building
+  - Tree
+  - Nature
+  - Vehicles
+  - Misc
+  - VFX
+  - NPC
+  - Terrain
+  - Roads
+  - Lights
+  - Focal Points
+  - CheckPoint
+  - KILLBOX
   layers:
   - Default
   - TransparentFX
