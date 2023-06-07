@@ -34,7 +34,7 @@ namespace com.LazyGames.Dio
             Prepare();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             HandleMotor();
             HandleSteering();
@@ -43,8 +43,8 @@ namespace com.LazyGames.Dio
 
         private void HandleMotor()
         {
-            frontLeftWheelCollider.motorTorque = _steeringEventsListener.torque  * motorForce;
-            frontRightWheelCollider.motorTorque = _steeringEventsListener.torque * motorForce;
+            frontLeftWheelCollider.motorTorque = _steeringEventsListener.rT  * motorForce;
+            frontRightWheelCollider.motorTorque = _steeringEventsListener.rT * motorForce;
             ApplyBreaking();
         }
 
@@ -65,7 +65,6 @@ namespace com.LazyGames.Dio
 
         private void HandleSteering()
         {
-            if (_steeringEventsListener.stopTime) return;
             currentSteerAngle = maxSteerAngle * _steeringEventsListener.angle;
             frontLeftWheelCollider.steerAngle = currentSteerAngle;
             frontRightWheelCollider.steerAngle = currentSteerAngle;
