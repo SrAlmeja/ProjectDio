@@ -1,9 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
---- !u!114 &-4803044970062784753
-=======
---- !u!114 &-8831822371701846211
+--- !u!114 &-7940631741782572651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21,83 +18,7 @@ MonoBehaviour:
   lastModified: 638212087774154141
   FileSizes: []
   Exists: 1
---- !u!114 &-5658177283137098030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Click Aceptar_One Shot_UI_SFX
-  m_EditorClassIdentifier: 
-  Path: event:/UI/Click Aceptar_One Shot_UI_SFX
-  Guid:
-    Data1: -1328713764
-    Data2: 1201644543
-    Data3: -1866785872
-    Data4: 64210265
-  Banks:
-  - {fileID: 609899978023909061}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 800
---- !u!114 &-1628334846919123961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638216854677045721
-  FileSizes:
-  - Name: 
-    Value: 1334
-  Exists: 1
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: -1628334846919123961}
-  - {fileID: -8831822371701846211}
-  - {fileID: 609899978023909061}
-  EditorEvents:
-  - {fileID: 6887365844448045233}
-  - {fileID: 1572739256189315841}
-  - {fileID: -5658177283137098030}
-  - {fileID: 2406511737315500117}
-  EditorParameters: []
-  MasterBanks:
-  - {fileID: -8831822371701846211}
-  StringsBanks:
-  - {fileID: -1628334846919123961}
-  cacheTime: 638216854677055695
-  cacheVersion: 131603
---- !u!114 &609899978023909061
->>>>>>> f17fbb365f192ae5255a5bf3938cac3d54e91941
+--- !u!114 &-7480345317999964275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,107 +36,7 @@ MonoBehaviour:
   lastModified: 638216854677055695
   FileSizes: []
   Exists: 1
---- !u!114 &-3935200380178790046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638212087774154141
-  FileSizes: []
-  Exists: 1
---- !u!114 &-2036589629420349134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Click Regresar_One Shot_UI_SFX
-  m_EditorClassIdentifier: 
-  Path: event:/UI/Click Regresar_One Shot_UI_SFX
-  Guid:
-    Data1: 1552636581
-    Data2: 1094415728
-    Data3: 786791328
-    Data4: -579057180
-  Banks:
-  - {fileID: -4803044970062784753}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1000
---- !u!114 &-1303609861996540525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Click Secundario_One Shot_UI_SFX
-  m_EditorClassIdentifier: 
-  Path: event:/UI/Click Secundario_One Shot_UI_SFX
-  Guid:
-    Data1: -857176355
-    Data2: 1217716382
-    Data3: 246361232
-    Data4: -24629449
-  Banks:
-  - {fileID: -4803044970062784753}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 800
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: 406127583684214726}
-  - {fileID: -3935200380178790046}
-  - {fileID: -4803044970062784753}
-  EditorEvents:
-  - {fileID: -2036589629420349134}
-  - {fileID: 1479448364702706472}
-  - {fileID: 786959953023498200}
-  - {fileID: -1303609861996540525}
-  EditorParameters: []
-  MasterBanks:
-  - {fileID: -3935200380178790046}
-  StringsBanks:
-  - {fileID: 406127583684214726}
-  cacheTime: 638216854677055695
-  cacheVersion: 131603
---- !u!114 &406127583684214726
+--- !u!114 &-3465271070102550173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,34 +56,7 @@ MonoBehaviour:
   - Name: 
     Value: 1334
   Exists: 1
---- !u!114 &786959953023498200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Click Aceptar_One Shot_UI_SFX
-  m_EditorClassIdentifier: 
-  Path: event:/UI/Click Aceptar_One Shot_UI_SFX
-  Guid:
-    Data1: -1328713764
-    Data2: 1201644543
-    Data3: -1866785872
-    Data4: 64210265
-  Banks:
-  - {fileID: -4803044970062784753}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 800
---- !u!114 &1479448364702706472
+--- !u!114 &-3279674069437473489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,7 +75,116 @@ MonoBehaviour:
     Data3: 264736678
     Data4: 1072734171
   Banks:
-  - {fileID: -4803044970062784753}
+  - {fileID: -7480345317999964275}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &-403051442374835962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Click Secundario_One Shot_UI_SFX
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Click Secundario_One Shot_UI_SFX
+  Guid:
+    Data1: -857176355
+    Data2: 1217716382
+    Data3: 246361232
+    Data4: -24629449
+  Banks:
+  - {fileID: -7480345317999964275}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 800
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -3465271070102550173}
+  - {fileID: -7940631741782572651}
+  - {fileID: -7480345317999964275}
+  EditorEvents:
+  - {fileID: 3418338117662539930}
+  - {fileID: -3279674069437473489}
+  - {fileID: 1385245799547524248}
+  - {fileID: -403051442374835962}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -7940631741782572651}
+  StringsBanks:
+  - {fileID: -3465271070102550173}
+  cacheTime: 638216854677055695
+  cacheVersion: 131603
+--- !u!114 &1385245799547524248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Click Aceptar_One Shot_UI_SFX
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Click Aceptar_One Shot_UI_SFX
+  Guid:
+    Data1: -1328713764
+    Data2: 1201644543
+    Data3: -1866785872
+    Data4: 64210265
+  Banks:
+  - {fileID: -7480345317999964275}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 800
+--- !u!114 &3418338117662539930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Click Regresar_One Shot_UI_SFX
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Click Regresar_One Shot_UI_SFX
+  Guid:
+    Data1: 1552636581
+    Data2: 1094415728
+    Data3: 786791328
+    Data4: -579057180
+  Banks:
+  - {fileID: -7480345317999964275}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
