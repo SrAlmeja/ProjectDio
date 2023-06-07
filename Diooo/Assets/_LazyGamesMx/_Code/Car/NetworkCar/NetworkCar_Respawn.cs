@@ -12,10 +12,12 @@ public class NetworkCar_Respawn : NetworkBehaviour
         [Header("Serialized References")]
         [SerializeField] private GameObject healthIndicator;
         [SerializeField]private GameObject visuals;
-        private Renderer _healthIndicatorRenderer;
-
         
-        private float _health;
+        [HideInInspector]public bool isDead;
+
+        private float _healthLerpSpeed = 3f;
+        private float _currentHealth;
+        private float _targetHealth;
         private float _maxHealth;
         private float _respawnTime;
         private float _elapsedTime;
@@ -24,29 +26,37 @@ public class NetworkCar_Respawn : NetworkBehaviour
         private float _maxDamage;
         private Vector3 _respawnPosition;
         private Quaternion _respawnRotation;
+        
         private NetworkCarImpulse _carImpulse;
         private Rigidbody _rb;
+        private Renderer _healthIndicatorRenderer;
+        private NetworkCarParticles _carParticlesManager;
         
-        [HideInInspector]public bool isDead;
+        public event System.Action OnDie;
+        public event System.Action OnRespawn;
 
-        private void Start()
+
+        public override void OnNetworkSpawn()
         {
+            if (!IsOwner) return;
+            
             Prepare();
-            _health = _maxHealth;
+            _targetHealth = _maxHealth;
         }
+
 
         private void Update()
         {
             CheckHealth();
-            
+            _currentHealth = LerpHealth();
             _elapsedTime += Time.fixedDeltaTime;
             _rb. isKinematic = isDead;
-            _healthIndicatorRenderer.material.SetFloat("_FillValue", Remap(_health));
+            _healthIndicatorRenderer.material.SetFloat("_FillValue", Remap(_currentHealth));
         }
 
         private void CheckHealth()
         {
-            if (_health > 0) return;
+            if (_targetHealth > 0) return;
             Explode();
         }
 
@@ -63,9 +73,16 @@ public class NetworkCar_Respawn : NetworkBehaviour
             _respawnRotation = rot;
             // Debug.Log($"updated checkpoint to {pos}");
         }
+        
+        private float LerpHealth()
+        {
+            float result = Mathf.LerpAngle(_currentHealth, _targetHealth, _healthLerpSpeed * Time.fixedUnscaledDeltaTime);
+            return result;
+        }
 
         private void OnCollisionEnter(Collision other)
         {
+            _carParticlesManager.PlaySparksParticle(other.contacts[0].point);
             if (_elapsedTime < _damageCooldown) return;
             float mag  = other.relativeVelocity.magnitude;
             TakeDamage(CalculateDamage(mag));
@@ -89,7 +106,7 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void TakeDamage(float damage)
         {
-            _health -= damage;
+            _targetHealth -= damage;
             // Debug.Log($"took {damage} dmg");
         }
 
@@ -101,10 +118,11 @@ public class NetworkCar_Respawn : NetworkBehaviour
         
         private void Respawn()
         {
+            OnRespawn?.Invoke();
             isDead = false;
             transform.position = _respawnPosition;
             transform.rotation = _respawnRotation;
-            _health = _maxHealth;
+            _targetHealth = _maxHealth;
             visuals.SetActive(true);
             _rb.velocity = Vector3.zero;
             StopCoroutine(CorWaitToRespawn());
@@ -112,11 +130,13 @@ public class NetworkCar_Respawn : NetworkBehaviour
 
         private void Punched()
         {
+            _carParticlesManager.PlaySparksParticle(transform.position);
             TakeDamage(carParametersSo.PunchDamage);
         }
 
         private IEnumerator CorWaitToRespawn()
         {
+            OnDie?.Invoke();
             yield return new WaitForSeconds(_respawnTime);
             Respawn();
         }
@@ -125,7 +145,6 @@ public class NetworkCar_Respawn : NetworkBehaviour
         {
             isDead = true;
             visuals.SetActive(false);
-            // play particle systems
             // play sound
             StartCoroutine(CorWaitToRespawn());
         }
@@ -134,18 +153,18 @@ public class NetworkCar_Respawn : NetworkBehaviour
         {
             // Load configurable values from Scriptable Object
             _maxHealth = carParametersSo.MaxHealth;
+            _healthLerpSpeed = carParametersSo.HealthLerpSpeed;
             _respawnTime = carParametersSo.RespawnTime;
             _respawnPosition = transform.position;
             _damageCooldown = carParametersSo.DamageCooldown;
             _minDamage = carParametersSo.MinDamage;
             _maxDamage = carParametersSo.MaxDamage;
-            
-            
+
             _rb = GetComponent<Rigidbody>();
-            
             _carImpulse = GetComponent<NetworkCarImpulse>();
+            _healthIndicatorRenderer = healthIndicator.GetComponent<MeshRenderer>();
+            _carParticlesManager = GetComponent<NetworkCarParticles>();
+            
             // Subscribe to punch event
             _carImpulse.DoPunchEvent += Punched;
-            _healthIndicatorRenderer = healthIndicator.GetComponent<MeshRenderer>();
-        }
-}
+        } }

@@ -58,6 +58,11 @@ public class CMDioCameraController : MonoBehaviour
         GetRigs();
     }
 
+    public void SetTarget(Transform target)
+    {
+        _playerTransform = target;
+        _playerRigidBody = target.GetComponent<Rigidbody>();
+    }
     private void Update()
     {
         _currentSpeed = SpeedPercentage(); //Always leave this on top. It calculates % of the max speed. 

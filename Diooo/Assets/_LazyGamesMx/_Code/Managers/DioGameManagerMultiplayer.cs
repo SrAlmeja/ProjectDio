@@ -44,7 +44,7 @@ namespace com.LazyGames.Dio
         [Header("Player Spawn Points")]
         [SerializeField] private List<Transform> placesToSpawnCars;
         [Header("Player Prefab")]
-        [SerializeField] private Transform playerCarPrefab;
+        [SerializeField] private Transform[] playerCarsPrefab;
         // [SerializeField] private Transform networkCameraPrefab;
         [Header("Events Player")]
         [SerializeField] private ReadyPlayerInput readyPlayerInput;
@@ -200,7 +200,7 @@ namespace com.LazyGames.Dio
 
         private void SpawnPlayer(ulong clientID, Transform spawnPoint)
         {
-            Transform playerTransform = Instantiate(playerCarPrefab);
+            Transform playerTransform = Instantiate(playerCarsPrefab[clientID]);
             // playerTransform.name = "CAR CLIENT = "+ clientID;
             playerTransform.position = spawnPoint.position;
                 

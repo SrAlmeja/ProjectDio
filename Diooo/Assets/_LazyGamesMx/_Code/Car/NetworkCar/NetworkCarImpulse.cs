@@ -8,11 +8,12 @@ namespace com.LazyGames.Dio
 {
     public class NetworkCarImpulse : NetworkBehaviour
     {
-       [Header("Car Parameters Scriptable Object")]
-        [SerializeField] private CarParametersSo carParametersSo;
+        [Header("Car Parameters Scriptable Object")] [SerializeField]
+        private CarParametersSo carParametersSo;
 
-        [Header("Serialized References")] 
-        [SerializeField] private GameObject indicator;
+        [Header("Serialized References")] [SerializeField]
+        private GameObject indicator;
+
         [SerializeField] private GameObject fighter;
         [SerializeField] private GameObject driverSeat;
 
@@ -21,9 +22,11 @@ namespace com.LazyGames.Dio
         private float _indicatorOffset;
         private float _indicatorRadius;
         private float _fighterRadius;
-        
+        private float _indicatorMinScale;
+        private float _indicatorMaxScale;
+
         private Rigidbody _rb;
-        private DebugSteeringEventsListener _listener;
+        private NetworkSteeringEventsListener _listener;
         private VoidEventChannelSO _impulseEvent;
         private Vector3 _indicatorCenter;
         private Vector3 _indicatorOffsetVector;
@@ -32,17 +35,20 @@ namespace com.LazyGames.Dio
         private float _targetFighterAngle;
         private float _currentIndicatorAngle;
         private float _targetIndicatorAngle;
-        
-        private Car_TimeControl _timeControl;
+
+        private NetworkCarTimeControl _timeControl;
         public event System.Action DoPunchEvent;
-        
-        private void Start()
+
+        public override void OnNetworkSpawn()
         {
+            if (!IsOwner) return;
             Prepare();
         }
 
+
         private void Update()
         {
+            if(!IsOwner) return;
             Visualize();
             AngleSmoothing();
         }
@@ -73,12 +79,29 @@ namespace com.LazyGames.Dio
         private void ManageIndicator()
         {
             indicator.SetActive(_timeControl.isSlow);
-            if(!_timeControl.isSlow) return;
+            if (!_timeControl.isSlow) return;
             _indicatorCenter = transform.position + _indicatorOffsetVector;
             Vector2 dir = new Vector2(_rb.velocity.x, _rb.velocity.z).normalized;
             _targetIndicatorAngle = CryoMath.AngleFromOffset(dir);
-            indicator.transform.position = CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
+            indicator.transform.position =
+                CryoMath.PointOnRadius(_indicatorCenter, _indicatorRadius, _currentIndicatorAngle);
             indicator.transform.rotation = CryoMath.AimAtDirection(_indicatorCenter, indicator.transform.position);
+        }
+
+        private float GetScale(float mag)
+        {
+            float result = indicator.transform.localScale.magnitude * mag;
+            if (result > _indicatorMaxScale)
+            {
+                return _indicatorMaxScale;
+            }
+
+            if (result < _indicatorMinScale)
+            {
+                return _indicatorMinScale;
+            }
+
+            return result;
         }
 
         private void ApplyImpulse()
@@ -91,7 +114,7 @@ namespace com.LazyGames.Dio
 
         void AngleSmoothing()
         {
-            if(!_timeControl.isSlow) return;
+            if (!_timeControl.isSlow) return;
             LerpAngle(ref _currentFighterAngle, _targetFighterAngle, _angleLerpSpeed);
             LerpAngle(ref _currentIndicatorAngle, _targetIndicatorAngle, _angleLerpSpeed);
         }
@@ -100,7 +123,7 @@ namespace com.LazyGames.Dio
         {
             currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, angleChangeSpeed * Time.fixedUnscaledDeltaTime);
         }
-        
+
         private void Prepare()
         {
             // Load configurable values from Scriptable Object
@@ -109,15 +132,18 @@ namespace com.LazyGames.Dio
             _indicatorOffset = carParametersSo.IndicatorOffset;
             _indicatorRadius = carParametersSo.IndicatorRadius;
             _fighterRadius = carParametersSo.FighterRadius;
-            
+            _indicatorMinScale = carParametersSo.IndicatorMinScale;
+            _indicatorMaxScale = carParametersSo.IndicatorMaxScale;
+
             _rb = GetComponent<Rigidbody>();
-            _timeControl = GetComponent<Car_TimeControl>();
-            _listener = GetComponent<DebugSteeringEventsListener>();
-            
+            _timeControl = GetComponent<NetworkCarTimeControl>();
+            _listener = GetComponent<NetworkSteeringEventsListener>();
+
             //subscribes to impulse event
             _listener.DoImpulseEvent += ApplyImpulse;
-            
+
             _indicatorOffsetVector = new Vector3(0, _indicatorOffset, 0);
         }
     }
 }
+
