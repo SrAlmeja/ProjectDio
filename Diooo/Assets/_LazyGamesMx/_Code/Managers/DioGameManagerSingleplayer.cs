@@ -11,11 +11,12 @@ public class DioGameManagerSingleplayer : MonoBehaviour
 
     [SerializeField] private ReadyPlayerInput playerInputReady;
     [SerializeField] private BoolEventChannelSO _racePaused;
+    public DatabaseManager databaseManager;
 
-    #endregion    
-    
+    #endregion
+
     #region private variables
-    
+
     private static DioGameManagerSingleplayer _instance;
 
     private GameStatesSingleplayer _gameStatesSingleplayer;
@@ -24,11 +25,14 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         get => _gameStatesSingleplayer;
         set => _gameStatesSingleplayer = value;
     }
+    SinglePlayerGoal _currentGoal;
+
+    private bool iscalled = false;
 
     #endregion
 
     #region public variables
-    
+
     public static DioGameManagerSingleplayer Instance
     {
         get
@@ -79,7 +83,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
         MyGameState = GameStatesSingleplayer.WaitingToPlayer;
         playerInputReady.OnPlayerReadyInput += HandleOnPlayerReady;
         CountDownController_Singleplayer.Instance.OnCountdownFinished += HandleOnCountDownFinished;
-        
+        iscalled = false;
     }
 
     void Update()
@@ -93,6 +97,7 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     public void OnPlayerCrossedGoal(SinglePlayerGoal singlePlayerGoal)
     {
         singlePlayerGoal.OnPlayerCrossedGoal += HandleOnPlayerCrossedGoal;
+        _currentGoal = singlePlayerGoal;
     }
 
         #endregion
@@ -108,6 +113,8 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     private void HandleOnPlayerCrossedGoal()
     {
         MyGameState = GameStatesSingleplayer.GameOver;
+        StopTimer();
+        SendTimerToDB();
         OnGameStateChange?.Invoke(MyGameState);
     }
 
@@ -121,9 +128,29 @@ public class DioGameManagerSingleplayer : MonoBehaviour
     
     private void StartTimer()
     {
+        StopWatchManager.Instance.ResetTime();
         _racePaused.BoolEvent.Invoke(false);
         Debug.Log("Timer Started");
     }
+    
+    private void StopTimer()
+    {
+        _racePaused.BoolEvent.Invoke(true);
+        Debug.Log("Timer Stopped");
+    }
+
+    private void SendTimerToDB()
+    {
+        
+        float time = StopWatchManager.Instance.CurrentTime;
+        int id = _currentGoal.ID_RACE;
+        if(!iscalled)
+        {
+            databaseManager.InsertTime(id, time);
+            iscalled = true;
+        }
+    }
+    
     
     
     #endregion

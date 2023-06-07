@@ -6,22 +6,23 @@ using UnityEngine;
 
 public class NetworkCarCameraController : NetworkBehaviour
 {
-    [SerializeField] NetworkCameraFollow networkCameraFollow;
-
+    [SerializeField] CMDioCameraController _cameraController;
+        
     public override void OnNetworkSpawn()
     {
-        if (!IsOwner) return;
+        FoundCameraInScene();
+    }
         
-        FindCamera();
-    }
-    private void FindCamera()
+    void FoundCameraInScene()
     {
-        if (!IsOwner) return;
-        Debug.Log("<color=#DDABFF> FindCamera in scene </color>");
-        networkCameraFollow = FindObjectOfType<NetworkCameraFollow>();
-        networkCameraFollow.SetTarget(transform);
+        if (IsOwner)
+        {
+            _cameraController = FindObjectOfType<CMDioCameraController>();
+            if (_cameraController != null)
+            {
+                _cameraController.SetTarget(transform);
+            }
+        }
     }
-    
-    
     
 }

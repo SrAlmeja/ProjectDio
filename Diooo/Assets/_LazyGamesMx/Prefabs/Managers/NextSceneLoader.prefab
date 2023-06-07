@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 2
   sceneLoader: {fileID: 11400000, guid: 39099a51b5e5b7b42a62490c86b04798, type: 2}
-  sceneKeySo: {fileID: 11400000, guid: 649e4336617fbd744a2f94bc6a164bb7, type: 2}
+  sceneKeySo: {fileID: 11400000, guid: 0b20a18c10dac5743ada6818b1887182, type: 2}
   canvasGroup: {fileID: 0}
