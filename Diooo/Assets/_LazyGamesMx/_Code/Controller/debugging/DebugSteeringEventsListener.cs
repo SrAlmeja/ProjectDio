@@ -9,7 +9,8 @@ namespace com.LazyGames.Dio
     {
         [HideInInspector]public bool handBrake;
         [HideInInspector]public float angle;
-        [HideInInspector]public float torque; 
+        [HideInInspector]public float lT;
+        [HideInInspector]public float rT; 
         [HideInInspector]public Vector2 vec2Input;
         
         public event System.Action DoImpulseEvent;
@@ -31,11 +32,16 @@ namespace com.LazyGames.Dio
             angle = f;
         }
 
-        protected override void Torque(float f)
+        protected override void Lt(float f)
         {
-            torque = f;
+            lT = f;
         }
-        
+
+        protected override void Rt(float f)
+        {
+            rT = f;
+        }
+
         protected override void VecTwoInput(Vector2 v2)
         {
             vec2Input = v2;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2744878795125701365}
   - component: {fileID: 2744878795125701366}
   m_Layer: 0
-  m_Name: HealthIndicator
+  m_Name: HpIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2744878795125701367}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0.0099, y: 0.623, z: -2.198}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.085, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc841a81c9c54764eaaab245f85daf72, type: 2}
+  - {fileID: 2100000, guid: 16f277669e49ada4aad0c30f5bdd995e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

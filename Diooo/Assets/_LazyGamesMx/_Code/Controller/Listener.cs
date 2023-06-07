@@ -7,34 +7,37 @@ namespace com.LazyGames.Dio
 {
     public class Listener : MonoBehaviour
     {
-        [SerializeField] protected BoolEventChannelSO _handBrakeEvent;
-        [SerializeField] protected VoidEventChannelSO _stopTimeEvent;
-        [SerializeField] protected FloatEventChannelSO _angleEvent;
-        [SerializeField] protected FloatEventChannelSO _torqueEvent;
-        [SerializeField] protected FloatEventChannelSO _rotateEvent;
-        [SerializeField] protected VectorTwoEventChannelSO _vector2InputEvent;
-        [SerializeField] public VoidEventChannelSO _impulseEvent;
+        [SerializeField] protected BoolEventChannelSO handBrakeEvent;
+        [SerializeField] protected VoidEventChannelSO stopTimeEvent;
+        [SerializeField] protected FloatEventChannelSO angleEvent;
+        [SerializeField] protected FloatEventChannelSO ltEvent;
+        [SerializeField] protected FloatEventChannelSO rtEvent;
+        [SerializeField] protected FloatEventChannelSO rotateEvent;
+        [SerializeField] protected VectorTwoEventChannelSO vector2InputEvent;
+        [SerializeField] public VoidEventChannelSO impulseEvent;
 
         protected void OnEnable()
         {
-            _handBrakeEvent.BoolEvent += HandBrake;
-            _stopTimeEvent.VoidEvent += StopTime;
-            _angleEvent.FloatEvent += Angle;
-            _torqueEvent.FloatEvent += Torque;
-            _rotateEvent.FloatEvent += Rotate;
-            _vector2InputEvent.Vector2Event += VecTwoInput;
-            _impulseEvent.VoidEvent += Impulse;
+            handBrakeEvent.BoolEvent += HandBrake;
+            stopTimeEvent.VoidEvent += StopTime;
+            angleEvent.FloatEvent += Angle;
+            ltEvent.FloatEvent += Lt;
+            rtEvent.FloatEvent += Rt;
+            rotateEvent.FloatEvent += Rotate;
+            vector2InputEvent.Vector2Event += VecTwoInput;
+            impulseEvent.VoidEvent += Impulse;
         }
 
         protected void OnDisable()
         {
-            _handBrakeEvent.BoolEvent -= HandBrake;
-            _stopTimeEvent.VoidEvent -= StopTime;
-            _angleEvent.FloatEvent -= Angle;
-            _torqueEvent.FloatEvent -= Torque;
-            _rotateEvent.FloatEvent -= Rotate;
-            _vector2InputEvent.Vector2Event -= VecTwoInput;
-            _impulseEvent.VoidEvent -= Impulse;
+            handBrakeEvent.BoolEvent -= HandBrake;
+            stopTimeEvent.VoidEvent -= StopTime;
+            angleEvent.FloatEvent -= Angle;
+            ltEvent.FloatEvent -= Lt;
+            rtEvent.FloatEvent -= Rt;
+            rotateEvent.FloatEvent -= Rotate;
+            vector2InputEvent.Vector2Event -= VecTwoInput;
+            impulseEvent.VoidEvent -= Impulse;
         }
 
         protected virtual void HandBrake(bool b)
@@ -52,9 +55,14 @@ namespace com.LazyGames.Dio
             //Debug.Log("Flotante llantas: " + f);
         }
 
-        protected virtual void Torque(float f)
+        protected virtual void Lt(float f)
         {
             //Debug.Log("Flotante Aceleraci�n: " + f);
+        }
+
+        protected virtual void Rt(float f)
+        {
+            //Debug.Log("Flotante Freno: " + f);
         }
 
         protected virtual void Rotate(float f)

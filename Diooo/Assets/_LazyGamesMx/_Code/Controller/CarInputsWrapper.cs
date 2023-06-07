@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CryoStorage;
+using UnityEngine.Serialization;
 
 namespace com.LazyGames.Dio
 {
@@ -11,109 +12,122 @@ namespace com.LazyGames.Dio
         [SerializeField] private InputActionAsset inputActions;
         InputActionMap gameplayActionMap;
 
-        InputAction handBrakeInputAction;
-        InputAction steeringInputAction;
-        InputAction accelerationInputAction;
-        InputAction timeStopInputAction;
-        InputAction rotateInputAction;
-        InputAction impulseInputAction;
+        private InputAction _handBrakeInputAction;
+        private InputAction _steeringInputAction;
+        private InputAction _leftTriggerInputAction;
+        private InputAction _rightTriggerInputAction;
+        private InputAction _timeStopInputAction;
+        private InputAction _rotateInputAction;
+        private InputAction _impulseInputAction;
 
-        [SerializeField] private BoolEventChannelSO _hanbreakEvent;
-        [SerializeField] private VoidEventChannelSO _stopTimeEvent;
-        [SerializeField] private FloatEventChannelSO _angleEvent;
-        [SerializeField] private FloatEventChannelSO _torqueEvent;
-        [SerializeField] private FloatEventChannelSO _rotateEvent;
-        [SerializeField] private VectorTwoEventChannelSO _vector2InputEvent;
-        [SerializeField] private VoidEventChannelSO _impulseEvent;
-
-        private float _tap = 0;
-
+        [SerializeField] private BoolEventChannelSO handbrakeEvent;
+        [SerializeField] private VoidEventChannelSO stopTimeEvent;
+        [SerializeField] private FloatEventChannelSO angleEvent;
+        [SerializeField] private FloatEventChannelSO lTEvent;
+        [SerializeField] private FloatEventChannelSO rTEvent;
+        [SerializeField] private FloatEventChannelSO rotateEvent;
+        [SerializeField] private VectorTwoEventChannelSO vector2InputEvent;
+        [SerializeField] private VoidEventChannelSO impulseEvent;
+        
         private void OnEnable()
         {
-            handBrakeInputAction.Enable();
-            steeringInputAction.Enable();
-            accelerationInputAction.Enable();
-            timeStopInputAction.Enable();
-            rotateInputAction.Enable();
-            impulseInputAction.Enable();
+            _handBrakeInputAction.Enable();
+            _steeringInputAction.Enable();
+            _leftTriggerInputAction.Enable();
+            _rightTriggerInputAction.Enable();
+            _timeStopInputAction.Enable();
+            _rotateInputAction.Enable();
+            _impulseInputAction.Enable();
         }
         private void OnDisable()
         {
-            handBrakeInputAction.Disable();
-            steeringInputAction.Disable();
-            accelerationInputAction.Disable();
-            timeStopInputAction.Disable();
-            rotateInputAction.Disable();
-            impulseInputAction.Disable();
+            _handBrakeInputAction.Disable();
+            _steeringInputAction.Disable();
+            _leftTriggerInputAction.Disable();
+            _rightTriggerInputAction.Disable();
+            _timeStopInputAction.Disable();
+            _rotateInputAction.Disable();
+            _impulseInputAction.Disable();
         }
 
         void Awake()
         {
             gameplayActionMap = inputActions.FindActionMap("Gameplay");
 
-            handBrakeInputAction = gameplayActionMap.FindAction("HandBrake");
-            steeringInputAction = gameplayActionMap.FindAction("SteeringAngle");
-            accelerationInputAction = gameplayActionMap.FindAction("Acceleration");
-            timeStopInputAction = gameplayActionMap.FindAction("TimeStop");
-            rotateInputAction = gameplayActionMap.FindAction("Rotate");
-            impulseInputAction = gameplayActionMap.FindAction("Impulse");
+            _handBrakeInputAction = gameplayActionMap.FindAction("HandBrake");
+            _steeringInputAction = gameplayActionMap.FindAction("SteeringAngle");
+            _leftTriggerInputAction = gameplayActionMap.FindAction("LeftTrigger");
+            _rightTriggerInputAction = gameplayActionMap.FindAction("RightTrigger");
+            _timeStopInputAction = gameplayActionMap.FindAction("TimeStop");
+            _rotateInputAction = gameplayActionMap.FindAction("Rotate");
+            _impulseInputAction = gameplayActionMap.FindAction("Impulse");
 
-            handBrakeInputAction.performed += GetHandBrakeInput;
-            // handBrakeInputAction.canceled += GetHandBrakeInput;
+            _handBrakeInputAction.performed += GetHandBrakeInput;
+            _handBrakeInputAction.canceled += GetHandBrakeInput;
 
-            steeringInputAction.performed += GetAngleInput;
-            // steeringInputAction.canceled += GetAngleInput;
-
-            accelerationInputAction.performed += GetTorqueInput;
-            // accelerationInputAction.canceled += GetTorqueInput;
-
-            timeStopInputAction.performed += StopTimeInput;
-            // timeStopInputAction.canceled += StopTimeInput;
-
-            rotateInputAction.performed += RotateInput;
-            // rotateInputAction.canceled += RotateInput;
-
-            impulseInputAction.performed += GetImpulseInput;
-            // impulseInputAction.canceled += GetImpulseInput;
+            _steeringInputAction.performed += GetAngleInput;
+            _steeringInputAction.canceled += GetAngleInput;
+            
+             _leftTriggerInputAction.performed += GetLtInput;
+             _leftTriggerInputAction.canceled += GetLtInput;
+    
+             _rightTriggerInputAction.performed += GetRtInput;
+             _rightTriggerInputAction.canceled += GetRtInput;
+    
+             _timeStopInputAction.performed += StopTimeInput;
+             _timeStopInputAction.canceled += StopTimeInput;
+    
+             _rotateInputAction.performed += RotateInput;
+             _rotateInputAction.canceled += RotateInput;
+    
+             _impulseInputAction.performed += GetImpulseInput;
+             _impulseInputAction.canceled += GetImpulseInput;
         }
 
         void GetHandBrakeInput(InputAction.CallbackContext context)
         {
             if(context.ReadValue<float>() == 0)
             {
-                _hanbreakEvent.RaiseEvent(false);
+                handbrakeEvent.RaiseEvent(false);
+                Debug.Log("isfalse");
             }
             else
             {
-                _hanbreakEvent.RaiseEvent(true);
+                handbrakeEvent.RaiseEvent(true);
+                Debug.Log("istrue");
             }  
         }
 
         void GetAngleInput(InputAction.CallbackContext context)
         {
-            _angleEvent.RaiseEvent(context.ReadValue<float>());
+            angleEvent.RaiseEvent(context.ReadValue<float>());
         }
-        void GetTorqueInput(InputAction.CallbackContext context)
+        void GetRtInput(InputAction.CallbackContext context)
         {
-            _torqueEvent.RaiseEvent(context.ReadValue<float>());
+            rTEvent.RaiseEvent(context.ReadValue<float>());
+        }
+        
+        void GetLtInput(InputAction.CallbackContext context)
+        {
+            lTEvent.RaiseEvent(context.ReadValue<float>());
         }
 
         void StopTimeInput(InputAction.CallbackContext context) 
         {
-            _stopTimeEvent.RaiseEvent();
+            stopTimeEvent.RaiseEvent();
         }
 
         void RotateInput(InputAction.CallbackContext context)
         {
             Vector2 vectorInput = context.ReadValue<Vector2>();
             float angle = CryoMath.AngleFromOffset(vectorInput);
-            _rotateEvent.RaiseEvent(angle);
-            _vector2InputEvent.RaiseEvent(context.ReadValue<Vector2>());
+            rotateEvent.RaiseEvent(angle);
+            vector2InputEvent.RaiseEvent(context.ReadValue<Vector2>());
         }
 
         void GetImpulseInput(InputAction.CallbackContext context)
         {
-            _impulseEvent.RaiseEvent();
+            impulseEvent.RaiseEvent();
         }
     }
 }
