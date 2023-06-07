@@ -62,6 +62,10 @@ namespace com.LazyGames.Dio
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.CompareTag("KILLBOX"))
+            {
+                Explode();
+            }
             if (!other.CompareTag("CheckPoint")) return;
             Transform t = other.transform;
             UpdateCheckPoint(t.position, t.rotation);

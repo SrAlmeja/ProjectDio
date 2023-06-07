@@ -17,75 +17,82 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 700
-      inSlope: 103.19196
-      outSlope: 103.19196
+      value: 10003.979
+      inSlope: 0.34102726
+      outSlope: 0.34102726
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.009425827
+      outWeight: 0.73441076
     - serializedVersion: 3
-      time: 0.7
-      value: 800
-      inSlope: -30.807188
-      outSlope: -30.807188
+      time: 10.392857
+      value: 9986.392
+      inSlope: -2.4087782
+      outSlope: -2.4087782
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.07093798
+      outWeight: 1
     - serializedVersion: 3
-      time: 20.132776
-      value: 550.4247
-      inSlope: -3.3759606
-      outSlope: -3.3759606
+      time: 13.80572
+      value: 86.578766
+      inSlope: -5.685245
+      outSlope: -5.685245
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.21149662
-      outWeight: 0.08066661
+      outWeight: 0.15856855
     - serializedVersion: 3
-      time: 60
-      value: 500
-      inSlope: -0.043550327
-      outSlope: -0.043550327
+      time: 65.982864
+      value: -5.4933777
+      inSlope: 0.18448594
+      outSlope: 0.18448594
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.18031299
+      inWeight: 0.32922286
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  BrakeForce: 1000
+  BrakeForce: 10000
   SteerCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 40
-      inSlope: -0.0008050349
-      outSlope: -0.0008050349
+      value: 30.028053
+      inSlope: 0.0069451076
+      outSlope: 0.0069451076
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.09947558
+      inWeight: 0
+      outWeight: 0.48522744
     - serializedVersion: 3
-      time: 60.068115
-      value: 35
-      inSlope: -0.27649876
-      outSlope: -0.27649876
+      time: 14.406678
+      value: 14.323139
+      inSlope: -0.4865903
+      outSlope: -0.4865903
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.04270391
-      outWeight: 0.33333334
+      inWeight: 0.13430202
+      outWeight: 0.092425495
+    - serializedVersion: 3
+      time: 60.393387
+      value: 5.0158205
+      inSlope: -0.0006834075
+      outSlope: -0.0006834075
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20100097
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  WheelTurnSpeed: 5
-  ImpulseForce: 9
+  WheelTurnSpeed: 6
+  ImpulseForce: 4
   AngleLerpSpeed: 9
   IndicatorOffset: 0.3
   IndicatorRadius: 3
-  IndicatorMinScale: 0.33
-  IndicatorMaxScale: 1
   FighterRadius: 3
   TargetTimeScale:
     serializedVersion: 2
@@ -138,8 +145,8 @@ MonoBehaviour:
   RaycastDistance: 1
   MaxHealth: 100
   HealthLerpSpeed: 3
-  RespawnTime: 2.5
-  PunchDamage: 3
-  DamageCooldown: 0.33
-  MinDamage: 7.77
-  MaxDamage: 50
+  RespawnTime: 1
+  PunchDamage: 2.5
+  DamageCooldown: 0.5
+  MinDamage: 10
+  MaxDamage: 30

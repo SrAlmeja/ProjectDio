@@ -17,6 +17,7 @@ TagManager:
   - Lights
   - Focal Points
   - CheckPoint
+  - KILLBOX
   layers:
   - Default
   - TransparentFX
