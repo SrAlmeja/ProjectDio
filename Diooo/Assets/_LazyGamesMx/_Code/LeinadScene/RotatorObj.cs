@@ -25,7 +25,7 @@ public class RotatorObj : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isRotating)
+        if (!isRotating)
         {
             targetRotation = pilar.transform.rotation.eulerAngles.z + -90f;
             isRotating = true;
