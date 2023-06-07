@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{40aa26c7-ce53-43c2-afcd-029807377b3e}">
+		<property name="name">
+			<value>ExitBT</value>
+		</property>
+		<relationship name="folder">
+			<destination>{dec483f8-202b-4464-86d9-a8d28804cc34}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{086c0a9f-07b1-4728-a457-af761fbb0f14}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{086c0a9f-07b1-4728-a457-af761fbb0f14}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
