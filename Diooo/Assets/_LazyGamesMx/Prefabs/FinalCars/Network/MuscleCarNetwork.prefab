@@ -831,6 +831,7 @@ GameObject:
   - component: {fileID: 1473157302694936087}
   - component: {fileID: 1473157302694936078}
   - component: {fileID: 1473157302694936079}
+  - component: {fileID: 8485496501227065554}
   m_Layer: 2
   m_Name: MuscleCarNetwork
   m_TagString: Untagged
@@ -925,8 +926,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.06, z: 1}
-  m_Center: {x: 0, y: 1.24, z: 1.68}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 1.33, z: 1.77}
 --- !u!54 &1473157302694936091
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1102,6 +1103,19 @@ MonoBehaviour:
   explosionFireParticle: {fileID: 4235430001699645796}
   explosionExplosionParticle: {fileID: 4235430000706538896}
   fireParticle: {fileID: 4235430000208266982}
+--- !u!114 &8485496501227065554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473157302694936083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6649b06f1f16a840bf2250f1dabe74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraController: {fileID: 0}
 --- !u!1 &1473157302722454957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1494,7 @@ GameObject:
   - component: {fileID: 1442394990462132847}
   - component: {fileID: 1451144010051144043}
   - component: {fileID: 1442394990462132844}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Muscle_01_Front_Bumper_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1578,7 +1592,7 @@ GameObject:
   - component: {fileID: 1442506620223620264}
   - component: {fileID: 1442506620223620267}
   - component: {fileID: 1451780575017532153}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: SM_Veh_Muscle_01_Rear_Bumper_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
