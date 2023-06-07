@@ -12,8 +12,7 @@ public class Maniquis : MonoBehaviour
     private Vector3 targetPosition;
     private bool movingRight = true;
 
-    [Header("Activador")] 
-    [SerializeField] private Collider triggerColider;
+    [Header("Activador")]
     public bool isInRange;
 
     void Start()
@@ -50,15 +49,6 @@ public class Maniquis : MonoBehaviour
             {
                 movingRight = true;
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isInRange = true;
-            Debug.Log("Player se metio");
         }
     }
 }

@@ -7,7 +7,6 @@ public class ObstacleTrigger : MonoBehaviour
 {
 
     [SerializeField] private Maniquis[] maniquies;
-    private Maniquis m;
 
     private void Awake()
     {
@@ -20,5 +19,10 @@ public class ObstacleTrigger : MonoBehaviour
         {
             Debug.Log("Player se metio");
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Player se salio");
     }
 }
