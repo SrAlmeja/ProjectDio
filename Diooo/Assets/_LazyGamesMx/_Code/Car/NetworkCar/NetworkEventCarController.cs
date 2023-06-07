@@ -48,14 +48,13 @@ namespace com.LazyGames.Dio
         private void HandleMotor()
         {
             if (!IsOwner) return;
-            frontLeftWheelCollider.motorTorque = _steeringEventsListener.torque  * motorForce;
-            frontRightWheelCollider.motorTorque = _steeringEventsListener.torque * motorForce;
+            // frontLeftWheelCollider.motorTorque = _steeringEventsListener.torque  * motorForce;
+            // frontRightWheelCollider.motorTorque = _steeringEventsListener.torque * motorForce;
             ApplyBreaking();
         }
 
         private void ApplyBreaking()
         {
-            if (!IsOwner) return;
             if (!IsOwner) return;
             frontRightWheelCollider.brakeTorque = breakForce;
             frontLeftWheelCollider.brakeTorque = breakForce;

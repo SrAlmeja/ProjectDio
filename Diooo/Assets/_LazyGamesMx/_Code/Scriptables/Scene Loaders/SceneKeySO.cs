@@ -20,6 +20,7 @@ public class SceneKeySO : ScriptableObject
         LEVEL_2,
         LEVEL_3,
         LEVEL_4,
+        HIGHSCORE,
     }
     
    [SerializeField] private Keys myKey;
@@ -48,7 +49,9 @@ public class SceneKeySO : ScriptableObject
                     return SceneKeys.GAME_LEVEL_3;
                 case Keys.LEVEL_4:
                     return SceneKeys.GAME_LEVEL_4;
-                        break;
+                case Keys.HIGHSCORE:
+                    return SceneKeys.HIGHSCORE;
+                    break;
             }
             return Keys.none.ToString();
         }

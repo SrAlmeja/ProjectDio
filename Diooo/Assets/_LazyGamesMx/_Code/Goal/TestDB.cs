@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 namespace com.LazyGames.Dio
 {
@@ -8,6 +9,7 @@ namespace com.LazyGames.Dio
         public string nombre;
         public int carreraId;
         public float tiempo;
+        
 
         // Update is called once per frame
         void Update()

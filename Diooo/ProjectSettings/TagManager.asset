@@ -16,11 +16,12 @@ TagManager:
   - Roads
   - Lights
   - Focal Points
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - IgnoreColl
   - Water
   - UI
   - 

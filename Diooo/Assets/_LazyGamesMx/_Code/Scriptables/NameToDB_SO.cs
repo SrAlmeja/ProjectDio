@@ -7,31 +7,25 @@ namespace com.LazyGames.Dio
     public class NameToDB_SO : ScriptableObject
     {
 
-        private NameDB nameDB;
-        public NameDB NameDB { get => nameDB; set => nameDB = value; }
-
+        public string _name;
+        public int _id;
+       
         public void SetNameDB(string name)
         {
-            nameDB.name = name;
+            _name = name;
             DioGameManagerSingleplayer.Instance.databaseManager.InsertName(GetName());
         }
 
         public string GetName()
         {
-            return nameDB.name;
+            return _name;
         }
 
         public int GetId()
         {
-            return nameDB.id;
+            return _id;
         }
 
     }
 
-    [System.Serializable]
-    public class NameDB
-    {
-        public string name;
-        public int id;
-    }
 }
