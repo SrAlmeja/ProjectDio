@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638210621617186456
+  lastModified: 638217187668105483
   FileSizes: []
   Exists: 1
 --- !u!114 &-7480345317999964275
@@ -35,7 +35,7 @@ MonoBehaviour:
   StudioPath: bank:/UI
   lastModified: 638216854677055695
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &-3465271070102550173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,10 +51,10 @@ MonoBehaviour:
   Path: Assets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638211462622006425
+  lastModified: 638217187668135507
   FileSizes:
   - Name: 
-    Value: 1334
+    Value: 1930
   Exists: 1
 --- !u!114 &-3279674069437473489
 MonoBehaviour:
@@ -69,66 +69,21 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -1628334846919123961}
-  - {fileID: -8831822371701846211}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 609899978023909061}
   EditorEvents:
-  - {fileID: 6887365844448045233}
+  - {fileID: 0}
   - {fileID: 1572739256189315841}
-  - {fileID: -5658177283137098030}
-  - {fileID: 2406511737315500117}
+  - {fileID: 0}
+  - {fileID: 0}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -8831822371701846211}
+  - {fileID: 0}
   StringsBanks:
-  - {fileID: -1628334846919123961}
+  - {fileID: 0}
   cacheTime: 638211462622016425
   cacheVersion: 131603
---- !u!114 &609899978023909061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/UI.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Desktop/UI.bank
-  Name: UI
-  StudioPath: bank:/UI
-  lastModified: 638211462622016425
-  FileSizes: []
-  Exists: 1
---- !u!114 &1572739256189315841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Click General_One Shot_UI_SFX
-  m_EditorClassIdentifier: 
-  Path: event:/UI/Click General_One Shot_UI_SFX
-  Guid:
-    Data1: -1594777925
-    Data2: 1304096852
-    Data3: 264736678
-    Data4: 1072734171
-  Banks:
-  - {fileID: -7480345317999964275}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1000
 --- !u!114 &-403051442374835962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +129,7 @@ MonoBehaviour:
   - {fileID: -7480345317999964275}
   EditorEvents:
   - {fileID: 3418338117662539930}
-  - {fileID: -3279674069437473489}
+  - {fileID: 0}
   - {fileID: 1385245799547524248}
   - {fileID: -403051442374835962}
   EditorParameters: []
@@ -182,8 +137,26 @@ MonoBehaviour:
   - {fileID: -7940631741782572651}
   StringsBanks:
   - {fileID: -3465271070102550173}
-  cacheTime: 638216854677055695
+  cacheTime: 638217187813899486
   cacheVersion: 131603
+--- !u!114 &609899978023909061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/UI.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Desktop/UI.bank
+  Name: UI
+  StudioPath: bank:/UI
+  lastModified: 638211462622016425
+  FileSizes: []
+  Exists: 1
 --- !u!114 &1385245799547524248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +184,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 800
+--- !u!114 &1572739256189315841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Click General_One Shot_UI_SFX
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Click General_One Shot_UI_SFX
+  Guid:
+    Data1: -1594777925
+    Data2: 1304096852
+    Data3: 264736678
+    Data4: 1072734171
+  Banks:
+  - {fileID: -7480345317999964275}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &3418338117662539930
 MonoBehaviour:
   m_ObjectHideFlags: 0
