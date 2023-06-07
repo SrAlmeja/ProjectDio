@@ -20,8 +20,7 @@ public class NetworkCarCameraController : NetworkBehaviour
             _cameraController = FindObjectOfType<CMDioCameraController>();
             if (_cameraController != null)
             {
-                _cameraController.SetTargetNetwork(transform);
-                
+                _cameraController.SetTarget(transform);
             }
         }
     }

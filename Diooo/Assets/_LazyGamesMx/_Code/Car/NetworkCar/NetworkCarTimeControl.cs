@@ -59,8 +59,6 @@ namespace com.LazyGames.Dio
 
         private void DoSlow()
         {
-            if (!IsOwner) return;
-
             if (!CheckStasis())
             {
                 _doSlow = false;
@@ -71,8 +69,6 @@ namespace com.LazyGames.Dio
 
         void ManageTimeScale()
         {
-            if (!IsOwner) return;
-
             switch (_doSlow)
             {
                 case true:
@@ -99,8 +95,6 @@ namespace com.LazyGames.Dio
 
         private void ManageMeter()
         {
-            if (!IsOwner) return;
-
             switch (isSlow)
             {
                 case true:
@@ -119,8 +113,6 @@ namespace com.LazyGames.Dio
 
         private void ManageOpacity()
         {
-            if (!IsOwner) return;
-
             if (StasisMeterClamped >= 1f)
             {
                 targetOpacity = 0;
@@ -130,8 +122,6 @@ namespace com.LazyGames.Dio
 
         private void NormalizeDeltaTime(float factor)
         {
-            if (!IsOwner) return;
-
             Time.timeScale = currentTimeScale;
             Time.fixedDeltaTime = Time.timeScale * factor;
         }
@@ -144,7 +134,6 @@ namespace com.LazyGames.Dio
 
         private void OnOnDie()
         {
-            if (!IsOwner) return;
             _doSlow = false;
         }
 

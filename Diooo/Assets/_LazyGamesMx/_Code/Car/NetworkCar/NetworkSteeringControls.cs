@@ -41,8 +41,7 @@ public class NetworkSteeringControls : NetworkBehaviour
 
         void Update()
         {
-            if (!IsOwner) return;
-
+        
             UpdateWheels();
             ApplySteering();
             AirResist();
@@ -54,16 +53,12 @@ public class NetworkSteeringControls : NetworkBehaviour
 
         private void ApplyMotorTorque(float torque)
         {
-            if (!IsOwner) return;
-
             wheelColliders.RLWheel.motorTorque = torque * _enginePower.Evaluate(_speed);
             wheelColliders.RRWheel.motorTorque = torque * _enginePower.Evaluate(_speed);
         }
 
         private void ApplyBrakeTorque(float torque)
         {
-            if (!IsOwner) return;
-
             wheelColliders.FLWheel.brakeTorque = torque * .3f;
             wheelColliders.FRWheel.brakeTorque = torque * .3f;
             wheelColliders.RLWheel.brakeTorque = torque * .7f;
@@ -72,8 +67,6 @@ public class NetworkSteeringControls : NetworkBehaviour
 
         private void ApplyHandBrake(float torque)
         {
-            if (!IsOwner) return;
-
             if (!_listener.handBrake)
             {
                 wheelColliders.FLWheel.brakeTorque = torque * _brakeForce;
@@ -86,8 +79,6 @@ public class NetworkSteeringControls : NetworkBehaviour
         
         private void ApplySteering()
         {
-            if (!IsOwner) return;
-
             _targetAngle = _listener.angle;
             _currentAngle = LerpAngle();
             wheelColliders.FLWheel.steerAngle = _currentAngle * _steerCurve.Evaluate(_speed);
@@ -97,8 +88,6 @@ public class NetworkSteeringControls : NetworkBehaviour
         
         private void AirResist()
         {
-            if (!IsOwner) return;
-
             _rb.AddForce(-transform.forward * (_speed * .3f));
             //downward force for stability
             _rb.AddForce(-transform.up * (_speed * .3f));
@@ -106,8 +95,6 @@ public class NetworkSteeringControls : NetworkBehaviour
         
         private void UpdateWheels()
         {
-            if (!IsOwner) return;
-
             UpdateWheel(wheelColliders.FLWheel, wheelMeshes.FLWheel);
             UpdateWheel(wheelColliders.FRWheel, wheelMeshes.FRWheel);
             UpdateWheel(wheelColliders.RLWheel, wheelMeshes.RLWheel);
@@ -115,8 +102,6 @@ public class NetworkSteeringControls : NetworkBehaviour
         }
         private void UpdateWheel(WheelCollider col, MeshRenderer rend)
         {
-            if (!IsOwner) return;
-
             col.GetWorldPose(out Vector3 pos, out Quaternion rot);
             rend.transform.position = pos;
             rend.transform.rotation = rot;
@@ -130,8 +115,6 @@ public class NetworkSteeringControls : NetworkBehaviour
 
         private void Prepare()
         {
-            if (!IsOwner) return;
-
             _steerCurve = carParametersSo.SteerCurve;
             _enginePower = carParametersSo.EnginePower;
             _wheelTurnSpeed = carParametersSo.WheelTurnSpeed;

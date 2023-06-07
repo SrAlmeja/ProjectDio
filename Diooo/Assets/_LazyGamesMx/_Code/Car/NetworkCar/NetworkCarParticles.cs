@@ -18,22 +18,17 @@ public class NetworkCarParticles : NetworkBehaviour
 
         public override void OnNetworkSpawn()
         {
-            if (!IsOwner) return;
             Prepare();
         }
         
         public void PlaySparksParticle(Vector3 pos)
         {
-            if (!IsOwner) return;
-
             sparksParticle.transform.position = pos;
             sparksParticle.Play();
         }
         
         private void PlayExplosionParticles()
         {
-            if (!IsOwner) return;
-
             explosionSmokeParticle.Play();
             explosionFireParticle.Play();
             explosionExplosionParticle.Play();
@@ -42,8 +37,6 @@ public class NetworkCarParticles : NetworkBehaviour
         
         private void StopExplosionParticles()
         {
-            if (!IsOwner) return;
-
             explosionSmokeParticle.Stop();
             explosionFireParticle.Stop();
             explosionExplosionParticle.Stop();
@@ -57,8 +50,6 @@ public class NetworkCarParticles : NetworkBehaviour
 
         private void Prepare()
         {
-            if (!IsOwner) return;
-
             _carRespawn = GetComponent<NetworkCar_Respawn>();
             _carRespawn.OnDie += PlayExplosionParticles;
             _carRespawn.OnRespawn += StopExplosionParticles;
