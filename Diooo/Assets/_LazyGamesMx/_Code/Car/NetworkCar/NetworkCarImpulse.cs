@@ -132,8 +132,8 @@ namespace com.LazyGames.Dio
             _indicatorOffset = carParametersSo.IndicatorOffset;
             _indicatorRadius = carParametersSo.IndicatorRadius;
             _fighterRadius = carParametersSo.FighterRadius;
-            _indicatorMinScale = carParametersSo.IndicatorMinScale;
-            _indicatorMaxScale = carParametersSo.IndicatorMaxScale;
+            //_indicatorMinScale = carParametersSo.IndicatorMinScale;
+            //_indicatorMaxScale = carParametersSo.IndicatorMaxScale;
 
             _rb = GetComponent<Rigidbody>();
             _timeControl = GetComponent<NetworkCarTimeControl>();
